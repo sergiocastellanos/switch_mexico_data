@@ -1,0 +1,337 @@
+Ano,Tecnologia,Entidad Federativa,Region,Nodo,Estado,Capacidad Bruta (MW),Inversion
+2016,Bioenerga,YUC,07-Peninsular,42-Merida,En construccion,0.75,11.2596
+2016,Eolica,YUC,07-Peninsular,42-Merida,Por iniciar obras,30,1023.6
+2016,Eolica,ZAC,03-Occidental,25-San Luis Potos,Por iniciar obras,30,1023.6
+2016,Eolica,TAMS,06-Noreste,21-Guemez,Por iniciar obras,50,1706
+2016,Eolica,TAMS,06-Noreste,21-Guemez,Por iniciar obras,50,1706
+2016,Eolica,JAL,03-Occidental,24-Aguascalientes,Por iniciar obras,129,6824
+2016,Eolica,COAH,06-Noreste,17-Saltillo,Por iniciar obras,200.6,6844.472
+2016,Eolica,CHIS,02-Oriental,39-Grijalva,En construccion,19.965,681.2058
+2016,Eolica,ZAC,03-Occidental,24-Aguascalientes,En construccion,180,6141.6
+2016,Eolica,ZAC,06-Noreste,17-Saltillo,Por iniciar obras,70,2388.4
+2016,Geotermica,PUE,02-Oriental,34-Puebla,En construccion,26.62,1013.7321
+2016,Hidroelectrica,VER,02-Oriental,33-Veracruz,Por iniciar obras,29.59,757.2081
+2016,Hidroelectrica,NAY,03-Occidental,22-Tepic,En construccion,24,736.992
+2016,Hidroelectrica,JAL,03-Occidental,23-Guadalajara,En construccion,6,153.54
+2016,Hidroelectrica,JAL,03-Occidental,23-Guadalajara,En construccion,8,204.72
+2016,Nucleoelectrica,VER,02-Oriental,33-Veracruz,Proyecto de rehabilitacion y modernizacion,110,5092.346
+2016,Solar fotovoltaica,SON,04-Noroeste,02-Cananea,En construccion,20,1194.2
+2016,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,30,1791.3
+2016,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,30,1791.3
+2016,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,29.136,1739.71056
+2016,Solar fotovoltaica,CHIH,05-Norte,09-Chihuahua,Por iniciar obras,30,1791.3
+2016,Solar fotovoltaica,QR,07-Peninsular,44-Chetumal,Permiso de generacion en tramite ante la CRE,30,1204.2654
+2016,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,30,1791.3
+2016,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,Por iniciar obras,30,1791.3
+2016,Solar fotovoltaica,GTO,03-Occidental,30-Queretaro,En construccion,30,1791.3
+2016,Solar fotovoltaica,GTO,03-Occidental,30-Queretaro,En construccion,30,1791.3
+2016,Solar fotovoltaica,SON,04-Noroeste,03-Obregon,En construccion,30,1791.3
+2016,Solar fotovoltaica,BCS,09-Baja California Sur,51-La Paz,En construccion,25,1492.75
+2016,Solar fotovoltaica,JAL,03-Occidental,23-Guadalajara,En construccion,14.385,858.92835
+2016,Solar fotovoltaica,JAL,03-Occidental,23-Guadalajara,En construccion,14.385,858.92835
+2016,Solar fotovoltaica,BCS,09-Baja California Sur,51-La Paz,En construccion,5,298.55
+2016,Solar fotovoltaica,MEX,01-Central,31-Central,En construccion,20,1092.693
+2016,Solar fotovoltaica,DGO,05-Norte,10-Durango,Permiso de generacion en tramite ante la CRE,50,2007.109
+2016,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,En construccion,26.66,1591.8686
+2016,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,En construccion,20,1194.2
+2016,Solar fotovoltaica,ZAC,06-Noreste,17-Saltillo,Permiso de generacion en tramite ante la CRE,100,4014.218
+2016,Solar fotovoltaica,GTO,03-Occidental,30-Queretaro,Por iniciar obras,30,1791.3
+2016,Solar fotovoltaica,CHIH,05-Norte,09-Chihuahua,Por iniciar obras,30,1791.3
+2016,Solar fotovoltaica,QR,07-Peninsular,44-Chetumal,Permiso de generacion en tramite ante la CRE,30,1204.2654
+2016,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,En construccion,30,1791.3
+2016,Solar fotovoltaica,COAH,06-Noreste,12-Ro Escondido,Por iniciar obras,29.36,1753.0856
+2016,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,En construccion,30,1791.3
+2016,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,En construccion,30,1791.3
+2016,Solar fotovoltaica,SLP,03-Occidental,25-San Luis Potos,En construccion,30,1791.3
+2016,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,Por iniciar obras,30,1791.3
+2016,Solar fotovoltaica,DGO,05-Norte,10-Durango,Por iniciar obras,10,597.1
+2016,Solar fotovoltaica,DGO,05-Norte,10-Durango,Por iniciar obras,15,895.65
+2016,Solar fotovoltaica,DGO,05-Norte,10-Durango,En construccion,30,1791.3
+2016,Solar fotovoltaica,DGO,05-Norte,10-Durango,Por iniciar obras,6.25,373.1875
+2016,Solar fotovoltaica,DGO,05-Norte,10-Durango,Por iniciar obras,6.25,373.1875
+2016,Solar fotovoltaica,DGO,05-Norte,10-Durango,Por iniciar obras,3.5,208.985
+2016,Solar fotovoltaica,CHIH,05-Norte,09-Chihuahua,Por iniciar obras,30,1791.3
+2016,Solar fotovoltaica,TAMS,06-Noreste,21-Guemez,Proyecto Nuevo,10,401.4218
+2016,Termosolar,SON,04-Noroeste,02-Cananea,En construccion,14,600.085
+2017,Eolica,SLP,03-Occidental,25-San Luis Potos,Proyecto con avance en el proceso de interconexion ante CENACE,100,3439.296
+2017,Eolica,JAL,03-Occidental,24-Aguascalientes,Por iniciar obras,71,2422.52
+2017,Eolica,TAMS,06-Noreste,18-Valles,Proyecto con avance en el proceso de interconexion ante CENACE,300,10317.888
+2017,Eolica,ZAC,03-Occidental,24-Aguascalientes,Por iniciar obras,70,2407.5072
+2017,Eolica,ZAC,06-Noreste,17-Saltillo,Por iniciar obras,70,2388.4
+2017,Geotermica,BCS,10-Mulegé,53-Mulege,Por Licitar,2,145.52941
+2017,Hidroelectrica,VER,02-Oriental,32-Poza Rica,En construccion,6.2,158.658
+2017,Hidroelectrica,VER,02-Oriental,32-Poza Rica,En construccion,8.3,212.397
+2017,Solar fotovoltaica,AGS,03-Occidental,25-San Luis Potos,En construccion,30,1791.3
+2017,Solar fotovoltaica,AGS,03-Occidental,25-San Luis Potos,En construccion,30,1791.3
+2017,Solar fotovoltaica,AGS,03-Occidental,25-San Luis Potos,Por iniciar obras,30,1791.3
+2017,Solar fotovoltaica,AGS,03-Occidental,25-San Luis Potos,En construccion,30,1791.3
+2017,Solar fotovoltaica,CHIH,05-Norte,09-Chihuahua,Por iniciar obras,29.36,1753.0856
+2017,Solar fotovoltaica,CHIH,05-Norte,07-Juarez,Por iniciar obras,29.36,1753.0856
+2017,Solar fotovoltaica,YUC,07-Peninsular,42-Merida,Por iniciar obras,18,1074.78
+2017,Solar fotovoltaica,GTO,03-Occidental,30-Queretaro,Por iniciar obras,30,1791.3
+2017,Solar fotovoltaica,COAH,05-Norte,11-Laguna,Por iniciar obras,150,6021.327
+2017,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,30,1791.3
+2017,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,En construccion,20,1194.2
+2017,Solar fotovoltaica,ZAC,06-Noreste,17-Saltillo,Permiso de generacion en tramite ante la CRE,100,4014.218
+2017,Solar fotovoltaica,BCS,10-Mulegé,53-Mulege,Por Licitar,4,160.347538
+2018,Eolica,YUC,07-Peninsular,42-Merida,Proyecto adjudicado en Subasta de LP (SLP-1-2015),30,1031.7888
+2018,Eolica,YUC,07-Peninsular,42-Merida,Proyecto adjudicado en Subasta de LP (SLP-1-2015),30,1023.6
+2018,Eolica,YUC,07-Peninsular,42-Merida,Proyecto adjudicado en Subasta de LP (SLP-1-2015),76,2613.86496
+2018,Eolica,OAX,02-Oriental,40-Ixtepec,En construccion,396,13511.52
+2018,Eolica,YUC,07-Peninsular,42-Merida,Proyecto adjudicado en Subasta de LP (SLP-1-2015),90,3152.688
+2018,Eolica,TAMS,06-Noreste,14-Reynosa,Proyecto adjudicado en Subasta de LP (SLP-1-2015),168,5778.01728
+2018,Eolica,TAMS,06-Noreste,18-Valles,Proyecto con avance en el proceso de interconexion ante CENACE,95.7,3291.406272
+2018,Eolica,JAL,03-Occidental,24-Aguascalientes,Permiso de generacion en tramite ante la CRE,200,6878.592
+2018,Geotermica,MICH,03-Occidental,28-Carapan,En construccion,26.62,1046.892892
+2018,Hidroelectrica,OAX,02-Oriental,36-Temascal,Proyecto de rehabilitacion y modernizacion,0,405.3888
+2018,Hidroelectrica,CHIS,02-Oriental,39-Grijalva,En construccion,241.21,6879.992127
+2018,Solar fotovoltaica,AGS,03-Occidental,24-Aguascalientes,Proyecto adjudicado en Subasta de LP (SLP-1-2015),63,2528.95734
+2018,Solar fotovoltaica,GTO,03-Occidental,30-Queretaro,Proyecto adjudicado en Subasta de LP (SLP-1-2015),207,8309.43126
+2018,Solar fotovoltaica,COAH,05-Norte,11-Laguna,Proyecto adjudicado en Subasta de LP (SLP-1-2015),250,10035.545
+2018,Solar fotovoltaica,COAH,05-Norte,11-Laguna,Proyecto adjudicado en Subasta de LP (SLP-1-2015),330,13246.9194
+2018,Solar fotovoltaica,COAH,06-Noreste,16-Monterrey,Permiso de generacion en tramite ante la CRE,125,5017.7725
+2018,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Permiso de generacion en tramite ante la CRE,125,5017.7725
+2018,Solar fotovoltaica,YUC,07-Peninsular,42-Merida,Proyecto adjudicado en Subasta de LP (SLP-1-2015),70,2809.9526
+2018,Solar fotovoltaica,JAL,03-Occidental,24-Aguascalientes,Proyecto adjudicado en Subasta de LP (SLP-1-2015),100,4014.218
+2018,Solar fotovoltaica,YUC,07-Peninsular,42-Merida,Proyecto adjudicado en Subasta de LP (SLP-1-2015),18,722.55924
+2018,Solar fotovoltaica,YUC,07-Peninsular,42-Merida,Proyecto adjudicado en Subasta de LP (SLP-1-2015),30,1204.2654
+2018,Solar fotovoltaica,ZAC,06-Noreste,17-Saltillo,Permiso de generacion en tramite ante la CRE,100,4014.218
+2018,Solar fotovoltaica,GTO,03-Occidental,30-Queretaro,Proyecto adjudicado en Subasta de LP (SLP-1-2015),100,4014.218
+2018,Solar fotovoltaica,YUC,07-Peninsular,42-Merida,Proyecto adjudicado en Subasta de LP (SLP-1-2015),500,20071.09
+2018,Solar fotovoltaica,BCS,09-Baja California Sur,50-Villa Constitucion,Proyecto adjudicado en Subasta de LP (SLP-1-2015),23,1373.33
+2019,Eolica,PUE,02-Oriental,32-Poza Rica,Por iniciar obras,50.4,1719.648
+2019,Eolica,OAX,02-Oriental,40-Ixtepec,Proyecto Nuevo,200,6878.592
+2019,Eolica,OAX,02-Oriental,40-Ixtepec,Proyecto con avance en el proceso de interconexion ante CENACE,110,3783.2256
+2019,Eolica,SLP,03-Occidental,25-San Luis Potos,Permiso de generacion en tramite ante la CRE,200,6878.592
+2019,Eolica,OAX,02-Oriental,40-Ixtepec,Proyecto con avance en el proceso de interconexion ante CENACE,150,5158.944
+2019,Eolica,OAX,02-Oriental,40-Ixtepec,Por iniciar obras,100,3439.296
+2019,Eolica,OAX,02-Oriental,40-Ixtepec,Por iniciar obras,300,10317.888
+2019,Eolica,OAX,02-Oriental,40-Ixtepec,Por iniciar obras,200,6878.592
+2019,Eolica,BCS,09-Baja California Sur,51-La Paz,Proyecto con avance en el proceso de interconexion ante CENACE,50,1719.648
+2019,Eolica,OAX,02-Oriental,36-Temascal,Suspendido,202.2,6576
+2019,Eolica,OAX,02-Oriental,40-Ixtepec,Por Licitar,285.29,8290.402
+2019,Eolica,OAX,02-Oriental,40-Ixtepec,Por Licitar,300.3,8719.039
+2019,Eolica,OAX,02-Oriental,36-Temascal,Por Licitar,300.3,8141.152
+2019,Eolica,OAX,02-Oriental,36-Temascal,Por Licitar,300.3,8141.152
+2019,Eolica,OAX,02-Oriental,40-Ixtepec,Por iniciar obras,70,2407.5072
+2019,Geotermica,JAL,03-Occidental,23-Guadalajara,Por Licitar,26.62,1068.152027
+2019,Hidroelectrica,CHIS,02-Oriental,39-Grijalva,Proyecto Nuevo,18.73101296,362.5886742
+2020,Eolica,TAMS,06-Noreste,15-Matamoros,Por iniciar obras,100,3439.296
+2020,Eolica,TAMS,06-Noreste,15-Matamoros,Por iniciar obras,140,4815.0144
+2020,Eolica,TAMS,06-Noreste,15-Matamoros,Por iniciar obras,60,2063.5776
+2020,Eolica,TAMS,06-Noreste,15-Matamoros,Por iniciar obras,84,2889.00864
+2020,Eolica,TAMS,06-Noreste,15-Matamoros,Por iniciar obras,60,2063.5776
+2020,Eolica,TAMS,06-Noreste,15-Matamoros,Por iniciar obras,66,2269.93536
+2020,Eolica,TAMS,06-Noreste,21-Guemez,Por iniciar obras,117,3275.52
+2020,Eolica,TAMS,06-Noreste,15-Matamoros,Por iniciar obras,171,5881.19616
+2020,Eolica,TAMS,06-Noreste,15-Matamoros,Por iniciar obras,168,5778.01728
+2020,Eolica,TAMS,06-Noreste,21-Guemez,En construccion,73,2047.2
+2020,Eolica,TAMS,06-Noreste,21-Guemez,En construccion,60,2047.2
+2020,Eolica,TAMS,06-Noreste,21-Guemez,Por iniciar obras,57,1944.84
+2020,Eolica,TAMS,06-Noreste,21-Guemez,Por iniciar obras,57,1944.84
+2020,Eolica,TAMS,06-Noreste,21-Guemez,Por iniciar obras,145,2985.5
+2020,Geotermica,MEX,01-Central,31-Central,Proyecto Nuevo,225.7,5987.94414
+2020,Geotermica,PUE,02-Oriental,34-Puebla,Proyecto Nuevo,1.29999933,26.53054559
+2020,Geotermica,BC,08-Baja California,48-Mexicali,Proyecto Nuevo,27,715.338
+2020,Solar fotovoltaica,BCS,09-Baja California Sur,50-Villa Constitucion,Por iniciar obras,21.5,722.55924
+2020,Solar fotovoltaica,BCS,09-Baja California Sur,51-La Paz,En construccion,4.89,291.9819
+2020,Solar fotovoltaica,NAY,03-Occidental,22-Tepic,Por iniciar obras,10,597.1
+2020,Solar fotovoltaica,BCS,09-Baja California Sur,50-Villa Constitucion,Por iniciar obras,30,1791.3
+2020,Solar fotovoltaica,BCS,09-Baja California Sur,51-La Paz,En construccion,0.4100001,24.48110597
+2021,Geotermica,PUE,02-Oriental,34-Puebla,Proyecto Nuevo,35.9400004,953.5078192
+2021,Geotermica,NAY,03-Occidental,22-Tepic,Proyecto Nuevo,191.4400009,5079.007673
+2021,Geotermica,PUE,02-Oriental,34-Puebla,Por Licitar,26.62,973.9674
+2021,Hidroelectrica,GRO,02-Oriental,35-Acapulco,Condicionado,455,18855.2481
+2021,Solar fotovoltaica,BCS,09-Baja California Sur,51-La Paz,Por iniciar obras,13,776.23
+2021,Solar fotovoltaica,BCS,09-Baja California Sur,51-La Paz,En construccion,25.11,1499.3181
+2021,Solar fotovoltaica,BCS,09-Baja California Sur,51-La Paz,En construccion,30,1791.3
+2021,Solar fotovoltaica,BCS,09-Baja California Sur,51-La Paz,En construccion,30,1791.3
+2021,Solar fotovoltaica,BCS,09-Baja California Sur,51-La Paz,En construccion,1.89,112.8519
+2022,Geotermica,NAY,03-Occidental,22-Tepic,Proyecto Nuevo,11.00000111,291.836031
+2022,Geotermica,JAL,03-Occidental,23-Guadalajara,Por iniciar obras,25,511.8
+2022,Geotermica,NAY,03-Occidental,22-Tepic,En construccion,30,1228.32
+2022,Hidroelectrica,CHIS,02-Oriental,39-Grijalva,Proyecto Nuevo,136,2629.016
+2022,Hidroelectrica,CHIS,02-Oriental,39-Grijalva,Proyecto Nuevo,456.728987,8841.206733
+2022,Hidroelectrica,CHIS,02-Oriental,39-Grijalva,Proyecto Nuevo,383.96,7432.569059
+2022,Hidroelectrica,CHIH,05-Norte,09-Chihuahua,Proyecto Nuevo,352,6804.512
+2022,Hidroelectrica,VER,02-Oriental,33-Veracruz,Proyecto Nuevo,121,2339.051
+2022,Hidroelectrica,CHIS,02-Oriental,39-Grijalva,Proyecto Nuevo,422,8157.682
+2022,Solar fotovoltaica,SON,04-Noroeste,02-Cananea,Por iniciar obras,20.4099999,1218.681094
+2022,Solar fotovoltaica,BCS,09-Baja California Sur,52-Los Cabos,Por iniciar obras,30,1791.3
+2022,Solar fotovoltaica,BCS,09-Baja California Sur,51-La Paz,En construccion,29.5899999,1791.3
+2022,Solar fotovoltaica,BCS,09-Baja California Sur,52-Los Cabos,En construccion,20,1194.2
+2023,Bioenerga,COAH,05-Norte,11-Laguna,Por iniciar obras,30,460.62
+2023,Geotermica,JAL,03-Occidental,23-Guadalajara,Proyecto Nuevo,27,715.338
+2023,Geotermica,NAY,03-Occidental,22-Tepic,Proyecto Nuevo,26.99999957,716.3247196
+2023,Hidroelectrica,TAB,02-Oriental,38-Tabasco,Proyecto Nuevo,85.77,2122.557815
+2023,Hidroelectrica,OAX,02-Oriental,36-Temascal,Proyecto Nuevo,196.38,4859.833318
+2023,Hidroelectrica,NAY,03-Occidental,22-Tepic,Por Licitar,241.21,12422.02802
+2023,Hidroelectrica,VER,02-Oriental,32-Poza Rica,Proyecto Nuevo,54,1334.502
+2023,Solar fotovoltaica,SON,04-Noroeste,02-Cananea,Por iniciar obras,30,1791.3
+2023,Solar fotovoltaica,SON,04-Noroeste,02-Cananea,Por iniciar obras,9.5900001,572.618906
+2023,Solar fotovoltaica,SON,04-Noroeste,02-Cananea,Por iniciar obras,30,1791.3
+2023,Solar fotovoltaica,SON,04-Noroeste,02-Cananea,Por iniciar obras,30,1791.3
+2023,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,0.40999992,24.48109522
+2024,Bioenerga,MEX,01-Central,31-Central,En construccion,30,614.16
+2024,Eolica,COAH,06-Noreste,12-Ro Escondido,Proyecto Nuevo,37.576425,986.161375
+2024,Eolica,COAH,06-Noreste,17-Saltillo,Proyecto Nuevo,37.593056,986.5978415
+2024,Eolica,OAX,02-Oriental,36-Temascal,Proyecto Nuevo,105.302314,2763.569838
+2024,Eolica,OAX,02-Oriental,36-Temascal,Proyecto Nuevo,90.288012,2369.532228
+2024,Eolica,AGS,03-Occidental,24-Aguascalientes,Proyecto Nuevo,153,5262.12288
+2024,Eolica,BC,08-Baja California,48-Mexicali,Por iniciar obras,30,1023.6
+2024,Eolica,BC,08-Baja California,46-Tijuana,En construccion,72,2456.64
+2024,Eolica,SON,04-Noroeste,02-Cananea,Por iniciar obras,103.5,3531.42
+2024,Eolica,BC,08-Baja California,46-Tijuana,Proyecto Nuevo,100.1,2663.149566
+2024,Eolica,BC,08-Baja California,46-Tijuana,Proyecto Nuevo,100.1,2663.149566
+2024,Eolica,BC,08-Baja California,46-Tijuana,Proyecto Nuevo,100.1,2663.149566
+2024,Eolica,BC,08-Baja California,46-Tijuana,En construccion,300.8,10263.296
+2024,Geotermica,JAL,03-Occidental,23-Guadalajara,Proyecto Nuevo,14.69999988,389.999017
+2024,Geotermica,NAY,03-Occidental,22-Tepic,Proyecto Nuevo,1.3000007,34.48972784
+2024,Geotermica,HGO,03-Occidental,30-Queretaro,Por iniciar obras,25,511.8
+2024,Hidroelectrica,GRO,02-Oriental,35-Acapulco,Proyecto Nuevo,230.52,4462.328939
+2024,Hidroelectrica,VER,02-Oriental,33-Veracruz,Proyecto Nuevo,173.72,4299.064283
+2024,Hidroelectrica,VER,02-Oriental,33-Veracruz,En construccion,165,4222.35
+2024,Hidroelectrica,VER,02-Oriental,33-Veracruz,En construccion,165,4222.35
+2024,Hidroelectrica,GRO,02-Oriental,35-Acapulco,Proyecto Nuevo,231,4465.461
+2024,Solar fotovoltaica,DGO,05-Norte,11-Laguna,En construccion,10,597.1
+2024,Solar fotovoltaica,DGO,05-Norte,11-Laguna,Por iniciar obras,30,1791.3
+2024,Solar fotovoltaica,DGO,05-Norte,11-Laguna,En construccion,22.52,1344.6692
+2024,Solar fotovoltaica,DGO,05-Norte,11-Laguna,En construccion,8.3,495.593
+2024,Solar fotovoltaica,DGO,05-Norte,11-Laguna,En construccion,21.38,1276.5998
+2024,Solar fotovoltaica,COAH,05-Norte,11-Laguna,En construccion,7.8,465.738
+2025,Eolica,HGO,01-Central,31-Central,Por iniciar obras,30,1023.6
+2025,Eolica,QRO,03-Occidental,30-Queretaro,Por iniciar obras,30,1023.6
+2025,Eolica,GTO,03-Occidental,30-Queretaro,Por iniciar obras,30,1023.6
+2025,Eolica,COAH,06-Noreste,12-Ro Escondido,Proyecto Nuevo,30.290676,794.9530775
+2025,Eolica,COAH,06-Noreste,17-Saltillo,Proyecto Nuevo,11.939918,313.353012
+2025,Eolica,GTO,03-Occidental,30-Queretaro,Por iniciar obras,30,1023.6
+2025,Eolica,OAX,02-Oriental,40-Ixtepec,Por iniciar obras,150,5158.944
+2025,Eolica,JAL,03-Occidental,24-Aguascalientes,Por iniciar obras,76,2593.12
+2025,Eolica,JAL,03-Occidental,24-Aguascalientes,En construccion,64,2183.68
+2025,Eolica,GTO,03-Occidental,30-Queretaro,Por iniciar obras,63,2149.56
+2025,Eolica,OAX,02-Oriental,40-Ixtepec,En construccion,70,2388.4
+2025,Eolica,GTO,03-Occidental,24-Aguascalientes,En construccion,40,1364.8
+2025,Eolica,JAL,03-Occidental,24-Aguascalientes,Por iniciar obras,40,1364.8
+2025,Eolica,OAX,02-Oriental,40-Ixtepec,Proyecto Nuevo,150,5158.944
+2025,Eolica,OAX,02-Oriental,40-Ixtepec,Proyecto Nuevo,150,5158.944
+2025,Eolica,OAX,02-Oriental,40-Ixtepec,Por iniciar obras,2,68.24
+2025,Eolica,OAX,02-Oriental,40-Ixtepec,Por iniciar obras,300,10317.888
+2025,Eolica,ZAC,03-Occidental,24-Aguascalientes,Por iniciar obras,82.5,2814.9
+2025,Eolica,GTO,03-Occidental,24-Aguascalientes,Por iniciar obras,24,818.88
+2025,Eolica,QRO,03-Occidental,30-Queretaro,Por iniciar obras,30,1023.6
+2025,Eolica,OAX,02-Oriental,40-Ixtepec,Por iniciar obras,10,343.9296
+2025,Eolica,OAX,02-Oriental,40-Ixtepec,Proyecto Nuevo,200,6878.592
+2025,Eolica,OAX,02-Oriental,40-Ixtepec,En construccion,15,511.8
+2025,Geotermica,JAL,03-Occidental,23-Guadalajara,Proyecto Nuevo,1.00000008,26.53054772
+2025,Geotermica,JAL,03-Occidental,23-Guadalajara,Por iniciar obras,25,511.8
+2025,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,30,1791.3
+2025,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,50,2985.5
+2025,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,30,1791.3
+2025,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,30,1791.3
+2025,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,En construccion,30,1791.3
+2025,Solar Fotovoltaica,SON,04-Noroeste,01-Hermosillo,Proyecto Nuevo,30,918.935826
+2025,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Proyecto Nuevo,6.279,192.3332684
+2025,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Proyecto Nuevo,30,918.935826
+2025,Solar Fotovoltaica,SON,04-Noroeste,01-Hermosillo,Proyecto Nuevo,30,918.935826
+2025,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,En construccion,30,1791.3
+2025,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,En construccion,30,1791.3
+2025,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,125,7463.75
+2025,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,Por iniciar obras,37.63069604,2246.928861
+2025,Solar fotovoltaica,DGO,05-Norte,11-Laguna,En construccion,13.96,833.5516
+2025,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,95.37298,5694.720636
+2025,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,En construccion,30,1791.3
+2025,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,24.7,1474.837
+2025,Solar fotovoltaica,DGO,05-Norte,11-Laguna,Por iniciar obras,30,1791.3
+2025,Solar fotovoltaica,COAH,05-Norte,11-Laguna,Por iniciar obras,30,1791.3
+2025,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,30,1791.3
+2025,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,En construccion,30,1791.3
+2025,Solar fotovoltaica,COAH,05-Norte,11-Laguna,En construccion,30,1791.3
+2025,Solar fotovoltaica,COAH,05-Norte,11-Laguna,En construccion,22.2,1325.562
+2026,Eolica,COAH,06-Noreste,12-Ro Escondido,Proyecto Nuevo,150,3936.622663
+2026,Eolica,COAH,06-Noreste,12-Ro Escondido,Proyecto Nuevo,87.933502,2307.740112
+2026,Eolica,COAH,06-Noreste,17-Saltillo,Proyecto Nuevo,200,5248.830217
+2026,Eolica,COAH,06-Noreste,17-Saltillo,Proyecto Nuevo,188.060082,4935.477206
+2026,Eolica,COAH,06-Noreste,17-Saltillo,Proyecto Nuevo,162.406944,4262.232376
+2026,Eolica,COAH,06-Noreste,12-Ro Escondido,En construccion,200,6824
+2026,Eolica,COAH,06-Noreste,17-Saltillo,Por iniciar obras,50,1706
+2026,Eolica,CHIH,05-Norte,09-Chihuahua,Por iniciar obras,30,1023.6
+2026,Eolica,COAH,06-Noreste,12-Ro Escondido,Por iniciar obras,200,6824
+2026,Eolica,COAH,06-Noreste,17-Saltillo,Por iniciar obras,50,1706
+2026,Geotermica,JAL,03-Occidental,23-Guadalajara,Proyecto Nuevo,43.70000016,1159.384847
+2026,Geotermica,JAL,03-Occidental,23-Guadalajara,Proyecto Nuevo,11.30000004,299.7951663
+2026,Hidroelectrica,VER,02-Oriental,37-Coatzacoalcos,Proyecto Nuevo,281.03,5440.084599
+2026,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,100,5971
+2026,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,40,2388.4
+2026,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,Por iniciar obras,30,1791.3
+2026,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,19,1134.49
+2026,Solar Fotovoltaica,DGO,05-Norte,10-Durango,Proyecto Nuevo,55.780824,1708.633253
+2026,Solar Fotovoltaica,SON,04-Noroeste,01-Hermosillo,Proyecto Nuevo,82.302225,2521.015437
+2026,Solar Fotovoltaica,SON,04-Noroeste,01-Hermosillo,Proyecto Nuevo,100,3063.11942
+2026,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,En construccion,29.55,1764.4305
+2026,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,Por iniciar obras,30,1791.3
+2026,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,Por iniciar obras,128.369304,7664.931139
+2026,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,Por iniciar obras,23.7506262,1418.14989
+2026,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,En construccion,15.2,907.592
+2026,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,4.62702,276.2793642
+2026,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,26,1552.46
+2026,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Proyecto Nuevo,40,1605.6872
+2026,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,En construccion,15.2,907.592
+2026,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,En construccion,20,1194.2
+2026,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,Por iniciar obras,35,1404.9763
+2026,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,29.34000008,1776.3725
+2026,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,En construccion,70.88,2845.277718
+2027,Eolica,COAH,06-Noreste,12-Ro Escondido,Proyecto Nuevo,82.132899,2155.508211
+2027,Eolica,COAH,06-Noreste,12-Ro Escondido,Proyecto Nuevo,42.321172,1110.683232
+2027,Eolica,COAH,06-Noreste,16-Monterrey,En construccion,50,1706
+2027,Eolica,NL,06-Noreste,16-Monterrey,Por iniciar obras,40,1364.8
+2027,Eolica,TAMS,06-Noreste,15-Matamoros,Proyecto Nuevo,275,9458.064
+2027,Eolica,COAH,06-Noreste,16-Monterrey,En construccion,300,10236
+2027,Eolica,NL,06-Noreste,16-Monterrey,En construccion,250,8530
+2027,Eolica,COAH,06-Noreste,12-Ro Escondido,Por iniciar obras,150,5118
+2027,Geotermica,JAL,03-Occidental,23-Guadalajara,Proyecto Nuevo,27,715.338
+2027,Geotermica,JAL,03-Occidental,23-Guadalajara,Proyecto Nuevo,35.99999985,955.0996374
+2027,Solar fotovoltaica,CHIH,05-Norte,07-Juarez,Por iniciar obras,30,1791.3
+2027,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,25,1492.75
+2027,Solar fotovoltaica,DGO,05-Norte,10-Durango,En construccion,30,1791.3
+2027,Solar fotovoltaica,DGO,05-Norte,10-Durango,Proyecto Nuevo,30,918.935826
+2027,Solar fotovoltaica,DGO,05-Norte,10-Durango,Proyecto Nuevo,30,918.935826
+2027,Solar Fotovoltaica,DGO,05-Norte,10-Durango,Proyecto Nuevo,30,918.935826
+2027,Solar fotovoltaica,DGO,05-Norte,10-Durango,Proyecto Nuevo,15.982125,489.5515746
+2027,Solar Fotovoltaica,SON,04-Noroeste,01-Hermosillo,Proyecto Nuevo,17.697775,542.1039829
+2027,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,En construccion,10,597.1
+2027,Solar fotovoltaica,DGO,05-Norte,10-Durango,En construccion,30,1791.3
+2027,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,En construccion,30,1791.3
+2027,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,Por iniciar obras,30,1791.3
+2027,Solar fotovoltaica,CHIH,05-Norte,07-Juarez,En construccion,30,1791.3
+2027,Solar fotovoltaica,CHIH,05-Norte,07-Juarez,Por iniciar obras,30,1791.3
+2027,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,Por iniciar obras,30,1791.3
+2027,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,Por iniciar obras,30,1791.3
+2027,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,Por iniciar obras,6.2493738,373.1501096
+2027,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,25,1492.75
+2027,Solar fotovoltaica,DGO,05-Norte,10-Durango,Por iniciar obras,30,1791.3
+2027,Solar fotovoltaica,DGO,05-Norte,10-Durango,Por iniciar obras,30,1791.3
+2027,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,Por iniciar obras,30,1791.3
+2027,Solar fotovoltaica,CHIH,05-Norte,08-Moctezuma,Por iniciar obras,30,1791.3
+2027,Solar fotovoltaica,CHIH,05-Norte,07-Juarez,Por iniciar obras,30,1791.3
+2027,Solar fotovoltaica,CHIH,05-Norte,07-Juarez,En construccion,30,1791.3
+2027,Solar fotovoltaica,CHIH,05-Norte,07-Juarez,Por iniciar obras,30,1791.3
+2027,Solar fotovoltaica,CHIH,05-Norte,07-Juarez,En construccion,11.070726,661.0330495
+2027,Solar fotovoltaica,DGO,05-Norte,10-Durango,En construccion,30,1791.3
+2027,Solar fotovoltaica,CHIH,05-Norte,07-Juarez,En construccion,30,1791.3
+2027,Solar fotovoltaica,DGO,05-Norte,10-Durango,Por iniciar obras,30,1791.3
+2027,Solar fotovoltaica,DGO,05-Norte,10-Durango,Por iniciar obras,30,1791.3
+2028,Nucleoelectrica,VER,02-Oriental,33-Veracruz,Proyecto Nuevo,1360.3,111225.7884
+2028,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Proyecto Nuevo,23.721,726.6025576
+2028,Solar fotovoltaica,BC,08-Baja California,48-Mexicali,En construccion,5.39999999,322.4339994
+2028,Solar fotovoltaica,BC,08-Baja California,48-Mexicali,Por iniciar obras,30,1791.3
+2028,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,Por iniciar obras,30,1791.3
+2028,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,En construccion,0.879,52.473148
+2028,Solar fotovoltaica,SON,04-Noroeste,01-Hermosillo,En construccion,10,597.1
+2029,Nucleoelectrica,VER,02-Oriental,33-Veracruz,Proyecto Nuevo,1360.3,111225.7884
+2029,Solar fotovoltaica,BC,08-Baja California,47-Ensenada,Proyecto Nuevo,60,1837.871652
+2029,Solar fotovoltaica,BC,08-Baja California,48-Mexicali,En construccion,10.00000001,597.1000006
+2029,Solar fotovoltaica,SON,08-Baja California,49-San Luis Ro Colorado,En construccion,30,1791.3
+2030,Nucleoelectrica,VER,02-Oriental,33-Veracruz,Proyecto Nuevo,1360.3,111225.7884
+2030,Solar fotovoltaica,BC,08-Baja California,47-Ensenada,Proyecto Nuevo,40,1225.247768
+2030,Solar fotovoltaica,BC,08-Baja California,47-Ensenada,Por iniciar obras,30,1791.3
+2030,Solar fotovoltaica,BC,08-Baja California,47-Ensenada,Por iniciar obras,30,1791.3
