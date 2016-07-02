@@ -6,7 +6,10 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-# In[2]:
+get_ipython().magic(u'matplotlib inline')
+
+
+# In[19]:
 
 df= pd.read_csv("proyectos futuros inversion.csv",index_col=range(2),header=0)
 tec=list(set(df.xs([2016]).index.tolist()))
@@ -28,13 +31,27 @@ plt.title(e[:40])
 plt.bar(range(len(tec)),dfi[e].tolist(),.60,color='b') 
 
 
+# In[47]:
+
+cos_tec=pd.read_csv('costo por tec.csv',header=0,index_col=0)
+cos=cos_tec.columns.tolist()
+plt.figure(2,figsize=(10,7),dpi = 200)
+for i in cos:
+    plt.bar(range(7),cos_tec.loc[:,i],alpha=.5,color=np.random.rand(3),label=i)
+plt.title('Costos por tecnologia')
+plt.xticks(range(7),cos_tec.index.tolist(),rotation='vertical')
+plt.xlabel('Teconologia')
+plt.legend(bbox_to_anchor=(1.05,1), loc=2, borderaxespad=0.)
+plt.show()
+
+
 # In[3]:
 
 dft=pd.read_csv('Costo transmision proyectos.csv',header=0)
 plt.figure(1,figsize=(10,7),dpi = 200)
 plt.scatter(dft.index.tolist(),dft['Precio (USD/MW-KM)'].tolist(),s=60,alpha=.8,c=[np.random.rand(3)]*len(dft.index.tolist()),label='Proyectos')
 plt.ylabel('Precio/distancia*energia (USD/MW-KM)')
-plt.title('Costos: Proyectos de transmision')
+plt.title('Costos de inversion: Proyectos de transmision')
 plt.plot([0,267],[dft['Precio (USD/MW-KM)'].mean()]*2,'--',linewidth=3,c='k',label='Promedio')
 plt.legend(loc=2)
 plt.show()
@@ -104,7 +121,6 @@ ev_cap=ev_cap.drop('Total',axis=1)
 ev_gen=ev_gen.drop('Total',axis=1)
 e=ev_cap.columns.tolist()
 colors=np.random.rand(len(e),3)
-print colors
 plt.figure(4,figsize=(10,8),dpi=200)
 for i in range(len(e)):
     plt.plot(ev_cap.iloc[:,i],c=colors[i],label=e[i],linewidth=3)
@@ -123,9 +139,9 @@ plt.legend(bbox_to_anchor=(0.5,1.2), loc=8, borderaxespad=0.0)
 plt.show()
 
 
-# In[ ]:
+# In[21]:
 
-
+print np.arange(6)
 
 
 # In[ ]:
