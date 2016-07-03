@@ -9,3 +9,5 @@ Herein you will find two excel spreadsheets
 
 The first one is a 'clean' version (no accents, spaces, parenthesis, dots) on the generators
 and the secon file is the beginning of the load_area, load_zone, transmission_id, etc, etc, etc
+
+The third excel shows a record of the original names for the generation plans, plus also the way they are now (after removing the accents, spaces, parenthesis, and dots).
