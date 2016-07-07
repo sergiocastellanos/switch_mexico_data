@@ -7,10 +7,7 @@ import pandas as pd
 import random
 import matplotlib.pyplot as plt
 import numpy as np
-<<<<<<< HEAD
-=======
-get_ipython().magic(u'matplotlib inline')
->>>>>>> aldo
+
 def nearest_value(array,value):
     idx=(np.abs(array-value)).argmin()
     return idx

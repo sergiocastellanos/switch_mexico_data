@@ -6,6 +6,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+def nearest_value(array,value):
+    idx=(np.abs(array-value)).argmin()
+    return idx
 # In[2]:
 
 df = pd.read_csv("2016.csv",index_col=range(4),skiprows=range(4),header=0)
