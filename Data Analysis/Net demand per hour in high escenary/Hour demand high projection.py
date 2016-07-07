@@ -7,7 +7,6 @@ import pandas as pd
 import random
 import matplotlib.pyplot as plt
 import numpy as np
-get_ipython().magic(u'matplotlib inline')
 def nearest_value(array,value):
     idx=(np.abs(array-value)).argmin()
     return idx
@@ -82,7 +81,6 @@ m=int(raw_input("Mes: "))
 
 
 
-get_ipython().magic(u'matplotlib inline')
 plt.figure(1,figsize=(10,8),dpi = 200)
 
 for d in df.xs([a,m,1],level=[0,1,3])[k].index.tolist():
