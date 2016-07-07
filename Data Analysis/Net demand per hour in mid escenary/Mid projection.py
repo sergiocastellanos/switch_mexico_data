@@ -62,19 +62,17 @@ for k in df.columns.tolist():
             dfp.xs([a,m])[k,'DiaPico']=promedio_dias.index(p)
             dfp.xs([a,m])[k,'ValorPico']=p
             dfp.xs([a,m])[k,'PromedioMensual']=(sum(promedio_dias)-p)/(len(promedio_dias)-1)
-print dfp    
 
 
 # In[ ]:
 
-print "Analisis horario de un un nodo determinado. Dado un nodo, ano y mes, mostrara la demanda horaria diaria todos los dias en un grafico, mientras que en otro mostrara la demanda del dia pico, un dia promedio, el dia medio y un dia aleatorio"
-<<<<<<< HEAD
+pprint "Analisis horario de un un nodo determinado. Dado un nodo, ano y mes, mostrara la demanda horaria diaria todos los dias en un grafico, mientras que en otro mostrara la demanda del dia pico, un dia promedio, el dia medio y un dia aleatorio"
 
 
 k=raw_input("Planta: ")
 a=int(raw_input("Ano: "))
 m=int(raw_input("Mes: "))
-
+res=int(raw_input("¿Cada cuantas horas quieres que grafique?  "))
 
 plt.figure(1,figsize=(10,8),dpi = 200)
 
@@ -82,61 +80,7 @@ for d in df.xs([a,m,1],level=[0,1,3])[k].index.tolist():
     yy=[]
     for h in range(1,25):
         yy.append(df.xs([a,m,d,h])[k])
-    plt.scatter(range(1,25),yy,s=40,c=[np.random.rand(3)]*24,alpha=.6,label='{0}'.format(d))
-name='Variacion diaria {0} en {1},{2}'.format(k,a,m)
-print dfp.xs([a, m])[k]
-plt.ylabel('Demanda')
-plt.title(name)
-plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-plt.show()
-
-
-
-zz=[]
-for d in df.xs([a,m,1],level=[0,1,3])[k].index.tolist():
-    zz.append(df.xs([a,m,d],level=range(3))[k].mean())
-aleatorio=random.choice(zz)
-indx_ale=zz.index(aleatorio)
-indx_mean= nearest_value(np.array(zz),dfp.xs([a,m])[k,'PromedioMensual'])
-mean = zz[indx_mean]
-if len(zz)%2 ==1:
-    median = np.median(np.array(zz))
-    indx_median = zz.index(median)
-else:
-    n=np.random.randint(len(zz))
-    median = np.median(zz[-n])
-    indx_median = zz.index(median)
-    if indx_median>= n:
-        indx_median= indx_median+1
-        
-=======
->>>>>>> aldo
-
-plt.figure(2,figsize=(10,8),dpi = 200)
-plt.scatter(range(1,25),df.xs([a,m,indx_ale],level=range(3))[k].tolist(),s=40,c=[np.random.rand(3)]*24,alpha=.6,label="Aleatorio")
-plt.scatter(range(1,25),df.xs([a,m,indx_mean],level=range(3))[k].tolist(),s=40,c=[np.random.rand(3)]*24,alpha=.6,label="Promedio")
-plt.scatter(range(1,25),df.xs([a,m,indx_median],level=range(3))[k].tolist(),s=40,c=[np.random.rand(3)]*24,alpha=.6,label="Mediana")
-plt.scatter(range(1,25),df.xs([a,m,dfp.xs([a,m])[k,'DiaPico']],level=range(3))[k].tolist(),s=40,c=[np.random.rand(3)]*24,alpha=.6,label="Aleatorio")
-plt.xlabel('Dia')
-plt.ylabel('Demanda')
-plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-plt.title('Dias significativos en nodo {0}, {1}/{2}'.format(k,m,a))
-plt.show()
-
-k=raw_input("Planta: ")
-a=int(raw_input("Ano: "))
-m=int(raw_input("Mes: "))
-
-
-
-get_ipython().magic(u'matplotlib inline')
-plt.figure(1,figsize=(10,8),dpi = 200)
-
-for d in df.xs([a,m,1],level=[0,1,3])[k].index.tolist():
-    yy=[]
-    for h in range(1,25):
-        yy.append(df.xs([a,m,d,h])[k])
-    plt.scatter(range(1,25),yy,s=40,c=[np.random.rand(3)]*24,alpha=.6,label='{0}'.format(d))
+    plt.scatter(range(1,25,res),[yy[i] for i in range(0,24,res)],s=40,c=[np.random.rand(3)]*24,alpha=.6,label='{0}'.format(d))
 name='Variacion diaria {0} en {1},{2}'.format(k,a,m)
 print dfp.xs([a, m])[k]
 plt.ylabel('Demanda')
@@ -165,16 +109,15 @@ else:
         
 
 plt.figure(2,figsize=(10,8),dpi = 200)
-plt.scatter(range(1,25),df.xs([a,m,indx_ale],level=range(3))[k].tolist(),s=40,c=[np.random.rand(3)]*24,alpha=.6,label="Aleatorio")
-plt.scatter(range(1,25),df.xs([a,m,indx_mean],level=range(3))[k].tolist(),s=40,c=[np.random.rand(3)]*24,alpha=.6,label="Promedio")
-plt.scatter(range(1,25),df.xs([a,m,indx_median],level=range(3))[k].tolist(),s=40,c=[np.random.rand(3)]*24,alpha=.6,label="Mediana")
-plt.scatter(range(1,25),df.xs([a,m,dfp.xs([a,m])[k,'DiaPico']],level=range(3))[k].tolist(),s=40,c=[np.random.rand(3)]*24,alpha=.6,label="Aleatorio")
+plt.scatter(range(1,25,res),[df.xs([a,m,indx_ale],level=range(3))[k].tolist()[i] for i in range(0,24,res)],s=80,c=[np.random.rand(3)]*24,alpha=.6,label="Aleatorio")
+plt.scatter(range(1,25,res),[df.xs([a,m,indx_mean],level=range(3))[k].tolist()[i] for i in range(0,24,res)],s=80,c=[np.random.rand(3)]*24,alpha=.6,label="Promedio")
+plt.scatter(range(1,25,res),[df.xs([a,m,indx_median],level=range(3))[k].tolist()[i] for i in range(0,24,res)],s=80,c=[np.random.rand(3)]*24,alpha=.6,label="Mediana")
+plt.scatter(range(1,25,res),[df.xs([a,m,dfp.xs([a,m])[k,'DiaPico']],level=range(3))[k].tolist()[i] for i in range(0,24,res)],s=80,c=[np.random.rand(3)]*24,alpha=.6,label="Aleatorio")
 plt.xlabel('Dia')
 plt.ylabel('Demanda')
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 plt.title('Dias significativos en nodo {0}, {1}/{2}'.format(k,m,a))
 plt.show()
-
 
 # In[ ]:
 

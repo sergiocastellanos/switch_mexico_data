@@ -79,7 +79,7 @@ print "Analisis horario de un un nodo determinado. Dado un nodo, ano y mes, most
 k=raw_input("Planta: ")
 a=int(raw_input("Ano: "))
 m=int(raw_input("Mes: "))
-
+res=int(raw_input("¿Cada cuantas horas quieres que grafique?  "))
 
 
 plt.figure(1,figsize=(10,8),dpi = 200)
@@ -88,7 +88,7 @@ for d in df.xs([a,m,1],level=[0,1,3])[k].index.tolist():
     yy=[]
     for h in range(1,25):
         yy.append(df.xs([a,m,d,h])[k])
-    plt.scatter(range(1,25),yy,s=40,c=[np.random.rand(3)]*24,alpha=.6,label='{0}'.format(d))
+    plt.scatter(range(1,25,res),[yy[i] for i in range(0,24,res)],s=40,c=[np.random.rand(3)]*24,alpha=.6,label='{0}'.format(d))
 name='Variacion diaria {0} en {1},{2}'.format(k,a,m)
 print dfp.xs([a, m])[k]
 plt.ylabel('Demanda')
@@ -117,16 +117,15 @@ else:
         
 
 plt.figure(2,figsize=(10,8),dpi = 200)
-plt.scatter(range(1,25),df.xs([a,m,indx_ale],level=range(3))[k].tolist(),s=40,c=[np.random.rand(3)]*24,alpha=.6,label="Aleatorio")
-plt.scatter(range(1,25),df.xs([a,m,indx_mean],level=range(3))[k].tolist(),s=40,c=[np.random.rand(3)]*24,alpha=.6,label="Promedio")
-plt.scatter(range(1,25),df.xs([a,m,indx_median],level=range(3))[k].tolist(),s=40,c=[np.random.rand(3)]*24,alpha=.6,label="Mediana")
-plt.scatter(range(1,25),df.xs([a,m,dfp.xs([a,m])[k,'DiaPico']],level=range(3))[k].tolist(),s=40,c=[np.random.rand(3)]*24,alpha=.6,label="Aleatorio")
+plt.scatter(range(1,25,res),[df.xs([a,m,indx_ale],level=range(3))[k].tolist()[i] for i in range(0,24,res)],s=80,c=[np.random.rand(3)]*24,alpha=.6,label="Aleatorio")
+plt.scatter(range(1,25,res),[df.xs([a,m,indx_mean],level=range(3))[k].tolist()[i] for i in range(0,24,res)],s=80,c=[np.random.rand(3)]*24,alpha=.6,label="Promedio")
+plt.scatter(range(1,25,res),[df.xs([a,m,indx_median],level=range(3))[k].tolist()[i] for i in range(0,24,res)],s=80,c=[np.random.rand(3)]*24,alpha=.6,label="Mediana")
+plt.scatter(range(1,25,res),[df.xs([a,m,dfp.xs([a,m])[k,'DiaPico']],level=range(3))[k].tolist()[i] for i in range(0,24,res)],s=80,c=[np.random.rand(3)]*24,alpha=.6,label="Aleatorio")
 plt.xlabel('Dia')
 plt.ylabel('Demanda')
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 plt.title('Dias significativos en nodo {0}, {1}/{2}'.format(k,m,a))
 plt.show()
-
 
 # In[ ]:
 
