@@ -30,13 +30,32 @@ def printer(precipAccumulation,production):
 
 def jsprinter(precipAccumulation,production):
     '''Prints data required to build charts'''
+    lista = []
     for season in seasonlist:
         j = 0
         for h,p in zip(precipAccumulation,production):
             for a,b in zip(precipAccumulation[h],production[p]):
                 if a == season:
                     j+=1
-                    print "var %s = {x: %20s, y: %20s, r: %20s, };"%(a.lower()+str(j),precipAccumulation[h][a],production[p][b],production[p][b]+5)
+                    lista.append("var %s = {x: %20s, y: %20s, r: %20s, };"%(a.lower()+str(j),precipAccumulation[h][a],production[p][b],production[p][b]+5))
+    return lista
 
 
-jsprinter(precipAccumulation,norm_production)
+def insertInJS(lista):
+    i=0
+    with open('Charts/bubble.js', 'r') as input_file, open('chart.js', 'w') as output_file:
+        for line in input_file:
+            try :
+                if line[:15] == lista[i][:15]:
+                    print line[:15] , lista[i][:15]
+                    output_file.write(lista[i])
+                    i+=1
+                else:
+                    output_file.write(line)
+            except IndexError: output_file.write(line)
+
+
+
+
+
+insertInJS(jsprinter(precipAccumulation,norm_production))
