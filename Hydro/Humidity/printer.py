@@ -1,35 +1,42 @@
 import forecastio
 import datetime
 import json, pickle
-import stats
 from termcolor import colored
-from humidity import Humidity
-from generacion import Analisis
+from precipAccumulation import PrecipAccumulation
+from generation import Order
 
-humidity = Humidity().get_data()
 
-a = Analisis()
+
+a = Order()
 production = a.test_plantas_season()
 norm_production =  a.normalized_data(production)
 
+precipAccumulation = PrecipAccumulation().get_data()
+precipAccumulation = a.normalized_data(precipAccumulation)
 
-def printer(humidity,production):
-    '''Prints on shell of a given humidity and production dictionaries'''
-    for h,p in zip(humidity,production):
+
+seasonlist = ["Winter","Spring","Summer","Autumn"]
+
+def printer(precipAccumulation,production):
+    '''Prints on shell of a given precipAccumulation and production dictionaries'''
+    for h,p in zip(precipAccumulation,production):
         print colored(h,color="magenta")
-        for a,b in zip(humidity[h],production[p]):
+        for a,b in zip(precipAccumulation[h],production[p]):
             print colored(a, color="white"),\
-                  colored("%.10s"%humidity[h][a],color="cyan"),\
+                  colored("%.10s"%precipAccumulation[h][a],color="cyan"),\
                   colored("%.10s"%production[p][b],color="cyan")
 
-# humidity = x
+# precipAccumulation = x
 
-def jsprinter(humidity,production):
+def jsprinter(precipAccumulation,production):
     '''Prints data required to build charts'''
-    for h,p in zip(humidity,production):
-        for a,b in zip(humidity[h],production[p]):
-            if a == "Winter":
-                print "var %s = {x: %s, y: %s, r: %s, };"%(a.lower(),humidity[h][a],production[p][b],production[p][b]+5)
+    for season in seasonlist:
+        j = 0
+        for h,p in zip(precipAccumulation,production):
+            for a,b in zip(precipAccumulation[h],production[p]):
+                if a == season:
+                    j+=1
+                    print "var %s = {x: %20s, y: %20s, r: %20s, };"%(a.lower()+str(j),precipAccumulation[h][a],production[p][b],production[p][b]+5)
 
 
-printer(humidity,norm_production)
+jsprinter(precipAccumulation,norm_production)

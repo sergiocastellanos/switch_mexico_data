@@ -1,32 +1,32 @@
 import forecastio
 import datetime
 import json, pickle
-import stats
+from stats import Statistics as stats
 from termcolor import colored
 
 seasonlist = ["Winter","Spring","Summer","Autumn"]
 
 
-class Humidity:
+class PrecipAccumulation:
     def retrievePickle(self):
         '''Opens a .pkl file and returns a dictionary'''
-        humidity = pickle.load( open( "humidity.pkl", "rb" ) )
-        return humidity
+        precipAccumulation = pickle.load( open( "precipIntensity.pkl", "rb" ) )
+        return precipAccumulation
 
     def monthly(self):
-        '''Returns a monthly classification of a given dictionary (containing the humidity levels)'''
+        '''Returns a monthly classification of a given dictionary (containing the precipAccumulation levels)'''
         monthlyRecord = {}
-        humidityRecords = self.retrievePickle() #open the .pkl file an obtains the dictionary
+        precipAccumulationRecords = self.retrievePickle() #open the .pkl file an obtains the dictionary
         for year in range(2006,2016):
             for month in range(01,12):
                 humonth = []
                 for day in range(1,31):
                     try :
                         date = datetime.datetime(year,month,day)
-                        humonth.append(humidityRecords[str(date.date())])
+                        humonth.append(precipAccumulationRecords[str(date.date())])
                     except ValueError:
                         pass
-                s = stats.Estadisticas(humonth)
+                s = stats(humonth)
                 monthAverage = s.media()
                 monthlyRecord[str(date.date())[:7]] = monthAverage
         return monthlyRecord
@@ -46,7 +46,7 @@ class Humidity:
                         aux.append(monthlyRecord[str(date.date())[:7]])
                     except KeyError:
                         pass
-                s = stats.Estadisticas(aux)
+                s = stats(aux)
                 seasonAverage = s.media()
                 seasons[seasonlist[a]] = seasonAverage
                 a+=1
@@ -61,7 +61,7 @@ class Humidity:
 
 
 def printer(data):
-    '''this function prints all the results of the humidity levels classified by season'''
+    '''this function prints all the results of the precipAccumulation levels classified by season'''
     for element in data:
         print colored(element,color="magenta")
         for e in data[element]:

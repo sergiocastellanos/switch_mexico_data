@@ -8,14 +8,14 @@ import pandas
 from selenium import webdriver
 import re
 import unicodedata
-import stats
+from stats import Statistics as stats
 
 data = pandas.read_excel("data/plantas.xlsx",index_col=0)
 plantas = data.index.values
 seasonlist = ["Winter","Spring","Summer","Autumn"]
 
 
-class Analisis:
+class Order:
 
     def __init__(self):
         self.plantas = []
@@ -70,7 +70,7 @@ class Analisis:
         seasons = [["ENE","MAR"],["ABR","JUN"],["JUL","SEP"],["OCT","DIC"]]
         data = {}
         tabla = {}
-        for ind,e in enumerate(plantas):n
+        for ind,e in enumerate(plantas):
             try:
                 for year in range(2006,2016):
                     results = {}
@@ -79,7 +79,7 @@ class Analisis:
                         mesFin = season[1]
                         elementos = self.datos_anuales(plantas[ind],mesInicio,mesFin) #dictionary of dictionaries that contains the years and months as keys and the generation ral....
                         e = elementos[str(year)]
-                        p = stats.Estadisticas(e)
+                        p = stats(e)
                         results[seasonlist[i]] = round(p.media(),4)
                     data[year]= results
                 try :
@@ -95,9 +95,12 @@ class Analisis:
     def normalize(self,lista):
         '''Returns a list containing normalized (0-1) data from a given list'''
         rang = max(lista) - min(lista)
-        average = stats.Estadisticas(lista).media()
+        average = stats(lista).media()
         for i,e in enumerate(lista):
-            lista[i] = (e -average)/rang
+            try:
+                lista[i] = (e -average)/rang
+            except ZeroDivisionError:
+                lista[i] = 0
         minimum = min(lista)
         for i,e in enumerate(lista):
             lista[i] = e - minimum
@@ -126,6 +129,6 @@ class Analisis:
 
 
 if __name__ == '__main__':
-    a = Analisis()
+    a = Order()
     b = a.test_plantas_season()
     print a.normalized_data(b)

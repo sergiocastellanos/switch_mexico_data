@@ -4,42 +4,40 @@ from math import sqrt
 import numpy as np
 
 
-class Estadisticas:
-    def __init__(self, elementos):
+class Statistics:
+    def __init__(self, elements):
         self.n = 0
-        self.elementos = elementos
-        self.horapico = []
-        self.demandaPicoHora = []
+        self.elements = elements
         self.cont = 1
         #try:
-        #    self.elementos = map(int, elementos)
+        #    self.elements = map(int, elements)
         #except ValueError:
-        #    self.elementos.pop()
-        #    self.elementos = map(int, elementos)
-        #print self.elementos
+        #    self.elements.pop()
+        #    self.elements = map(int, elements)
+        #print self.elements
 
     def media(self):
         med = 0
-        for i in self.elementos:
+        for i in self.elements:
             med += i
-        med/=len(self.elementos)
+        med/=len(self.elements)
         return med
 
-    def varianza(self):
+    def variance(self):
         var = 0
-        for i in self.elementos:
+        for i in self.elements:
             var += (i- self.media())** 2
-        var/=len(self.elementos)
+        var/=len(self.elements)
         return var
 
-    def desviacion(self):
-        return sqrt(self.varianza())
+    def deviation(self):
+        return sqrt(self.variance())
 
 if __name__ == '__main__':
     prueba = [0.86, 0.79, 0.73, 0.83, 0.82, 0.72, 0.79, 0.86, 0.81, 0.83, 0.8, 0.79, 0.86, 0.86, 0.87, 0.77, 0.73, 0.79, 1, 0.93, 0.93, 0.95, 0.86, 0.9, 0.84, 0.91, 0.87, 0.88, 0.96, 0.93]
 
     #[10, 18, 15, 12, 3, 6, 5, 7]
-    e = Estadisticas(prueba)
+    e = Statistics(prueba)
     print e.media()
-    #assert e.varianza() == 23.75
-    #assert e.desviacion() >= 4.8 and e.desviacion() <= 4.9
+    #assert e.variance() == 23.75
+    #assert e.deviation() >= 4.8 and e.deviation() <= 4.9
