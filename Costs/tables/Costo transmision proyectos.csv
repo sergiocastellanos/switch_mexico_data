@@ -1,4 +1,4 @@
-Origen,Destino,Capacidad de transmision (MW),Costo de contruccion (miles de dolares/km),Distancia Aproximada (km),Precio (USD/MW-KM)
+Origin,Destination,Transmission capacity (MW),Construction cost (Thousands of USD/km),Aproximate distance (KM),Cost (USD/MW-KM)
 35-Acapulco,34-Puebla,733.12,785.021,154,1070.794686
 24-Aguascalientes,26-Salamanca,1058.37,1066.0424,56,1007.249261
 41-Lerma,44-Chetumal,868.87,847.172,105,975.0273344

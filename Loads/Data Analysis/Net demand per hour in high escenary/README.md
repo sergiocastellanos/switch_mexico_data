@@ -1,5 +1,0 @@
-This are scripts that Analyze the hourly demand of electricity in every region of the SEN (Sistema energético nacional)
-
-The "Table creation" script creates the "demand per node.csv" and "highlights per node.csv" files. As you can see, these files are already in the repository, so this scripts doesn´t need to be runed. I have put them here so you can check out how were these files created.
-
-The "Graphical analysis" script prints graphics that show important data regarding of the hourly demand projections. The firs part of the script prints a graphic for each node of the SEN of the average daily demand for every year until 2030. Second part of the script receives an input of a node, year and month. After that, it prints a graphic of the average daily demand of that year and month in that node, and the hourly demand for 4 days: the highest-average demand day, the average-closest day to the daily average of demand that month, the median-average day  and a random day.
