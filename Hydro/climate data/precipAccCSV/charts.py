@@ -15,9 +15,12 @@ for planta in plantas:
     production = a.annual_data(planta)
     production =  a.normalize_annual_data(production)
 
+precipAccumulation = PrecipAccumulation().ux()
 
-precipAccumulation = PrecipAccumulation().retrieveCSV()
+
 listax= ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"]
+
+seasonlist = ["Winter","Spring","Summer","Autumn"]
 
 def printer(precipAccumulation,production):
     '''Prints on shell of a given precipAccumulation and production dictionaries'''
@@ -27,6 +30,8 @@ def printer(precipAccumulation,production):
             print colored(a, color="white"),\
                   colored("%.10s"%precipAccumulation[h][a],color="cyan"),\
                   colored("%.10s"%production[p][b],color="cyan")
+
+# precipAccumulation = x
 
 def jsprinter(precipAccumulation,production):
     '''Prints data required to build charts'''
@@ -40,37 +45,55 @@ def jsprinter(precipAccumulation,production):
                     lista.append("var %s = {x: %20s, y: %20s, r: %20s, };"%(a.lower()+str(j),precipAccumulation[h][a],production[p][b],production[p][b]+5))
     return lista
 
-def insertInJS(lista2):
+
+def insertInJS(lista1,lista2):
     i=0
-    with open('Charts/js/bubble.js', 'r') as input_file, open('chart.js', 'wb') as output_file:
+    with open('Charts/bubble.js', 'r') as input_file, open('bubble.js', 'w') as output_file:
+        for line in input_file:
+            try :
+                if line[:15] == lista1[i][:15]:
+                    print line[:15] , lista1[i][:15]
+                    output_file.write(lista1[i])
+                    i+=1
+                else:
+                    output_file.write(line)
+            except IndexError: output_file.write(line)
+
+    with open('bubble.js', 'r') as input_file, open('chart.js', 'w') as output_file:
         i =0
         for line in input_file:
             try :
-                if line[:15] == lista2[i][:15]:
+                if line[:18] == lista2[i][:18]:
+                    print line[:18] , lista2[i][:18]
+                    print lista2[i]
                     output_file.write(lista2[i])
                     i+=1
                 else:
+
                     output_file.write(line)
             except IndexError: output_file.write(line)
 
 
 
 def insertAnnualInJS(precipAccumulation,production):
+    print precipAccumulation
     annual_list = []
     production = collections.OrderedDict(sorted(production.items()))
     j= 0
     for h,p in zip(precipAccumulation,production):
         i = 0
         for a,b in zip(precipAccumulation[h],production[p]):
-            annual_list.append("var %s%s = {x: %s, y: %s, r: 10};"%(listax[i],j,a,b))
+            print a,b
+            annual_list.append("var %s%s = {x: %s, y: %s, r: 10};"%(listax[i],j,precipAccumulation[h],production[p]))
+            print listax[i]
             i+=1
         j+=1
     return annual_list
 
-
-
-
 def external():
     return precipAccumulation,production
 
-#insertInJS(insertAnnualInJS(precipAccumulation,production))
+
+
+
+insertAnnualInJS(jsprinter(precipAccumulation,norm_production))

@@ -60,8 +60,14 @@ class Order:
                 else:cont += 1
             self.anios[str(year)] = l
         #print "Datos perdidos: %i"%cont
-
         return self.anios
+
+    def annual_data(self,planta):
+        annual = ["ENE","DIC"]
+        data  = self.datos_anuales(planta,annual[0],annual[1])
+        return data
+
+
 
 
 
@@ -122,13 +128,34 @@ class Order:
                 i+=1
         return data
 
+    def normalize_annual_data(self, data):
+        '''It takes a dictionary of dictionaries that contains the years as keys and the generation related to a hydroelectric dam as values (between 2006 - 2015) and returns the same but normalized values'''
+        aux = []
 
+        for year in range(2006,2016):
+            try:
+                data[str(year)] = self.normalize(data[str(year)])
+            except KeyError:
+                data[year] = self.normalize(data[year])
+        return data
 
-
+    def capacityFactor(self, data, anios, mw):
+        lista = [0,0,0,0,0,0,0,0,0,0,0,0]
+        for year in anios:
+            for i,e in enumerate(data[str(year)]):
+                lista[i] += e
+        for i,e in enumerate(lista):
+            lista[i] = e/len(anios)
+        for i,e in enumerate(lista):
+            lista[i] = lista[i]/(720*mw)*100
+        return lista
 
 
 
 if __name__ == '__main__':
     a = Order()
-    b = a.test_plantas_season()
-    print a.normalized_data(b)
+    anos = [2007]
+    #b = a.test_plantas_season()
+    for planta in plantas:
+        a.capacityFactor(a.datos_anuales(planta,"ENE","DIC"),anos,2400)
+    #print a.normalized_data(b)
