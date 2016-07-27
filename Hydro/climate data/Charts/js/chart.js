@@ -1,4 +1,144 @@
 var DEFAULT_DATASET_SIZE = 7;
+
+var enero0 = {x: 0, y: 0.000000000000, r: 0.00000000000, };
+var febrero0 = {x: 0, y: 0.000000000000, r: 0.00000000000, };
+var marzo0 = {x: 0, y: 0.000000000000, r: 0.00000000000, };
+var abril0 = {x: 0, y: 0.000000000000, r: 0.00000000000, };
+var mayo0 = {x: 0, y: 0.000000000000, r: 0.00000000000, };
+var junio0 = {x: 0, y: 0.000000000000, r: 0.00000000000, };
+var julio0 = {x: 0, y: 0.000000000000, r: 0.00000000000, };
+var agosto0 = {x: 0, y: 0.000000000000, r: 0.00000000000, };
+var septiembre0 = {x: 0, y: 0.000000000000, r: 0.00000000000, };
+var octubre0 = {x: 0, y: 0.000000000000, r: 0.00000000000, };
+var noviembre0 = {x: 0, y: 0.000000000000, r: 0.00000000000, };
+var diciembre0 = {x: 0, y: 0.000000000000, r: 0.00000000000, };
+
+
+var enero1 = {x: 0, y: 0.683513071838, r: 5.68351307184, };
+var febrero1 = {x: 0, y: 0.683513071838, r: 5.68351307184, };
+var marzo1 = {x: 0, y: 0.683513071838, r: 5.68351307184, };
+var abril1 = {x: 0, y: 0.683513071838, r: 5.68351307184, };
+var mayo1 = {x: 0, y: 0.683513071838, r: 5.68351307184, };
+var junio1 = {x: 0, y: 0.683513071838, r: 5.68351307184, };
+var julio1 = {x: 0, y: 0.683513071838, r: 5.68351307184, };
+var agosto1 = {x: 0, y: 0.683513071838, r: 5.68351307184, };
+var septiembre1 = {x: 0, y: 0.683513071838, r: 5.68351307184, };
+var octubre1 = {x: 0, y: 0.683513071838, r: 5.68351307184, };
+var noviembre1 = {x: 0, y: 0.683513071838, r: 5.68351307184, };
+var diciembre1 = {x: 0, y: 0.683513071838, r: 5.68351307184, };
+
+var enero2 = {x: 0, y: 0.683523072838, r: 5.68352307284, };
+var febrero2 = {x: 0, y: 0.683523072838, r: 5.68352307284, };
+var marzo2 = {x: 0, y: 0.683523072838, r: 5.68352307284, };
+var abril2 = {x: 0, y: 0.683523072838, r: 5.68352307284, };
+var mayo2 = {x: 0, y: 0.683523072838, r: 5.68352307284, };
+var junio2 = {x: 0, y: 0.683523072838, r: 5.68352307284, };
+var julio2 = {x: 0, y: 0.683523072838, r: 5.68352307284, };
+var agosto2 = {x: 0, y: 0.683523072838, r: 5.68352307284, };
+var septiembre2 = {x: 0, y: 0.683523072838, r: 5.68352307284, };
+var octubre2 = {x: 0, y: 0.683523072838, r: 5.68352307284, };
+var noviembre2 = {x: 0, y: 0.683523072838, r: 5.68352307284, };
+var diciembre2 = {x: 0, y: 0.683523072838, r: 5.68352307284, };
+
+
+var enero3 = {x: 0, y: 0.683533073838, r: 5.68353307384, };
+var febrero3 = {x: 0, y: 0.683533073838, r: 5.68353307384, };
+var marzo3 = {x: 0, y: 0.683533073838, r: 5.68353307384, };
+var abril3 = {x: 0, y: 0.683533073838, r: 5.68353307384, };
+var mayo3 = {x: 0, y: 0.683533073838, r: 5.68353307384, };
+var junio3 = {x: 0, y: 0.683533073838, r: 5.68353307384, };
+var julio3 = {x: 0, y: 0.683533073838, r: 5.68353307384, };
+var agosto3 = {x: 0, y: 0.683533073838, r: 5.68353307384, };
+var septiembre3 = {x: 0, y: 0.683533073838, r: 5.68353307384, };
+var octubre3 = {x: 0, y: 0.683533073838, r: 5.68353307384, };
+var noviembre3 = {x: 0, y: 0.683533073838, r: 5.68353307384, };
+var diciembre3 = {x: 0, y: 0.683533073838, r: 5.68353307384, };
+
+
+var enero4 = {x: 0, y: 0.684544074848, r: 5.68454407484, };
+var febrero4 = {x: 0, y: 0.684544074848, r: 5.68454407484, };
+var marzo4 = {x: 0, y: 0.684544074848, r: 5.68454407484, };
+var abril4 = {x: 0, y: 0.684544074848, r: 5.68454407484, };
+var mayo4 = {x: 0, y: 0.684544074848, r: 5.68454407484, };
+var junio4 = {x: 0, y: 0.684544074848, r: 5.68454407484, };
+var julio4 = {x: 0, y: 0.684544074848, r: 5.68454407484, };
+var agosto4 = {x: 0, y: 0.684544074848, r: 5.68454407484, };
+var septiembre4 = {x: 0, y: 0.684544074848, r: 5.68454407484, };
+var octubre4 = {x: 0, y: 0.684544074848, r: 5.68454407484, };
+var noviembre4 = {x: 0, y: 0.684544074848, r: 5.68454407484, };
+var diciembre4 = {x: 0, y: 0.684544074848, r: 5.68454407484, };
+
+
+var enero5 = {x: 0, y: 0.685555075858, r: 5.68555507585, };
+var febrero5 = {x: 0, y: 0.685555075858, r: 5.68555507585, };
+var marzo5 = {x: 0, y: 0.685555075858, r: 5.68555507585, };
+var abril5 = {x: 0, y: 0.685555075858, r: 5.68555507585, };
+var mayo5 = {x: 0, y: 0.685555075858, r: 5.68555507585, };
+var junio5 = {x: 0, y: 0.685555075858, r: 5.68555507585, };
+var julio5 = {x: 0, y: 0.685555075858, r: 5.68555507585, };
+var agosto5 = {x: 0, y: 0.685555075858, r: 5.68555507585, };
+var septiembre5 = {x: 0, y: 0.685555075858, r: 5.68555507585, };
+var octubre5 = {x: 0, y: 0.685555075858, r: 5.68555507585, };
+var noviembre5 = {x: 0, y: 0.685555075858, r: 5.68555507585, };
+var diciembre5 = {x: 0, y: 0.685555075858, r: 5.68555507585, };
+
+
+var enero6 = {x: 0, y: 0.686666076868, r: 6.68666607686, };
+var febrero6 = {x: 0, y: 0.686666076868, r: 6.68666607686, };
+var marzo6 = {x: 0, y: 0.686666076868, r: 6.68666607686, };
+var abril6 = {x: 0, y: 0.686666076868, r: 6.68666607686, };
+var mayo6 = {x: 0, y: 0.686666076868, r: 6.68666607686, };
+var junio6 = {x: 0, y: 0.686666076868, r: 6.68666607686, };
+var julio6 = {x: 0, y: 0.686666076868, r: 6.68666607686, };
+var agosto6 = {x: 0, y: 0.686666076868, r: 6.68666607686, };
+var septiembre6 = {x: 0, y: 0.686666076868, r: 6.68666607686, };
+var octubre6 = {x: 0, y: 0.686666076868, r: 6.68666607686, };
+var noviembre6 = {x: 0, y: 0.686666076868, r: 6.68666607686, };
+var diciembre6 = {x: 0, y: 0.686666076868, r: 6.68666607686, };
+
+
+
+var enero7 = {x: 0, y: 0.787777077878, r: 7.78777707787, };
+var febrero7 = {x: 0, y: 0.787777077878, r: 7.78777707787, };
+var marzo7 = {x: 0, y: 0.787777077878, r: 7.78777707787, };
+var abril7 = {x: 0, y: 0.787777077878, r: 7.78777707787, };
+var mayo7 = {x: 0, y: 0.787777077878, r: 7.78777707787, };
+var junio7 = {x: 0, y: 0.787777077878, r: 7.78777707787, };
+var julio7 = {x: 0, y: 0.787777077878, r: 7.78777707787, };
+var agosto7 = {x: 0, y: 0.787777077878, r: 7.78777707787, };
+var septiembre7 = {x: 0, y: 0.787777077878, r: 7.78777707787, };
+var octubre7 = {x: 0, y: 0.787777077878, r: 7.78777707787, };
+var noviembre7 = {x: 0, y: 0.787777077878, r: 7.78777707787, };
+var diciembre7 = {x: 0, y: 0.787777077878, r: 7.78777707787, };
+
+
+var enero8 = {x: 0, y: 0.888888088888, r: 8.88888808888, };
+var febrero8 = {x: 0, y: 0.888888088888, r: 8.88888808888, };
+var marzo8 = {x: 0, y: 0.888888088888, r: 8.88888808888, };
+var abril8 = {x: 0, y: 0.888888088888, r: 8.88888808888, };
+var mayo8 = {x: 0, y: 0.888888088888, r: 8.88888808888, };
+var junio8 = {x: 0, y: 0.888888088888, r: 8.88888808888, };
+var julio8 = {x: 0, y: 0.888888088888, r: 8.88888808888, };
+var agosto8 = {x: 0, y: 0.888888088888, r: 8.88888808888, };
+var septiembre8 = {x: 0, y: 0.888888088888, r: 8.88888808888, };
+var octubre8 = {x: 0, y: 0.888888088888, r: 8.88888808888, };
+var noviembre8 = {x: 0, y: 0.888888088888, r: 8.88888808888, };
+var diciembre8 = {x: 0, y: 0.888888088888, r: 8.88888808888, };
+
+var enero9 = {x: 0, y: 0.999999099999, r: 9.99999909999, };
+var febrero9 = {x: 0, y: 0.999999099999, r: 9.99999909999, };
+var marzo9 = {x: 0, y: 0.999999099999, r: 9.99999909999, };
+var abril9 = {x: 0, y: 0.999999099999, r: 9.99999909999, };
+var mayo9 = {x: 0, y: 0.999999099999, r: 9.99999909999, };
+var junio9 = {x: 0, y: 0.999999099999, r: 9.99999909999, };
+var julio9 = {x: 0, y: 0.999999099999, r: 9.99999909999, };
+var agosto9 = {x: 0, y: 0.999999099999, r: 9.99999909999, };
+var septiembre9 = {x: 0, y: 0.999999099999, r: 9.99999909999, };
+var octubre9 = {x: 0, y: 0.999999099999, r: 9.99999909999, };
+var noviembre9 = {x: 0, y: 0.999999099999, r: 9.99999909999, };
+var diciembre9 = {x: 0, y: 0.999999099999, r: 9.99999909999, };
+
+
 var winter1 = {x: 0, y: 0.683513071838, r: 5.68351307184, };
 var winter2 = {x: 0, y: 0.34647942715, r: 5.34647942715, };
 var winter3 = {x: 0, y: 0.0376785950422, r: 5.03767859504, };
@@ -310,6 +450,68 @@ var winter = {
     }]
 };
 
+
+var annual = {
+    animation: {
+        duration: 10000
+    },
+    datasets: [{
+        label: "2006",
+        backgroundColor: uno,
+        data: [enero0,febrero0,marzo0,abril0,mayo0,junio0,julio0,agosto0,septiembre0,octubre0,noviembre0,diciembre0]
+    },
+    {
+        label: "2007",
+        backgroundColor: dos,
+        data: [enero1,febrero1,marzo1,abril1,mayo1,junio1,julio1,agosto1,septiembre1,octubre1,noviembre1,diciembre1]
+    },
+    {
+        label: "2008",
+        backgroundColor: tres,
+        data: [enero2,febrero2,marzo2,abril2,mayo2,junio2,julio2,agosto2,septiembre2,octubre2,noviembre2,diciembre2]
+    },
+    {
+        label: "2009",
+        backgroundColor: cuatro,
+        data: [enero3,febrero3,marzo3,abril3,mayo3,junio3,julio3,agosto3,septiembre3,octubre3,noviembre3,diciembre3]
+    },
+    {
+        label: "2010",
+        backgroundColor: cinco,
+        data: [enero4,febrero4,marzo4,abril4,mayo4,junio4,julio4,agosto4,septiembre4,octubre4,noviembre4,diciembre4]
+    },
+    {
+        label: "2011",
+        backgroundColor: seis,
+        data: [enero5,febrero5,marzo5,abril5,mayo5,junio5,julio5,agosto5,septiembre5,octubre5,noviembre5,diciembre5]
+    },
+    {
+        label: "2012",
+        backgroundColor: siete,
+        data: [enero6,febrero6,marzo6,abril6,mayo6,junio6,julio6,agosto6,septiembre6,octubre6,noviembre6,diciembre6]
+    },
+    {
+        label: "2013",
+        backgroundColor: ocho,
+        data: [enero7,febrero7,marzo7,abril7,mayo7,junio7,julio7,agosto7,septiembre7,octubre7,noviembre7,diciembre7]
+    },
+    {
+        label: "2014",
+        backgroundColor: nueve,
+        data: [enero8,febrero8,marzo8,abril8,mayo8,junio8,julio8,agosto8,septiembre8,octubre8,noviembre8,diciembre8]
+    },
+    {
+        label: "2015",
+        backgroundColor: diez,
+        data: [enero9,febrero9,marzo9,abril9,mayo9,junio9,julio9,agosto9,septiembre9,octubre9,noviembre9,diciembre9
+
+        ]
+    }]
+};
+
+
+
+
 window.onload = function() {
     var ctx1 = document.getElementById("autumn").getContext("2d");
     window.myChart = new Chart(ctx1, {
@@ -399,6 +601,35 @@ window.onload = function() {
     window.myChart = new Chart(ctx4, {
         type: 'bubble',
         data: winter,
+        options: {
+            responsive: true,
+            title:{
+                display:true,
+                text:'Production - Precip Accumulation'
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Precip Accumulation'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Production'
+                    }
+                }]
+            }
+        }
+    });
+
+    var ctx5 = document.getElementById("annual").getContext("2d");
+    window.myChart = new Chart(ctx5, {
+        type: 'bubble',
+        data: annual,
         options: {
             responsive: true,
             title:{
