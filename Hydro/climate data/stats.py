@@ -19,14 +19,14 @@ class Statistics:
     def media(self):
         med = 0
         for i in self.elements:
-            med += i
+            med += float(i)
         med/=len(self.elements)
         return med
 
     def variance(self):
         var = 0
         for i in self.elements:
-            var += (i- self.media())** 2
+            var += (float(i)- self.media())** 2
         var/=len(self.elements)
         return var
 
