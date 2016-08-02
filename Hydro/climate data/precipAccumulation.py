@@ -64,5 +64,5 @@ if __name__ == '__main__':
     #    s = stats(p.ux()[e]).media()
     #    print s
 
-    #printer(p.retrieveCSV())
-    p.data("colima")
+    printer(p.retrieveCSV())
+    #p.data("chiapas",2400)
