@@ -3,7 +3,7 @@ import datetime
 import json, pickle
 from stats import Statistics as stats
 from termcolor import colored
-from generation import Order
+from production import Order
 
 seasonlist = ["Winter","Spring","Summer","Autumn"]
 mediaChico = 2024.4
@@ -64,10 +64,9 @@ if __name__ == '__main__':
     #    s = stats(p.ux()[e]).media()
     #    print s
 
-<<<<<<< HEAD
+
     printer(p.retrieveCSV())
     #p.data("chiapas",2400)
-=======
+
     #printer(p.retrieveCSV())
     p.data("colima")
->>>>>>> aa6929b19a167f4b58a0d02aaa0adbab25c5d32e

@@ -150,25 +150,14 @@ class Order:
     def normalize_annual_data(self, data):
         '''It takes a dictionary of dictionaries that contains the years as keys and the generation related to a hydroelectric dam as values (between 2006 - 2015) and returns the same but normalized values'''
         aux = []
-<<<<<<< HEAD:Hydro/climate data/production.py
         for year in range(2006,2016):
-
-=======
-
-        for year in range(2006,2016):
->>>>>>> aa6929b19a167f4b58a0d02aaa0adbab25c5d32e:Hydro/climate data/generation.py
             try:
                 data[str(year)] = self.normalize(data[str(year)])
             except KeyError:
                 data[year] = self.normalize(data[year])
-<<<<<<< HEAD:Hydro/climate data/production.py
-
         return data
 
-=======
-        return data
 
->>>>>>> aa6929b19a167f4b58a0d02aaa0adbab25c5d32e:Hydro/climate data/generation.py
     def capacityFactor(self, data, anios, mw):
         lista = [0,0,0,0,0,0,0,0,0,0,0,0]
         for year in anios:
