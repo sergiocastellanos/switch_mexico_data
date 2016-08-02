@@ -1,0 +1,59 @@
+\documentclass[•]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[top=1.5cm, bottom=1.5cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage{hyperref}
+\author{Aldo Sayeg Pasos Trejo}
+\date{\today}
+\title{Estimation of the distribution costs of the SEN for SWITCH-Mexico model at University of California, Berkeley}
+\begin{document}
+\maketitle
+\section{Introduction}
+Inside of all the data obtained, from different sources, of the mexican goverment regarding the SEN ("Sistema Eléctrico Nacional", national electric system), there is not any precise information regarding the the costs of the electricity distribution or the precise location of the distribution network.
+\\
+\\As a result of that, the SWITCH-Mexico team decided to estimate these data according to different rules and based on several kinds of data: population distribution in urban and rural, generic costs for elements of the electricity distribution network and number of elements that are part of the electricity distribution network.
+
+\section{Caracteristics of the territory}
+To make a good estimation of the distribution network costs, we need to categorize first the territories according to their infrastructure, dividing them, as usual, in "urban" and "rural" territories. We managed to categorize all of Mexico's counties in those categories using data from the INEGI ("Instituto Nacional de Geografía y Estadística", National Institute of Geography and Statistics) and the CONAPO ("Consejo Nacional de Población", National Population Council).
+\\
+\\ First of all, the CONAPO publishes a list of all of Mexico's counties (called "municipios" in Mexico) calogued as "urban" in a document called "Sistema Urbano Nacional" (National Urban System)\cite{conapo}. This classification is made in the following way: a county is classified as urban if and only if one of the next caracteristics holds:
+\begin{itemize}
+\item The county has a population of 15 000 people or more ("centros urbanos", urban centers).
+\item The county is part of a group of adjoint counties that together have a population of between 15 000 and 50 000 people ("conurbación", conurbation).
+\item The county is part of group of highly-functional-connected counties that have a population of over 1 million people or 250 000 in the case of being near the US-Mexico border ("áreas metropolitanas", metropolitan areas).
+\end{itemize}
+According to these list of urban counties, we were able to classify all of the remaining counties as "rural". Now, we extracted from INEGI's  some distinguished statistics of every county: the state where they belong, their total population, their land area and the number of real states with electricity.\cite{inegi}
+\\
+\\This data influences the cost of the electricity distribution beacuse the price of building transmformation substations changes according to the region (and also due to other more precise factors), but more importantly, because the cable lines change have a diferent desing and infrastructure depending of the region they are. As an example, while in the rural locations the electric cables are mostly air lines, in some dense-populated urban areas there are subterranean lines. As one can expect, these cable infrastructures do not cost the same.
+\section{Estimation of every county distribution costs}
+The institution in charge of the electricity distribution all along Mexico, before and after the 2012 Mexico's Energetic Reform, is the CFE ("Comisión Federal de electridad", Federal Electricity Commission). Acorrding to data obtained from different sources, we were able to made a distribution operation and management cost estimation for every county in Mexico. Actually, we estimated 2 different distribution costs using different models.
+\subsection{Model 1}
+The first estimation was made using some assumptions for each of the counties that depended on the county categorization as urban or rural. This estimation is presented in the column named \textbf{"DistributionCost1 (millions of MXN)"} at the "categorized counties.csv" table, which is located inside the "tables" folder at the distribution cost estimation directory
+\\
+\\For \textbf{urban} counties, we supposed that there was 1 km of distribution line for every square kilometer of land area. Also, that there vas a .050 kilometer of distribution line for every house in the county that has access to electricity. We settled the operation and management cost of every kilometer of distribution line to 5000 MXN. We also estimated that there is one distribution substation for every  8 houses with electricity access, and that every substation has a operation and management cost of 350 000 MXN
+\\
+\\For \textbf{rural} counties, we supposed that there was 2 km of distribution line for every square kilometer of land area. Also, that there vas a .10 kilometer of distribution line for every house in the county that has access to electricity (due to the fact that houses are more far away from each other in rural counties). We settled the operation and management cost of every kilometer of distribution line to 3000 MXN. We also estimated that there is one distribution substation for every  6 houses with electricity access, and that every substation has a operation and management cost of 450 000 MXN.
+\\
+\\In each one of the cases, we summed the cost of substations and of distribution lines to obtain the estimation of the operation and management costs for distribution in this model
+\subsection*{Model 2}
+The estimation 2 was made in the same way for urban and rural counties. This estimation is presented in the column named \textbf{"DistributionCost2 (millions of MXN)"} at the "categorized counties.csv" table, which is located inside the "tables" folder at the distribution cost estimation directory.
+\\
+\\For this estimation, we used the anual budget aproved to the CFE for distribution operation and management costs\cite{cfe3}. Using these, we estimated that $\frac{1}{3}$ of the budget is used for the distribution lines and $\frac{2}{3}$ is used for the substations. We divided the number of houses with electricity of a county by the national total of houses with electricity, and then we multiplied this to the anual budget destined to substations. In the same way, we divided the land area of each county by the national land area, and multiplied this to the anual budget destined to distribution lines. We summed this two quantities to obtain the estimated distribution cost.
+
+
+
+\begin{thebibliography}{9}
+
+\bibitem{conapo}
+CONAPO's "Sistema Urbano Nacional" index page. \url{http://www.conapo.gob.mx/en/CONAPO/Catalogo_Sistema_Urbano_Nacional_2012}
+\bibitem{inegi}
+INEGI, Database consult. \url{http://www3.inegi.org.mx/sistemas/biinegi/default.aspx}
+\bibitem{cfe}
+CFE's 2015 anual report \url{http://www.cfe.gob.mx/inversionistas/informacionareguladores/Documents/Informe%20Anual/Informe-Anual-2015-CFE-Acc.pdf}
+\bibitem{cfe2}
+CFE's "Precio por obra solicitada" (price per requested work) web page. \url{http://app.cfe.gob.mx/Aplicaciones/OTROS/Aportaciones/MenuAportaciones.aspx}
+\bibitem{cfe3}
+CONEVAL'S document on the 2010 budget for the operation and management cost of distribution for CFE \url{http://www.cfe.gob.mx/ConoceCFE/1_AcercadeCFE/Lists/Publicaciones/Attachments/39/ProgramaPresupuestarioE570ReporteCompleto[1].pdf}
+\end{thebibliography}
+\end{document}
+

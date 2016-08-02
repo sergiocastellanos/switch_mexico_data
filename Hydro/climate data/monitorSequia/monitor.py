@@ -25,6 +25,7 @@ class Order:
     def datos_anuales(self):
         '''Returns a dictionary of dictionaries that contains the years and months as keys and the generation related to a hydroelectric dam as values (between 2006 - 2015), it returns data in an interval which contains month_ini and month_end, as well as all months between them'''
         cont = 0
+<<<<<<< HEAD
         ecglobal = {}
         aglobal = 1
         data = pandas.read_excel("drought.xlsx",sheetname="MUNICIPIOS",index_col="CVE_CONCATENADA")
@@ -83,6 +84,40 @@ class Order:
                     print entidad
                     boo = False
         return ecglobal
+=======
+
+        data = pandas.read_excel("m.xlsx",sheetname="MUNICIPIOS",index_col="NOMBRE_MUN")
+        for year in range(2003,2016):
+            lista= []
+            print year
+            for month in range(01,13):
+                try:
+                    lele = data.loc["Chicoasen",datetime.datetime(year,month,31)]
+                except ValueError:
+                    try:
+                        lele = data.loc["Chicoasen",datetime.datetime(year,month,30)]
+                    except ValueError:
+                        try:
+                            lele = data.loc["Chicoasen",datetime.datetime(year,month,29)]
+                        except ValueError:
+                            lele = data.loc["Chicoasen",datetime.datetime(year,month,28)]
+                if lele == "D0":
+                    lista.append(1)
+                elif lele == "D1":
+                    lista.append(2)
+                elif lele == "D2":
+                    lista.append(3)
+                elif lele == "D3":
+                    lista.append(4)
+                elif lele == "D4":
+                    lista.append(5)
+                elif math.isnan(lele):
+                    lista.append(0)
+
+
+
+            print lista
+>>>>>>> aa6929b19a167f4b58a0d02aaa0adbab25c5d32e
 
 
 
@@ -94,17 +129,24 @@ class Order:
 
 
 
+<<<<<<< HEAD
     def storePickle(self,data):
         '''It stores data (drought levels) in a .pkl file for further use'''
         output = open('msequia.pkl', 'wb')
         pickle.dump(data, output)
         output.close()
+=======
+>>>>>>> aa6929b19a167f4b58a0d02aaa0adbab25c5d32e
 
 
 
 if __name__ == '__main__':
     a = Order()
+<<<<<<< HEAD
     a.storePickle(a.datos_anuales())
+=======
+    a.datos_anuales()
+>>>>>>> aa6929b19a167f4b58a0d02aaa0adbab25c5d32e
     anos = [2007,2008,2010,2011]
     #b = a.test_plantas_season()
     #for planta in plantas:

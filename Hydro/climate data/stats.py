@@ -20,10 +20,14 @@ class Statistics:
         med = 0
         for i in self.elements:
             med += float(i)
+<<<<<<< HEAD
         try:
             med/=len(self.elements)
         except ZeroDivisionError:
             med = 0
+=======
+        med/=len(self.elements)
+>>>>>>> aa6929b19a167f4b58a0d02aaa0adbab25c5d32e
         return med
 
     def variance(self):
