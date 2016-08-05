@@ -4,7 +4,7 @@ import csv
 content = os.listdir("Production-Drought-Precipitation") # returns list
 
 
-printG = "Planta,Entidad,Production-Drought,Production-Precipitation"
+printG = "Station,State,Production-Drought,Production-Precipitation"
 
 def storeresults():
     with open(r"CorrelationResults/CorrelationResults.csv", "wb") as csvfile:
@@ -46,6 +46,7 @@ def storeresults():
                     spamwriter.writerow([row])
 
 
-
-data = pandas.read_csv("CorrelationResults/correlationResults.csv",index_col =0)
-print data
+storeresults()
+#
+# # data = pandas.read_csv("CorrelationResults/correlationResults.csv",index_col =0)
+# print data
