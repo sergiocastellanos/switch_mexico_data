@@ -46,8 +46,6 @@ def storeresults():
                     spamwriter.writerow([row])
 
 
-storeresults()
-
 
 data = pandas.read_csv("CorrelationResults/correlationResults.csv",index_col =0)
 print data
