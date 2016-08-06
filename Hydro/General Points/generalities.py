@@ -30,13 +30,13 @@ import datetime as dt
 content = os.listdir("../Data/Production-Drought-Precipitation") # returns list
 printG = "Planta,25%,50%,75%,Year25%,Year50%,Year75%"
 def annual(element):
-    ent = os.listdir("../Data/Precipitation/%s"%element)
+    ent = os.listdir("../Data/Production/%s"%element)
     d = {}
     e = ent[0]
     for e in ent:
         lista= []
         for i in range(0,120,12):
-            data = pd.read_csv("../Data/Precipitation/%s/%s"%(element,e),index_col=0)
+            data = pd.read_csv("../Data/Production/%s/%s"%(element,e),index_col=0)
             data =  data[i:i+12]
             column = data.columns.values[0]
             anio = data.index.values[0][:4]
