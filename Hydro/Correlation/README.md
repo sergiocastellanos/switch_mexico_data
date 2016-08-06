@@ -13,7 +13,7 @@ In order to see the scatter plots you must type on command line:
 ```sh
 $ python correlation.py [state] [hydro station name]
 ```
-(You will be able to consult all available hydro station on "[Data/Production-Drought-Precipitation][data]/[state]/[hydroStationName.csv]")
+(You will be able to consult all available hydro stations on "[Data/Production-Drought-Precipitation][data]/[state]/[hydroStationName.csv]")
 
 
 The "CorrelationResults" folder contains a '.csv' file with the correlation coefficients.
