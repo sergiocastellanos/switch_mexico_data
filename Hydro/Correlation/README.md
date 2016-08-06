@@ -2,9 +2,9 @@
 
 This folder contains data that aims to expose the correlation between the climate events and the production of each hydro station.
 
-All the data was extracted from National Water Comission in Mexico, known in spanish as [CONAGUA][conagua]
+All the data was extracted from National Water Commission in Mexico, known in Spanish as [CONAGUA][conagua]
 
-The "Production-Drought-Precipitation" folder contains a .csv file per hydro-station whith the aforementioned values.
+The "Production-Drought-Precipitation" folder contains a .csv file per hydro-station with the aforementioned values.
   - The files are classified by state.
 
 The "CorrelationResults" folder contains a .csv file with the correlation coefficients.
