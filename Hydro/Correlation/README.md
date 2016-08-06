@@ -8,6 +8,7 @@ The "Production-Drought-Precipitation" folder contains a .csv file per hydro sta
   - The files are classified by state.
 
 The "correlation.py" script creates the "correlationResults.csv" file. It also produces scatter plots that may show whether there is a link between those variables or not.
+
 In order to see the scatter plots you must type on command line:
 ```sh
 $ python correlation.py [state] [hydro station name]
