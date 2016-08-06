@@ -1,6 +1,6 @@
 # Correlation
 
-This folder contains data that aims to expose the correlation between the climate events and the production of each hydro station.
+This folder contains data that aims to expose the correlation between the climate events and the Net Generation of each hydro station.
 
 All the data were extracted from National Water Commission in Mexico, known in Spanish as [CONAGUA][conagua]
 
@@ -17,6 +17,8 @@ $ python correlation.py [state] [hydro-station name]
 
 The "CorrelationResults" folder contains a '.csv' file with the correlation coefficients.
   - Each row contains the name of a hydro station, the state to which it belongs, and the correlation coefficients for both the "Production-Drought" and "Production-Precipitation".
+
+
 
 
 
