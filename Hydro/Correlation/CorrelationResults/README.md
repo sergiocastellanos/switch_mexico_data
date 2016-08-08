@@ -5,7 +5,6 @@ In order to find a relationship between climate data and the net production of a
 
 Our finds, as shown below, reveal that in certain way both the precipitation and drought levels are correlated with the hydro power production however it is not as significant as we would expect.
 
-R-squared is very low, meaning that drought an precipitation  aren't connected to the production then it is a sign that using either drought or precipitation to predict the production simply will not have a significant regression (and thus predictor).
 
 
 
@@ -24,7 +23,7 @@ R-squared is very low, meaning that drought an precipitation  aren't connected t
 
 
 
-  - R-squared is very low, meaning that drought an precipitation  aren't connected to the production then it is a sign that using either drought or precipitation to predict the production simply will not have a significant regression (and thus predictor).
+  - R-squared is very low, meaning that drought and precipitation levels aren't connected to the production. It is a sign that using both drought or precipitation to predict the production simply will not return a significant regression (and thus prediction).
 
 
 
@@ -33,6 +32,9 @@ R-squared is very low, meaning that drought an precipitation  aren't connected t
 |const                     | 3.109e+04  |  1968.363  |  15.796   |   0.000   |**2.72e+04**  -  **3.5e+04**|
 |P r e c i p i t a t i o n | 207.6100   |  11.773    |  17.635   |   0.000   |**184.532**  -  **230.688**|
 |D r o u g h t L e v e l   |-7061.0093  |  1507.152  |  -4.685   |   0.000   |**-1e+04**  -  **4106.498**  |
+
+
+
 
 
 |                          |               |                              |                           |
