@@ -23,4 +23,5 @@ X = s.add_constant(X)
 Y = metadata[columns[1]]
 print colored("%s %s"%(columns[3],columns[2]),"white")
 result = sm.OLS( Y, X ).fit()
-print result.summary()
+print result.params
+#print result.summary()

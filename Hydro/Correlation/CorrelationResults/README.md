@@ -1,6 +1,14 @@
 # OLS Regression Results
 
-P r e c i p i t a t i o n
+
+In order to find a relationship between climate data and the net production of all Reservoir Hydro Power Stations, we applied a linear regression using the ordinary least squares method.
+
+Our finds, as shown below, reveal that in certain way both the precipitation and drought levels are correlated with the hydro power production however it is not as significant as we would expect.
+
+R-squared is very low, meaning that drought an precipitation  aren't connected to the production then it is a sign that using either drought or precipitation to predict the production simply will not have a significant regression (and thus predictor).
+
+
+
 
 |                   |                |                           |                                         |
 | ----------------- | -------------- | ------------------------- | --------------------------------------- |
@@ -13,6 +21,12 @@ P r e c i p i t a t i o n
 |No. Observations:  |                 **6530**|   AIC:                   |            **1.696e+05**        |
 |Df Model:          |                    **2**|                                                     |
 |Covariance Type:   |            **nonrobust**|                                                    |
+
+
+
+  - R-squared is very low, meaning that drought an precipitation  aren't connected to the production then it is a sign that using either drought or precipitation to predict the production simply will not have a significant regression (and thus predictor).
+
+
 
 |                          |      coef  |  std err   |     t     |   P>[t]   |    [95.0% Conf. Int.]  |
 | -----------------------  | ---------- | ---------- | --------- | --------- | ---------------------- |
