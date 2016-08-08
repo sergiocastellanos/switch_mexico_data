@@ -15,24 +15,12 @@ matplotlib.style.use('ggplot')
 
 
 
-metadata = pandas.read_csv("../Data/Production-Drought-Precipitation/chiapas/chicoasen.csv")
+metadata = pandas.read_csv("CorrelationResults/globals.csv")
+
 columns = metadata.columns.values
-X = metadata[columns[3]]
+X = metadata[[columns[3],columns[2]]]
+X = s.add_constant(X)
 Y = metadata[columns[1]]
-print colored(columns[3],"white")
+print colored("%s %s"%(columns[3],columns[2]),"white")
 result = sm.OLS( Y, X ).fit()
-result.summary()
-
-
-
-fig = s.graphics.plot_partregress_grid(result)
-
-X = metadata[columns[2]]
-Y = metadata[columns[1]]
-print colored(columns[2],"white")
-result = sm.OLS( Y, X ).fit()
-result.summary()
-
-fig, ax = plt.subplots(figsize=(12,8))
-fig = s.graphics.influence_plot(result, ax=ax, criterion="cooks")
-plt.show()
+print result.summary()

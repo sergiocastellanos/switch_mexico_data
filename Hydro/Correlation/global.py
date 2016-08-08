@@ -60,12 +60,17 @@ with open(r"CorrelationResults/globals.csv", "wb") as csvfile:
                     try:
 
                         row = str(lele)+","+str(production[str(year)][cont])+","+str(drought[int(element[:2])][year][month-1])+","+str(precipitation[year][cont])
-                        print row
+                        spamwriter.writerow([row])
+                        cont+=1
+
+                        #print row
                     except IndexError:
 
-                        row = str(lele)+","+str(0)+","+str(drought[int(element[:2])][year][month-1])+","+str(precipitation[year][cont])
-                    spamwriter.writerow([row])
-                    cont+=1
+                        #row = str(lele)+","+str(0)+","+str(drought[int(element[:2])][year][month-1])+","+str(precipitation[year][cont])
+                        print "0"
+                        pass
+                    # spamwriter.writerow([row])
+                    # cont+=1
 
 
 #metadata = pandas.read_csv("sequia.csv")
