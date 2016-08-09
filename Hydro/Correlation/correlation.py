@@ -66,14 +66,16 @@ def storeresults():
 def plotCorrelation(entidad,planta):
     '''Receives a Hydro-station name and returns scatter plots showing both the drought and precipitation levels in order to correlate them with the production of the given hydro station'''
     ma = "0000000000"
-    data = pandas.read_csv("../Data/Production-Drought-Precipitation/%s/%s.csv"%(entidad,planta))
-
+    if sys.argv[1] == "global":
+        data = pandas.read_csv("CorrelationResults/globals.csv")
+    else : data = pandas.read_csv("../Data/Production-Drought-Precipitation/%s/%s.csv"%(entidad,planta))
     production,drought,precip = (data.columns.values[1],data.columns.values[2],data.columns.values[3])
     columns = data.columns.values
     pro = data[[columns[1]]]
     dro = data[[columns[2]]]
     dfList = data[columns[1]].tolist()
     minimum = min(dfList)
+    print minimum
     o =  minimum*.18
     m,l = str(minimum).split(".")
     print m
@@ -91,8 +93,8 @@ def plotCorrelation(entidad,planta):
     production = pro.columns.values[0]
     drought = dro.columns.values[0]
 
-    propre.plot.scatter(subplots=True,x=precipitacion, y=production, label='%s   [MW/h]'%planta, s=propre[production]*o,title="h")
-    prodro.plot.scatter(x=drought, y=production, color='DarkGreen', label='%s  [MW/h]'%planta, s=propre[production]*o)
+    propre.plot.scatter(subplots=True,x=precipitacion, y=production, label='%s   [MW/h]'%planta, s=propre[production]*o*.01,title="h")
+    prodro.plot.scatter(x=drought, y=production, color='DarkGreen', label='%s  [MW/h]'%planta, s=propre[production]*o*.01)
 
 
     plt.show()
