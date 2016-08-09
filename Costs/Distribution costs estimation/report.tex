@@ -3,6 +3,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[top=1.5cm, bottom=1.5cm, left=1.5cm, right=1.5cm]{geometry}
 \usepackage{hyperref}
+\usepackage{amsmath}
 \author{Aldo Sayeg Pasos Trejo}
 \date{\today}
 \title{Estimation of the distribution costs of the SEN for SWITCH-Mexico model at University of California, Berkeley}
@@ -30,16 +31,36 @@ The institution in charge of the electricity distribution all along Mexico, befo
 \subsection{Model 1}
 The first estimation was made using some assumptions for each of the counties that depended on the county categorization as urban or rural. This estimation is presented in the column named \textbf{"DistributionCost1 (millions of MXN)"} at the "categorized counties.csv" table, which is located inside the "tables" folder at the distribution cost estimation directory
 \\
-\\For \textbf{urban} counties, we supposed that there was 1 km of distribution line for every square kilometer of land area. Also, that there vas a .050 kilometer of distribution line for every house in the county that has access to electricity. We settled the operation and management cost of every kilometer of distribution line to 5000 MXN. We also estimated that there is one distribution substation for every  8 houses with electricity access, and that every substation has a operation and management cost of 350 000 MXN
+\\For \textbf{urban} counties, we supposed that there was .5 km of distribution line for every square kilometer of land area. Also, that there was .005 km of distribution line for every house in the county that has access to electricity. We settled the operation and management cost of every kilometer of distribution line to 3000 MXN. We also estimated that there is one distribution substation for every  80 houses with electricity access, and that every substation has a operation and management cost of 35 000 MXN
 \\
-\\For \textbf{rural} counties, we supposed that there was 2 km of distribution line for every square kilometer of land area. Also, that there vas a .10 kilometer of distribution line for every house in the county that has access to electricity (due to the fact that houses are more far away from each other in rural counties). We settled the operation and management cost of every kilometer of distribution line to 3000 MXN. We also estimated that there is one distribution substation for every  6 houses with electricity access, and that every substation has a operation and management cost of 450 000 MXN.
+\\For \textbf{rural} counties, we supposed that there was 1 km of distribution line for every square kilometer of land area. Also, that there was .05 km of distribution line for every house in the county that has access to electricity (due to the fact that houses are more far away from each other in rural counties). We settled the operation and management cost of every kilometer of distribution line to 5000 MXN. We also estimated that there is one distribution substation for every  40 houses with electricity access, and that every substation has a operation and management cost of 25 000 MXN.
 \\
-\\In each one of the cases, we summed the cost of substations and of distribution lines to obtain the estimation of the operation and management costs for distribution in this model
+\\In each one of the cases, we summed the cost of substations and of distribution lines to obtain the estimation of the operation and management costs for distribution in this model. You can check out in equation 1 and 2 the formulas used for ''DistributionCost1'' columns for urban and rural categorized-counties, respectively.
+\begin{equation}
+\begin{aligned}
+DistributionCost1\quad (urban) = & R_{County} \times .01 \times .05 + \frac{R_{County}}{30} \times .035 + L_{County } \times .5 \times .05
+\end{aligned}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+DistributionCost1\quad (rural)= & R_{County} \times .05 \times .003 + \frac{R_{County}}{30} \times .035 + L_{County } \times 1 \times .003
+\\& L = Land\quad area
+\\& R = Real\quad state\quad with\quad electricity
+\end{aligned}
+\end{equation}
 \subsection*{Model 2}
 The estimation 2 was made in the same way for urban and rural counties. This estimation is presented in the column named \textbf{"DistributionCost2 (millions of MXN)"} at the "categorized counties.csv" table, which is located inside the "tables" folder at the distribution cost estimation directory.
 \\
-\\For this estimation, we used the anual budget aproved to the CFE for distribution operation and management costs\cite{cfe3}. Using these, we estimated that $\frac{1}{3}$ of the budget is used for the distribution lines and $\frac{2}{3}$ is used for the substations. We divided the number of houses with electricity of a county by the national total of houses with electricity, and then we multiplied this to the anual budget destined to substations. In the same way, we divided the land area of each county by the national land area, and multiplied this to the anual budget destined to distribution lines. We summed this two quantities to obtain the estimated distribution cost.
-
+\\For this estimation, we used the anual budget aproved to the CFE for distribution operation and management costs\cite{cfe3}. Using these, we estimated that one third of the budget is used for the distribution lines and the remaining two thirds is used for the substations. We divided the number of houses with electricity of a county by the national total of houses with electricity, and then we multiplied this to the anual budget destined to substations. In the same way, we divided the land area of each county by the national land area, and multiplied this to the anual budget destined to distribution lines. We summed this two quantities to obtain the estimated distribution cost. Equations 3 explicitly shows how was the ''DistributionCost2'' formula for that column
+\begin{equation}
+\begin{aligned}
+DistributionCost2 = & \frac{R_{County}}{R_{National}} \times \frac{2}{3} T + \frac{L_{County}}{L_{National}} \times \frac{1}{3} T 
+\\
+\\& L = Land\quad area
+\\& R = Real\quad state\quad with\quad electricity
+\\& T= National\quad budget\quad for\quad distribution\quad network\quad 0\&M\cite{cfe3}
+\end{aligned}
+\end{equation}
 
 
 \begin{thebibliography}{9}
