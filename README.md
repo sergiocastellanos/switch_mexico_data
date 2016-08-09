@@ -1,2 +1,2 @@
 # switch_mexico
-Repo for SWITCH-Mexico including code and data
+Repo for SWITCH-Mexico including code and data.
