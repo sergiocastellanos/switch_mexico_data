@@ -1,5 +1,4 @@
 .ipynb_checkpoints/
-*.pyc
-*.aux
 *.log
+*.aux
 *.gz
