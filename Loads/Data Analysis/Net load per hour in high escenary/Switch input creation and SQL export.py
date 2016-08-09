@@ -21,7 +21,7 @@ indx=[range(2016,2031),range(1,13)]
 dfs=pd.DataFrame(index=pd.MultiIndex.from_product(indx),columns=pd.MultiIndex.from_product(col))
 
 
-# In[48]:
+# In[3]:
 
 #searching for the median and peak days of every node at each year and month
 for k in df.columns.tolist():
@@ -47,7 +47,7 @@ for k in df.columns.tolist():
             dfs.xs([a,m])[k,'PeakDayValues']=df.xs([a,m,dfp.xs([a,m])[k,'PeakDay']],level=range(3))[k].tolist()
 
 
-# In[62]:
+# In[4]:
 
 #Create a new dataframe to exoport into the tab file used in SWITCH
 col=["load_area",'hour','load_mw']
@@ -57,24 +57,40 @@ export=pd.DataFrame(index=pd.MultiIndex.from_product(indx),columns =col)
 for k in df.columns.tolist():
     for a in range(2016,2031):
         for m in range(1,13):
-             for h in range(1,13):
-                export.xs([k,a,m,0,h%12])["load_area"]=k
-                export.xs([k,a,m,1,h%12])["load_area"]=k
-                export.xs([k,a,m,0,h%12])["hour"]="{0}{1}{2}{3}".format(a,str(m).zfill(2),dfs.xs([a,m])[k,'PeakDay'][0:dfs.xs([a,m])[k,'PeakDay'].index(".")].zfill(2),str((h*2)%24).zfill(2))
-                export.xs([k,a,m,1,h%12])["hour"]="{0}{1}{2}{3}".format(a,str(m).zfill(2),str(dfs.xs([a,m])[k,'MedianDay']).zfill(2),str(((h*2)%24)+1).zfill(2))
-                export.xs([k,a,m,0,h%12])["load_mw"]=dfs.xs([a,m])[k,'PeakDayValues'][((h*2) -1)]
-                export.xs([k,a,m,1,h%12])["load_mw"]=dfs.xs([a,m])[k,'MedianDayValues'][(h*2)%24]
-            
+             for h in range(12):
+                export.xs([k,a,m,0,h])["load_area"]=k
+                export.xs([k,a,m,1,h])["load_area"]=k
+                export.xs([k,a,m,1,h])["hour"]="{0}{1}{2}{3}".format(a,str(m).zfill(2),str(dfs.xs([a,m])[k,'MedianDay']).zfill(2),str(h*2+1).zfill(2))
+                export.xs([k,a,m,1,h])["load_mw"]=dfs.xs([a,m])[k,'MedianDayValues'][(h*2)+1]
+                lst=dfs.xs([a,m])[k,'PeakDayValues']
+                if lst.index(max(lst))%2==0:
+                    export.xs([k,a,m,0,h])["hour"]="{0}{1}{2}{3}".format(a,str(m).zfill(2),dfs.xs([a,m])[k,'PeakDay'][0:dfs.xs([a,m])[k,'PeakDay'].index(".")].zfill(2),str(h*2).zfill(2))
+                    export.xs([k,a,m,0,h])['load_mw']=lst[h*2]
+                else:
+                    export.xs([k,a,m,0,h])["hour"]="{0}{1}{2}{3}".format(a,str(m).zfill(2),dfs.xs([a,m])[k,'PeakDay'][0:dfs.xs([a,m])[k,'PeakDay'].index(".")].zfill(2),str(h*2).zfill(2))
+                    export.xs([k,a,m,0,h])['load_mw']=lst[h*2]
+                    
+                    
 export.index=export["load_area"].tolist()
 export.index.name="load_area"
 export=export.drop('load_area',axis=1)
     
 
 
-# In[ ]:
+# In[5]:
 
 export.to_csv('tables/la_hourly_demand_high.csv')
 export.to_sql('la_hourly_demand_high',engine,schema='mexico',if_exists='replace',chunksize=10000)
+
+
+# In[ ]:
+
+
+
+
+# In[ ]:
+
+
 
 
 # In[ ]:
