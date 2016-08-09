@@ -6,7 +6,14 @@ In order to find a relationship between climate data and the net production of a
 Our finds, as shown below, reveal that in certain way both the precipitation and drought levels are correlated with the hydro power production however it is not as significant as we would expect.
 
 
+|                          |      coef  |  std err   |     t     |   P>[t]   |    [95.0% Conf. Int.]  |
+| -----------------------  | ---------- | ---------- | --------- | --------- | ---------------------- |
+|const                     | 3.109e+04  |  1968.363  |  15.796   |   0.000   |**2.72e+04**  -  **3.5e+04**|
+|P r e c i p i t a t i o n | 207.6100   |  11.773    |  17.635   |   0.000   |**184.532**  -  **230.688**|
+|D r o u g h t L e v e l   |-7061.0093  |  1507.152  |  -4.685   |   0.000   |**-1e+04**  -  **4106.498**  |
 
+
+  - The standard error of both 'P r e c i p i t a t i o n' and  'D r o u g h t L e v e l' coefficients are not smaller enough to declare statistical significance.
 
 
 |                   |                |                           |                                         |
@@ -27,11 +34,23 @@ Our finds, as shown below, reveal that in certain way both the precipitation and
 
 
 
-|                          |      coef  |  std err   |     t     |   P>[t]   |    [95.0% Conf. Int.]  |
-| -----------------------  | ---------- | ---------- | --------- | --------- | ---------------------- |
-|const                     | 3.109e+04  |  1968.363  |  15.796   |   0.000   |**2.72e+04**  -  **3.5e+04**|
-|P r e c i p i t a t i o n | 207.6100   |  11.773    |  17.635   |   0.000   |**184.532**  -  **230.688**|
-|D r o u g h t L e v e l   |-7061.0093  |  1507.152  |  -4.685   |   0.000   |**-1e+04**  -  **4106.498**  |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
