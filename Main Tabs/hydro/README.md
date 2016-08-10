@@ -11,4 +11,4 @@ The  'capacity_factors.tab' contains an analysis of production, in this case the
   - The '75_percent' column is the middle value between the median and the highest value of the annual data set.
 
 
-The 'year[ ]\_percent' columns represent the year to which each value belongs.
+The 'year[ * ]\_percent' columns represent the year to which each value belongs.
