@@ -15,10 +15,11 @@ By running the script you will get a result like this:
 
 ![alt tag](https://github.com/sergiocastellanos/switch_mexico_data/blob/master/Hydro/Plots/chiapasNG.png)
 
-In this case the vertical axis represents Net Generation per hydro station, it is given as [MWh][MWh] units.
+In this case the vertical axis represents Net Generation per hydro station, it is given as [MW/h][MWh] units.
 
 The abscissa shows the time value in years (from 2006 to 2016).
   - Each point on axis x represents the average per year of the given hydro station.
+  - In this plot, "bombana" and "cecilio_del_valle" stations appear to be nulls but indeed they have the lowest values.
 
 [folder]: <https://github.com/sergiocastellanos/switch_mexico_data/tree/master/Hydro/Data/Production-Drought-Precipitation>
 [MWh]:<https://es.wikipedia.org/wiki/Vatio#Megavatio>
