@@ -44,8 +44,7 @@ You will be able to generate a plot for a given hydro station by typing on comma
   - [station name] represents the name of the hydro station of interest.
 
 You will be able to consult all available hydro stations on:
-
-**[Data/Production-Drought-Precipitation][data]/[state]/[hydroStationName.csv]**
+**[Data/Production-Drought-Precipitation][data]/ [state] / [hydroStationName.csv]**
 
 [data]: <https://github.com/sergiocastellanos/switch_mexico_data/tree/master/Hydro/Data/Production-Drought-Precipitation>
 [folder]: <https://github.com/sergiocastellanos/switch_mexico_data/tree/master/Hydro/Data/Production-Drought-Precipitation>
