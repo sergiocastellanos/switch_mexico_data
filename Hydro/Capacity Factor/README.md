@@ -12,4 +12,4 @@ The "capacityFactorHistoric.csv" contains a historical analysis of the productio
 
 The next plot illustrates the result:
 
-![alt tag](https://github.com/sergiocastellanos/switch_mexico_data/tree/master/Hydro/Plots/cf.png)
+![alt tag](https://github.com/sergiocastellanos/switch_mexico_data/blob/master/Hydro/Plots/cf.png)
