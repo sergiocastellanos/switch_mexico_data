@@ -12,3 +12,9 @@ The  'capacity_factors.tab' contains an analysis of production, in this case the
 
 
 The 'year[ * ]\_percent' columns represent the year to which each value belongs.
+
+
+The  'load_area.tab' contains the name of a hydro station linked to the load and control area to which it belongs.
+
+
+The 'hydro_final.tab' is a merge of the aforementioned files.
