@@ -1,4 +1,4 @@
-nombre_switch	nombre_prodesen	 region_de_control 	 region_de_transmision	    2  5_percent	    5  0_percent	    7  5_percent	    Y  e  a  r  2  5  %    	    Y  e  a  r  5  0  %    	    Y  e  a  r  7  5  % 
+name_switch	name_prodesen	control_area	load_area	25_percent	50_percent	75_percent	year25_percent	year50_percent	year75_percent
 agua_prieta 	 agua_prieta 	 03-occidental 	 23-guadalajara	18534.94825	18800.8914167	19692.4709167	2011	2013	2015
 angostura 	 angostura 	 02-oriental 	 39-grijalva	177292.193042	246778.664625	271857.405667	2015	2010	2014
 bacurato 	 bacurato 	 04-noroeste 	 04-los_mochis	19099.5773958	20887.3215417	24605.0440417	2015	2006	2008
