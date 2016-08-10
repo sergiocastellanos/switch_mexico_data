@@ -3,7 +3,7 @@
 Herein you will find '.tab' files that contain information related to hydro stations.
 
 
-The  'capacity_factors.tab' contains an analysis of production, in this case the average per year.
+The  'capacity_factors.tab' contains an analysis of production, in this case the average per year was taken and compared in the set (2006 - 2015).
 
   - Each row represents a hydro station.
   - Column '50_percent' contains the median of the annual data.
