@@ -13,7 +13,7 @@ In order to see the line plots you must type on command line:
 
 By running the script you will get a result like this:
 
-![alt tag](https://github.com/sergiocastellanos/switch_mexico_data/blob/master/Hydro/plots/chiapasNG.png)
+![alt tag](https://github.com/sergiocastellanos/switch_mexico_data/blob/master/Hydro/Plots/chiapasNG.png)
 
 In this case the vertical axis represents Net Generation per hydro station, it is given as [MWh][MWh] units.
 
