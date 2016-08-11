@@ -1,0 +1,69 @@
+TRANSMISSION_LINE	trans_lz1	trans_lz2	trans_length_km	trans_efficiency	existing_trans_cap
+35- 34	35-Acapulco	34-Puebla	154	0.98	300
+24- 26	24-Aguascalientes	26-Salamanca	56	0.98	1400
+2- 1	02-Cananea	01-Hermosillo	152	0.98	870
+2- 8	02-Cananea	08-Moctezuma	216	0.98	370
+43- 45	43-Cancún	45-Cozumel	59	0.98	54
+28- 26	28-Carapan	26-Salamanca	116	0.98	700
+46- 48	46-Tijuana	48-Mexicali	10	0.98	408
+9- 11	09-Chihuahua	11-Laguna	292	0.98	330
+37- 36	37-Coatzacoalcos	36-Temascal	203	0.98	1200
+10- 24	10-Durango	24-Aguascalientes	150	0.98	300
+39- 37	39-Grijalva	37-Coatzacoalcos	142	0.98	2000
+39- 38	39-Grijalva	38-Tabasco	150	0.98	960
+39- 36	39-Grijalva	36-Temascal	240	0.98	2800
+23- 24	23-Guadalajara	24-Aguascalientes	181	0.98	1000
+23- 28	23-Guadalajara	28-Carapan	107	0.98	700
+23- 29	23-Guadalajara	29-Lázaro Cárdenas	46	0.98	600
+23- 26	23-Guadalajara	26-Salamanca	268	0.98	700
+21- 16	21-Güémez	16-Monterrey	237	0.98	1500
+1- 48	01-Hermosillo	48-Mexicali	697	0.98	500
+19- 21	19-Huasteca	21-Güémez	201	0.98	1500
+19- 20	19-Huasteca	20-Tamazunchale	172	0.98	1200
+19- 18	19-Huasteca	18-Valles	104	0.98	1050
+19- 32	19-Huasteca	32-Poza Rica	201	0.98	1450
+40- 36	40-Ixtepec	36-Temascal	232	0.98	2500
+7- 8	07-Juárez	08-Moctezuma	129	0.98	640
+11- 10	11-Laguna	10-Durango	209	0.98	550
+11- 17	11-Laguna	17-Saltillo	233	0.98	550
+51- 52	51-La Paz	52-Los Cabos	145	0.98	180
+29- 35	29-Lázaro Cárdenas	35-Acapulco	206	0.98	350
+29- 28	29-Lázaro Cárdenas	28-Carapan	182	0.98	600
+29- 31	29-Lázaro Cárdenas	31-Central	243	0.98	2900
+41- 42	41-Lerma	42-Mérida	176	0.98	800
+4- 5	04-Los Mochis	05-Culiacán	241	0.98	650
+27- 23	27-Manzanillo	23-Guadalajara	164	0.98	2100
+15- 14	15-Matamoros	14-Reynosa	60	0.98	1400
+6- 5	06-Mazatlán	05-Culiacán	210	0.98	1250
+6- 10	06-Mazatlán	10-Durango	215	0.98	550
+6- 22	06-Mazatlán	22-Tepic	252	0.98	1380
+42- 43	42-Mérida	43-Cancún	162	0.98	800
+42- 44	42-Mérida	44-Chetumal	289	0.98	150
+48- 49	48-Mexicali	49-San Luis Río Colorado	48	0.98	315
+8- 9	08-Moctezuma	09-Chihuahua	206	0.98	640
+16- 17	16-Monterrey	17-Saltillo	57	0.98	1450
+3- 4	03-Obregón	04-Los Mochis	190	0.98	500
+32- 31	32-Poza Rica	31-Central	239	0.98	4000
+32- 34	32-Poza Rica	34-Puebla	122	0.98	310
+34- 31	34-Puebla	31-Central	68	0.98	3000
+30- 25	30-Querétaro	25-San Luis Potosí	130	0.98	300
+30- 31	30-Querétaro	31-Central	92	0.98	1200
+14- 16	14-Reynosa	16-Monterrey	224	0.98	1600
+14- 13	14-Reynosa	13-Nuevo Laredo	65	0.98	100
+12- 9	12-Río Escondido	09-Chihuahua	354	0.98	500
+12- 16	12-Río Escondido	16-Monterrey	169	0.98	2100
+12- 13	12-Río Escondido	13-Nuevo Laredo	172	0.98	400
+26- 30	26-Salamanca	30-Querétaro	60	0.98	1500
+17- 24	17-Saltillo	24-Aguascalientes	441	0.98	1200
+25- 24	25-San Luis Potosí	24-Aguascalientes	145	0.98	1300
+38- 41	38-Tabasco	41-Lerma	298	0.98	1150
+20- 30	20-Tamazunchale	30-Querétaro	197	0.98	1700
+36- 34	36-Temascal	34-Puebla	225	0.98	3000
+22- 23	22-Tepic	23-Guadalajara	146	0.98	1200
+46- 47	46-Tijuana	47-Ensenada	90	0.98	200
+46- 48	46-Tijuana	48-Mexicali	91	0.98	510
+18- 25	18-Valles	25-San Luis Potosí	258	0.98	1500
+33- 32	33-Veracruz	32-Poza Rica	132	0.98	750
+33- 34	33-Veracruz	34-Puebla	211	0.98	1200
+33- 36	33-Veracruz	36-Temascal	94	0.98	440
+50- 51	50-Villa Constitución	51-La Paz	232	0.98	90
