@@ -1,0 +1,17 @@
+generation_technology	energy_source
+carboelectric	coal 
+combined_cycle	natural_gas
+internal_combustion 	fuel_oil 
+internal_combustion 	diesel
+internal_combustion 	natural_gas
+eolic 	
+geothermal	
+hydroelectric 	
+nuclear	uranium 
+solar 	
+thermal	fuel_oil 
+thermal	natural_gas
+thermosolar 	
+gas_turbine 	diesel
+gas_turbine 	natural_gas
+
