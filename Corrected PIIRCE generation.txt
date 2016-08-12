@@ -1,1 +1,0 @@
-Updated Piirce generation with a column regarding the technology type and the fuel used
