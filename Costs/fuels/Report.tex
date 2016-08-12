@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[top=1.5cm, bottom=1.5cm, left=1.5cm, right=1.5cm]{geometry}
-
+\usepackage{hyperref}
 \author{Aldo Sayeg Pasos Trejo. Facultad de Ciencias, Universidad Nacional Autónoma de México.}
 \date{\today}
 \title{Creation of fuels-related input tables for SWITCH Mexico Model at University of California, Berkeley}
@@ -11,20 +11,42 @@
 \section{Introduction}
 This report is about to give details regardig the creation of the "fuel\_costs" TAB file that SWITCH needs an as input. This TAB file consists on the price of the fuels used in every load area of the SEN ("Sistema eléctrico nacional", National electric system). We used two different sources and methods to create this data file, that resulted in two different TAB regarding this subject inside the "MainTabs" folder of the "switch\_mexico\_data" directory.
 \\
-\\For further reference, we must first make an important termn disctintion. When in this text we talk about a "fuel", we are refering to a particular type of fuel made in an specific location inside of Mexico (for example: "Carbon Rio Escondido","Diesel Peninsula"). When we talk of a "type of fuel" we refer to a category of fuels that are of the same king (for example, "natural_gas","coal")
+\\For an easier redaction and understanding  of this document, we must first make an important termn disctintion. When in this text we talk about a "fuel", we are refering to a particular type of fuel made in an specific location inside of Mexico (for example: "Carbon Rio Escondido","Diesel Peninsula"). When we talk of a "type of fuel" we refer to a category of fuels that are of the same king (for example, "natural\_gas","coal")
 \section{First method: Balancing areas}
 The Python script corresponding to this method of creation is called "SWITCH input creation and SQL import.py". It is inside the "fuels" folder of the "Costs" directory of the "switch\_mexico\_data" repository.
 \\
-\\The first method to create the fuel\_cost tab used as data reference the tables called "BalancingAreas.csv","Fuels.csv","FuelsAnalysis.xlsx" These tables are made with information from the PRODESEN ("Programa de desarrollo del sistema eléctrico nacional", Development program for the national electric system), especifically, from the chapter 4. From "Fuels.csv" we extract a list of all the diferent types of fuel that are used in Mexico's electricity generation plants.
+\\The first method to create the fuel\_cost tab used as data reference the tables called "BalancingAreas.csv", "Fuels.csv", "FuelsAnalysis.xlsx" These tables are made with information from the PRODESEN ("Programa de desarrollo del sistema eléctrico nacional", Development program for the national electric system)\cite{prodesen}, especifically, from the chapter 4\cite{prodesen4}, and from the PIIRCE ("Programa indicativo de instalaciones y retiro de centrales eléctricas", Program for Power Plant Installation and Decommission) fuel costs projections\cite{piircef}. From "Fuels.csv" we extract a list of all the diferent types of fuel that are used in Mexico's electricity generation plants.
 \\
 \\After that, we extract a table for each of the fuel types from the "FuelsAnalysis.xlsx" file. Here we have, for each type of fuel, a table of yearly-prices, from 2016 to 2030, of each one of the fuels of that type. Also, it points out the balancing area to which the county that produces that fuel belongs.
 \\
-\\Then we proceed to calculate the cost of every type of fuel for a given load area using the following proceedure: from the "BalancingAreas.csv" file, we know which is the balancing area of every load area of the SEN. We can now point out that there are two cases for a given load_area and type of fuel:
+\\Then we proceed to calculate the cost of every type of fuel for a given load area using the following proceedure: from the "BalancingAreas.csv" file, we know which is the balancing area of every load area of the SEN. We can now point out that there are two cases for a given load area and type of fuel:
 \begin{itemize}
-\item \textbf{There exists at least one county that produces that type of fuel in the balacing area of that load_area.} If this happens, the Python scrpit calculates, for every year, the average of the costs of the fuels from the counties that produce that type of fuel and that are in the balancing area of the giben load area. Then, the script assigns these value to the yearly cost of that type of fuel at that load area.
-\item \textbf{None of the counties produces that type of fuel in the balacing area of that load_area.} If this happens, the Python scrpit calculates, for every year, the average of the cost of all of the counties that produce fuel of that type, withouth consideration of the balacing area to which these fuel-producing counties belong. Then it assigns these value to the yearly cost of that type of fuel in that load area.
+\item \textbf{There exists at least one county that produces that type of fuel in the balacing area of that load area.} If this happens, the Python scrpit calculates, for every year, the average of the costs of the fuels from the counties that produce that type of fuel and that are in the balancing area of the giben load area. Then, the script assigns these value to the yearly cost of that type of fuel at that load area.
+\item \textbf{None of the counties produces that type of fuel in the balacing area of that load area.} If this happens, the Python scrpit calculates, for every year, the average of the cost of all of the counties that produce fuel of that type, withouth consideration of the balacing area to which these fuel-producing counties belong. Then it assigns these value to the yearly cost of that type of fuel in that load area.
 \end{itemize}
-You can consult figure 1 for further example of these method.
-\section{Second method: plants of each load zone}
-For the second method
+%it would be a good idea to introduce a figure here to improve understanding of these method
+\section{Second method: Plants of each load zone}
+For the second method we used different fuel-prices sources from the ones we used in the first method. We used information from the PIIRCE regarding the list of all of Mexico's power plants\cite{piirceg} and the fuel costs projection \cite{piircef}.
+\\
+\\In the "tables" folder of the "fuels" directory of the "switch\_mexico\_data" repository, a file called "PiirceGenerationUsingFuels.csv" contains a list of all of the Mexico's power plants that use fuel to generate electricity. For each of the plants, it is specified the balancing area and load zone to which they contribute. As well, it is specified the type of fuel and fuel that the plan uses. It also imports the "PiirceFuels.csv" file, which consists of the fuel costs projections made by PIIRCE\cite{piircef}.
+\\
+\\From that information, the "SWITCH input creation and SQL import piirce.py" creates the "fuels\_cost\_load\_areas\_detailed.tab" file of the "MainTabs" directory. The Python script checks first, for a given load area, the types of fuel that the power plants that contribute to the load area uses. After that, it determinates, for each type of fuel, the fuels used. For every year, the script assings the price of each of the type of fuels used in that load area as the average of the prices of all the fuels of that type that are used in power plants that contribute that load area. 
+\\
+\\One particular thing is that this average is not a weighted average. For example, if in the "01\-hermosillo" load area, there are 7 plants that use natural gas as type of fuel and, from the set of power plants that use natural gas, 6 use the "g\_i\_noro" type and 1 uses the "g\_central"  kind. For each year, the price of the natural gas for the "01\-hermosillo" load area will be the average of the price of "g\_i\_noro" and "g\_central" for that year. It won't regard that the number of plants using "g\_i\_noro" is much bigger than the ones using "g\_central". This could be implemented in the future for higher resolution.
+\section{Number of fuels of each load area}
+The .TAB files created with each of the methods have a fundamental difference regarding the number of type of fuels used in each load area.
+\\
+\\The first method calculates a cost for all of the fuel types inside the , without restrains on if the fuel is actually used by a power plant that contributes to that load area. As a result of this, this method makes a distinction in the types of fuel between the domestic and imported. For example, there is a "domestic natural gas" fuel type and an "importe natural gas" type.
+\\
+\\In contrast, the second method just calculates the costs of the fuel types used by the power plants that contribute to that load area. As a result of that, there isn't a cost of every type of fuel for each load aera. Also, as in the PIIRCE table none of Mexico's power plants use imported fuels, there is no distinction between domestic and imported fuel types, all of the fuel types are considered domestic.
+\begin{thebibliography}{9}
+\bibitem{prodesen}
+PRODESEN report. \url{http://www.gob.mx/cms/uploads/attachment/file/54139/PRODESEN_FINAL_INTEGRADO_04_agosto_Indice_OK.pdf}
+\bibitem{prodesen4}
+PRODESEN chapter 4 tables. \url{base.energia.gob.mx/prodesen/PRODESEN-Capitulo4.xlsx}
+\bibitem{piircef}
+PIIRCE table of fuel prices projection and fuel type relation. \url{http://base.energia.gob.mx/prodesen/BasedeDatos_PIIRCE-2016-2030_PCombustibles.xlsx}
+\bibitem{piirceg}
+PIIRCE table of Mexico's power plants. \url{http://base.energia.gob.mx/prodesen/BasedeDatos_PIIRCE-2016-2030_Generacion.xlsx}
+\end{thebibliography}
 \end{document}
