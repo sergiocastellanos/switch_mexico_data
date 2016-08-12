@@ -1,0 +1,18 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[top=1.5cm, bottom=1.5cm, left=1.5cm, right=1.5cm]{geometry}
+
+\author{Aldo Sayeg Pasos Trejo. Facultad de Ciencias, Universidad Nacional Autónoma de México.}
+\date{\today}
+\title{Creation of fuels-related input tables for SWITCH Mexico Model at University of California, Berkeley}
+\begin{document}
+\maketitle
+\section{Introduction}
+This report is about to give details regardig the creation of the "fuel\_costs" TAB file that SWITCH needs an as input. This TAB file consists on the price of the fuels used in every load area of the SEN ("Sistema eléctrico nacional", National electric system). We used two different sources and methods to create this data file, that resulted in two different TAB regarding this subject inside the "MainTabs" folder of the "switch\_mexico\_data" directory.
+\\
+\\For further reference, we must first make an important termn disctintion. When in this text we talk about a "fuel", we are refering to a particular type of fuel made in an specific location inside of Mexico (for example: "Carbon Rio Escondido","Diesel Peninsula"). When we talk of a "type of fuel" we refer to a 
+\section{First method: Balancing areas}
+The Python script corresponding to this method of creation is called "SWITCH input creation and SQL import.py". It is inside the "fuels" folder of the "Costs" directory of the "switch\_mexico\_data" repository.
+The first method to create the fuel\_cost tab used as data reference the tables called "BalancingAreas.csv","Fuels.csv","FuelsAnalysis.xlsx" These tables are made with information from the PRODESEN ("Programa de desarrollo del sistema eléctrico nacional", Development program for the national electric system), especifically, from the chapter 4. From "Fuels.csv" we extract a list of all the diferent kinds of fuel that are
+\end{document}
