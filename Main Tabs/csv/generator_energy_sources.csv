@@ -4,13 +4,22 @@ combined_cycle,natural_gas
 internal_combustion_fuel_oil,fuel_oil 
 internal_combustion_diesel,diesel
 internal_combustion_natural_gas,natural_gas
-eolic ,
-geothermal,
-hydroelectric ,
+wind,wind
+geothermal,steam
+hydroelectric ,water
 nuclear,uranium 
-solar ,
+solar ,solar
 thermal_fuel_oil,fuel_oil 
 thermal_natural_gas,natural_gas
-thermosolar ,
+thermosolar ,solar
 gas_turbine_diesel,diesel
 gas_turbine_natural_gas,natural_gas
+bio_fuel_oil,fuel_oil 
+bio_natural_gas,natural_gas
+bio_diesel,diesel
+cogen_fuel_oil,fuel_oil 
+cogen_natural_gas,natural_gas
+cogen_diesel,diesel
+fluidized_bed,coal 
+import_natural_gas,natural_gas
+regen_brakes,kinetic
