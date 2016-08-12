@@ -1,16 +1,1 @@
-generation_technology	energy_source
-carboelectric	coal 
-combined_cycle	natural_gas
-internal_combustion_fuel_oil	fuel_oil 
-internal_combustion_diesel	diesel
-internal_combustion_natural_gas	natural_gas
-eolic 	
-geothermal	
-hydroelectric 	
-nuclear	uranium 
-solar 	
-thermal_fuel_oil	fuel_oil 
-thermal_natural_gas	natural_gas
-thermosolar 	
-gas_turbine_diesel	diesel
-gas_turbine_natural_gas	natural_gas
+generation_technology	energy_sourcecarboelectric	coal combined_cycle	natural_gasinternal_combustion_fuel_oil	fuel_oil internal_combustion_diesel	dieselinternal_combustion_natural_gas	natural_gaswind	windgeothermal	steamhydroelectric 	waternuclear	uranium solar 	solarthermal_fuel_oil	fuel_oil thermal_natural_gas	natural_gasthermosolar 	solargas_turbine_diesel	dieselgas_turbine_natural_gas	natural_gas
