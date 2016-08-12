@@ -1,69 +1,69 @@
-TRANSMISSION_LINE	trans_lz1	trans_lz2	trans_length_km	trans_efficiency	existing_trans_cap
-35-34	35-acapulco	34-puebla	154	0.98	300
-24-26	24-aguascalientes	26-salamanca	56	0.98	1400
-2-1	02-cananea	01-hermosillo	152	0.98	870
-2-8	02-cananea	08-moctezuma	216	0.98	370
-43-45	43-cancun	45-cozumel	59	0.98	54
-28-26	28-carapan	26-salamanca	116	0.98	700
-46-48	46-tijuana	48-mexicali	10	0.98	408
-9-11	09-chihuahua	11-laguna	292	0.98	330
-37-36	37-coatzacoalcos	36-temascal	203	0.98	1200
-10-24	10-durango	24-aguascalientes	150	0.98	300
-39-37	39-grijalva	37-coatzacoalcos	142	0.98	2000
-39-38	39-grijalva	38-tabasco	150	0.98	960
-39-36	39-grijalva	36-temascal	240	0.98	2800
-23-24	23-guadalajara	24-aguascalientes	181	0.98	1000
-23-28	23-guadalajara	28-carapan	107	0.98	700
-23-29	23-guadalajara	29-lazaro_cardenas	46	0.98	600
-23-26	23-guadalajara	26-salamanca	268	0.98	700
-21-16	21-guemez	16-monterrey	237	0.98	1500
-1-48	01-hermosillo	48-mexicali	697	0.98	500
-19-21	19-huasteca	21-güemez	201	0.98	1500
-19-20	19-huasteca	20-tamazunchale	172	0.98	1200
-19-18	19-huasteca	18-valles	104	0.98	1050
-19-32	19-huasteca	32-poza_rica	201	0.98	1450
-40-36	40-ixtepec	36-temascal	232	0.98	2500
-7-8	07-juarez	08-moctezuma	129	0.98	640
-11-10	11-laguna	10-durango	209	0.98	550
-11-17	11-laguna	17-saltillo	233	0.98	550
-51-52	51-la_paz	52-los_cabos	145	0.98	180
-29-35	29-lazaro_cardenas	35-acapulco	206	0.98	350
-29-28	29-lazaro_cardenas	28-carapan	182	0.98	600
-29-31	29-lazaro_cardenas	31-central	243	0.98	2900
-41-42	41-lerma	42-merida	176	0.98	800
-4-5	04-los_mochis	05-culiacan	241	0.98	650
-27-23	27-manzanillo	23-guadalajara	164	0.98	2100
-15-14	15-matamoros	14-reynosa	60	0.98	1400
-6-5	06-mazatlan	05-culiacan	210	0.98	1250
-6-10	06-mazatlan	10-durango	215	0.98	550
-6-22	06-mazatlan	22-tepic	252	0.98	1380
-42-43	42-merida	43-cancun	162	0.98	800
-42-44	42-merida	44-chetumal	289	0.98	150
-48-49	48-mexicali	49-san_luis_rio_colorado	48	0.98	315
-8-9	08-moctezuma	09-chihuahua	206	0.98	640
-16-17	16-monterrey	17-saltillo	57	0.98	1450
-3-4	03-obregon	04-los_mochis	190	0.98	500
-32-31	32-poza_rica	31-central	239	0.98	4000
-32-34	32-poza_rica	34-puebla	122	0.98	310
-34-31	34-puebla	31-central	68	0.98	3000
-30-25	30-queretaro	25-san_luis_potosi	130	0.98	300
-30-31	30-queretaro	31-central	92	0.98	1200
-14-16	14-reynosa	16-monterrey	224	0.98	1600
-14-13	14-reynosa	13-nuevo_laredo	65	0.98	100
-12-9	12-rio_escondido	09-chihuahua	354	0.98	500
-12-16	12-rio_escondido	16-monterrey	169	0.98	2100
-12-13	12-rio_escondido	13-nuevo_laredo	172	0.98	400
-26-30	26-salamanca	30-queretaro	60	0.98	1500
-17-24	17-saltillo	24-aguascalientes	441	0.98	1200
-25-24	25-san_luis_potosi	24-aguascalientes	145	0.98	1300
-38-41	38-tabasco	41-lerma	298	0.98	1150
-20-30	20-tamazunchale	30-queretaro	197	0.98	1700
-36-34	36-temascal	34-puebla	225	0.98	3000
-22-23	22-tepic	23-guadalajara	146	0.98	1200
-46-47	46-tijuana	47-ensenada	90	0.98	200
-46-48	46-tijuana	48-mexicali	91	0.98	510
-18-25	18-valles	25-san_luis_potosi	258	0.98	1500
-33-32	33-veracruz	32-poza_rica	132	0.98	750
-33-34	33-veracruz	34-puebla	211	0.98	1200
-33-36	33-veracruz	36-temascal	94	0.98	440
-50-51	50-villa_constitucion	51-la_paz	232	0.98	90
+TRANSMISSION_LINE,trans_lz1,trans_lz2,trans_length_km,trans_efficiency,existing_trans_cap
+35-34,35-acapulco,34-puebla,154,0.98,300
+24-26,24-aguascalientes,26-salamanca,56,0.98,1400
+2-1,02-cananea,01-hermosillo,152,0.98,870
+2-8,02-cananea,08-moctezuma,216,0.98,370
+43-45,43-cancun,45-cozumel,59,0.98,54
+28-26,28-carapan,26-salamanca,116,0.98,700
+46-48,46-tijuana,48-mexicali,10,0.98,408
+9-11,09-chihuahua,11-laguna,292,0.98,330
+37-36,37-coatzacoalcos,36-temascal,203,0.98,1200
+10-24,10-durango,24-aguascalientes,150,0.98,300
+39-37,39-grijalva,37-coatzacoalcos,142,0.98,2000
+39-38,39-grijalva,38-tabasco,150,0.98,960
+39-36,39-grijalva,36-temascal,240,0.98,2800
+23-24,23-guadalajara,24-aguascalientes,181,0.98,1000
+23-28,23-guadalajara,28-carapan,107,0.98,700
+23-29,23-guadalajara,29-lazaro_cardenas,46,0.98,600
+23-26,23-guadalajara,26-salamanca,268,0.98,700
+21-16,21-guemez,16-monterrey,237,0.98,1500
+1-48,01-hermosillo,48-mexicali,697,0.98,500
+19-21,19-huasteca,21-güemez,201,0.98,1500
+19-20,19-huasteca,20-tamazunchale,172,0.98,1200
+19-18,19-huasteca,18-valles,104,0.98,1050
+19-32,19-huasteca,32-poza_rica,201,0.98,1450
+40-36,40-ixtepec,36-temascal,232,0.98,2500
+7-8,07-juarez,08-moctezuma,129,0.98,640
+11-10,11-laguna,10-durango,209,0.98,550
+11-17,11-laguna,17-saltillo,233,0.98,550
+51-52,51-la_paz,52-los_cabos,145,0.98,180
+29-35,29-lazaro_cardenas,35-acapulco,206,0.98,350
+29-28,29-lazaro_cardenas,28-carapan,182,0.98,600
+29-31,29-lazaro_cardenas,31-central,243,0.98,2900
+41-42,41-lerma,42-merida,176,0.98,800
+4-5,04-los_mochis,05-culiacan,241,0.98,650
+27-23,27-manzanillo,23-guadalajara,164,0.98,2100
+15-14,15-matamoros,14-reynosa,60,0.98,1400
+6-5,06-mazatlan,05-culiacan,210,0.98,1250
+6-10,06-mazatlan,10-durango,215,0.98,550
+6-22,06-mazatlan,22-tepic,252,0.98,1380
+42-43,42-merida,43-cancun,162,0.98,800
+42-44,42-merida,44-chetumal,289,0.98,150
+48-49,48-mexicali,49-san_luis_rio_colorado,48,0.98,315
+8-9,08-moctezuma,09-chihuahua,206,0.98,640
+16-17,16-monterrey,17-saltillo,57,0.98,1450
+3-4,03-obregon,04-los_mochis,190,0.98,500
+32-31,32-poza_rica,31-central,239,0.98,4000
+32-34,32-poza_rica,34-puebla,122,0.98,310
+34-31,34-puebla,31-central,68,0.98,3000
+30-25,30-queretaro,25-san_luis_potosi,130,0.98,300
+30-31,30-queretaro,31-central,92,0.98,1200
+14-16,14-reynosa,16-monterrey,224,0.98,1600
+14-13,14-reynosa,13-nuevo_laredo,65,0.98,100
+12-9,12-rio_escondido,09-chihuahua,354,0.98,500
+12-16,12-rio_escondido,16-monterrey,169,0.98,2100
+12-13,12-rio_escondido,13-nuevo_laredo,172,0.98,400
+26-30,26-salamanca,30-queretaro,60,0.98,1500
+17-24,17-saltillo,24-aguascalientes,441,0.98,1200
+25-24,25-san_luis_potosi,24-aguascalientes,145,0.98,1300
+38-41,38-tabasco,41-lerma,298,0.98,1150
+20-30,20-tamazunchale,30-queretaro,197,0.98,1700
+36-34,36-temascal,34-puebla,225,0.98,3000
+22-23,22-tepic,23-guadalajara,146,0.98,1200
+46-47,46-tijuana,47-ensenada,90,0.98,200
+46-48,46-tijuana,48-mexicali,91,0.98,510
+18-25,18-valles,25-san_luis_potosi,258,0.98,1500
+33-32,33-veracruz,32-poza_rica,132,0.98,750
+33-34,33-veracruz,34-puebla,211,0.98,1200
+33-36,33-veracruz,36-temascal,94,0.98,440
+50-51,50-villa_constitucion,51-la_paz,232,0.98,90
