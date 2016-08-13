@@ -34,7 +34,7 @@ class capacity_factor:
                         dates = [str(self.a0),str(self.a1),str(self.a2)]
                         for i,e in enumerate(percentiles): # chacamovement
                             for il,el in enumerate(e):
-                                row = line[0],line[1],line[2],line[3],dates[i]+"-"+str(self.date[il]),el                       #print "row"
+                                row = line[0],line[1],line[2],line[3],dates[i]+"-"+str(self.date[il]),"%6f"%el                       #print "row"
                                 spamwriter.writerow(row)
 
 
