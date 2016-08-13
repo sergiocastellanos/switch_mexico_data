@@ -19,12 +19,18 @@ def get_anio(anio):
         if e[:4] == str(anio):
             return i
 
+def capacityFactor(data, mw):
+    lista = [0,0,0,0,0,0,0,0,0,0,0,0]
+    for i,e in enumerate(data):
+        lista[i] = e/(720*mw)*100
+    return lista
 
 def close_up():
     data = pd.read_csv("../Data/Production/%s/%s.csv" % (estado, planta), index_col=0)  # production info
+    effective_capacity = pd.read_csv("../Data/capacidad_efectiva.csv", index_col=0)  # production info
     cfrecords = pd.read_csv("capacityFactorAD.csv") # capacity factors info
-    column  = cfrecords.columns.values[0]
-    index_planta =  cfrecords[cfrecords[column] == planta].index.tolist() #random process
+    e_c = effective_capacity[[effective_capacity.columns.values[0]]]
+    effective_capacity = e_c.loc[e_c.index.values[0]].tolist()[0]
     a0 = percentile_25[random.randint(0, len(percentile_25)-1)]
     a1 = percentile_50[random.randint(0, len(percentile_50)-1)]
     a2 = percentile_75[random.randint(0, len(percentile_75)-1)]
@@ -33,25 +39,13 @@ def close_up():
         k = get_anio(an)
         c_up = data[k:k+12]
         c_up = c_up[[c_up.columns.values[0]]]
+        lista = []
         for i in range(12):
-            print c_up.loc[ c_up.index.values[i]][0]
-        print "lol"
+            a = c_up.loc[ c_up.index.values[i]][0]
+            lista.append(a)
+        print capacityFactor(lista,effective_capacity)
 
-        #
-        # column = c_up.index.values
-        # print column
-        #print column
 
-        #print fecha
-        # print c_up[[fecha]]
-        # # dato0 = c_up[c_up.columns.values[0]].index.tolist()[0]
-        # # print dato0
-        # # year0 = data.loc[[dato0[0]]]
-        # # print year0
-        # #print c_up
+
 
 close_up()
-#
-# dato0 = data[data['Production-Ave'] == dato0].index.tolist()
-# year0 = data.loc[dato0]
-# year0 = year0.year.values[0]
