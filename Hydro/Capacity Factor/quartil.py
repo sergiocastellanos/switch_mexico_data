@@ -1,4 +1,4 @@
-import pandas as pd
+
 import csv
 import os
 
@@ -13,10 +13,79 @@ import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.style.use('ggplot')
 import matplotlib as mpl
-
+import pickle
 import numpy as np
 import datetime as dt
 import sys
+
+
+
+
+
+archivo = open("dataset.pkl")
+arch = pickle.load(archivo)
+archivo.close()
+
+def ave_of_ave():
+    aves = [[],[],[],[],[],[],[],[],[],[]]
+    lista = []
+    for element in arch:
+        for i,e in enumerate(arch[element]):
+            aves[i].append(arch[element][i])
+    averages = []
+    for i,e in enumerate(aves):
+        aves[i] = [x for x in aves[i] if x != 'nan' and x > 0] # take out zeros and nan values
+        averages.append(sum(aves[i])/len(aves[i]))
+    return averages
+
+
+
+def allx():
+    data = pd.DataFrame({'aves_of_aves':ave_of_ave()}) #data from the above func
+    data = data['aves_of_aves']
+    qs, bins = pd.qcut(data,[.25, .5, .75], retbins=True)
+    print bins
+
+
+
+
+def plotAves():
+    years =['2006', '2007', '2008', '2009','2010', '2011', '2012', '2013','2014', '2015']
+    data = pd.DataFrame({'year':years, 'aves_of_aves':ave_of_ave()})
+    d = data['aves_of_aves']
+    qs, bins = pd.qcut(d,[.25, .5, .75], retbins=True)
+    print data.columns.values[0]
+    fig, ax = plt.subplots()
+    fig.canvas.draw()
+    years =['2006', '2007', '2008', '2009','2010', '2011', '2012', '2013','2014', '2015']
+    ax.set_xticklabels(years)
+    plt.plot(years, data[data.columns.values[0]], marker='o', linestyle='-')
+    plt.axhline(y=bins[0],linestyle='--', color='g', label="percentil_25")
+    plt.axhline(y=bins[1],linestyle='--', color='c', label="percentil_50")
+    plt.axhline(y=bins[2],linestyle='--', color='m', label="percentil_75")
+    plt.xlabel('Time')
+    plt.ylabel('Net Generation [MW/h]')
+    plt.title('Net Generation')
+    plt.legend()
+    plt.show()
+
+
+plotAves()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26,6 +95,11 @@ import sys
 
 content = os.listdir("../Data/Production-Drought-Precipitation") # returns list
 printG = "Planta,25%,50%,75%,Year25%,Year50%,Year75%"
+
+
+
+
+
 
 def historical():
     with open(r"capacityFactor.csv", "wb") as csvfile:
@@ -122,9 +196,9 @@ def plotC(element,en):
     years =['2006', '2007', '2008', '2009','2010', '2011', '2012', '2013','2014', '2015']
     ax.set_xticklabels(years)
     plt.plot(years, data[data.columns.values[0]], marker='o', linestyle='-')
-    plt.axhline(y=bins[0],linestyle='--', color='g', label="25%")
-    plt.axhline(y=bins[1],linestyle='--', color='c', label="50%")
-    plt.axhline(y=bins[2],linestyle='--', color='m', label="75%")
+    plt.axhline(y=bins[0],linestyle='--', color='g', label="percentil_25")
+    plt.axhline(y=bins[1],linestyle='--', color='c', label="percentil_50")
+    plt.axhline(y=bins[2],linestyle='--', color='m', label="percentil_75")
     plt.xlabel('Time')
     plt.ylabel('Net Generation [MW/h]')
     plt.title('Net Generation')
@@ -134,5 +208,5 @@ def plotC(element,en):
 
 
 
-plotC(sys.argv[1],sys.argv[2])
-annual()
+# plotC(sys.argv[1],sys.argv[2])
+# annual()
