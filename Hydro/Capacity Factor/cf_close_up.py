@@ -3,7 +3,7 @@ import sys
 
 
 estado = "chiapas"
-planta = "chicoasen"
+planta = "malpaso"
 
 data = pd.read_csv("../Data/Production/%s/%s.csv"%(estado,planta),index_col=0)#production info
 
@@ -16,12 +16,8 @@ def get_anio(anio):
 
 def close_up():
     data = pd.read_csv("../Data/Production/%s/%s.csv" % (estado, planta), index_col=0)  # production info
-    cfrecords = pd.read_csv("capacityFactorAD.csv")
-
+    cfrecords = pd.read_csv("capacityFactorAD.csv") # capacity factors info
     column  = cfrecords.columns.values[0]
-    di = cfrecords.columns.values[3]
-    t = cfrecords.columns.values[4]
-    h = cfrecords.columns.values[5]
     index_planta =  cfrecords[cfrecords[column] == planta].index.tolist()
     anios = cfrecords.loc[index_planta]
     anios =  [anios.year25_percent.values[0],anios.year50_percent.values[0],anios.year75_percent.values[0]]
