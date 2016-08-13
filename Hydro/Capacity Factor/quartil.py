@@ -33,6 +33,7 @@ def ave_of_ave():
     for i,e in enumerate(aves):
         aves[i] = [x for x in aves[i] if x != 'nan' and x > 0] # take out zeros and nan values
         averages.append(sum(aves[i])/len(aves[i]))
+    print averages
     return averages
 
 def allx():
@@ -41,21 +42,21 @@ def allx():
     d = data['aves_of_aves']
     qs, bins = pd.qcut(d,[.25, .5, .75], retbins=True)
     dfList = data['aves_of_aves'].tolist()
-    dato0 = min(dfList, key=lambda x:abs(x-bins[0]))
-    dato1 = min(dfList, key=lambda x:abs(x-bins[1]))
-    dato2 = min(dfList, key=lambda x:abs(x-bins[2]))
-    dato0 = data[data['aves_of_aves'] == dato0].index.tolist()
+    d0 = min(dfList, key=lambda x:abs(x-bins[0]))
+    d1 = min(dfList, key=lambda x:abs(x-bins[1]))
+    d2 = min(dfList, key=lambda x:abs(x-bins[2]))
+    dato0 = data[data['aves_of_aves'] == d0].index.tolist()
     year0 = data.loc[dato0]
     year0 = year0.year.values[0]
-    dato1 = data[data['aves_of_aves'] == dato1].index.tolist()
+    dato1 = data[data['aves_of_aves'] == d1].index.tolist()
     year1 = data.loc[dato1]
     year1 = year1.year.values[0]
-    dato2 = data[data['aves_of_aves'] == dato2].index.tolist()
+    dato2 = data[data['aves_of_aves'] == d2].index.tolist()
     year2 = data.loc[dato2]
     year2 = year2.year.values[0]
     #print str(en[:len(en)-4])+","+str(bins[0])+","+str(bins[1])+","+str(bins[2])+","+str(year0)+","+str(year1)+","+str(year2)
     years = [year0,year1,year2]
-    gen = [bins[0],bins[1],bins[2]]
+    gen = [d0,d1,d2]
     fact = ["dry","medium","wet"]
     results = pd.DataFrame({'Type':fact,'Year':years, 'Generation':gen})
     results.to_csv("results.csv")

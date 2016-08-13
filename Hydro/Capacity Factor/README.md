@@ -31,7 +31,7 @@ The "Year#%" columns represent the year to which each value belongs.
 
 The next plot illustrates the result
 
-![alt tag](https://github.com/sergiocastellanos/switch_mexico_data/blob/master/Hydro/Plots/percentile.png)
+![alt tag](https://github.com/sergiocastellanos/switch_mexico_data/blob/master/Hydro/Plots/percentiles.png)
 
 
 You will be able to generate a plot for a given hydro station by typing on command line:
