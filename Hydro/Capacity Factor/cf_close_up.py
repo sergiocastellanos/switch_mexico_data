@@ -48,12 +48,10 @@ class capacity_factor:
 
 
     def capacityFactor(self,data, mw):
-
-        #print "MW:    ",mw
+        date = [31,29,31,30,31,30,31,31,30,31,30,31]
         lista = [0,0,0,0,0,0,0,0,0,0,0,0]
         for i,e in enumerate(data):
-            lista[i] = (e/(720*mw))*100
-
+            lista[i] = (e/((24*date[i])*mw))*100
         return lista
 
 
