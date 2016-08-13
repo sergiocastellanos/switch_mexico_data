@@ -2,6 +2,24 @@ import pandas as pd
 import os
 import csv
 
+
+
+
+def big_tab():
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def storeresults():
     with open(r"pruebita.csv", "wb") as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=' ',
