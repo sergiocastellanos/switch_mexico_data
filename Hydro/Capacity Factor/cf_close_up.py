@@ -19,11 +19,14 @@ def get_anio(anio):
         if e[:4] == str(anio):
             return i
 
+
+
 def capacityFactor(data, mw):
     lista = [0,0,0,0,0,0,0,0,0,0,0,0]
     for i,e in enumerate(data):
         lista[i] = e/(720*mw)*100
     return lista
+
 
 def close_up():
     data = pd.read_csv("../Data/Production/%s/%s.csv" % (estado, planta), index_col=0)  # production info
