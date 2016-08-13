@@ -23,25 +23,22 @@ def storeresults():
     with open(r"meaty_data.csv", "wb") as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=',',
                              quotechar=' ', quoting=csv.QUOTE_MINIMAL)
-        spamwriter.writerow("""""header""""")
+        spamwriter.writerow(header)
 
         with open("load_area.csv") as csvfile:
             for line in csv.reader(csvfile):
                 if line[0] == "name_switch":pass
                 else:
                     planta = line[0]
-                    try:
-                        percentile_25,percentile_50,percentile_75 = close_up(planta)
-                        
-                        for i,e in enumerate(percentile_25): # chacamovement
-                                row = line[0],line[1],line[2],line[3],percentile_25[i],percentile_50[i],percentile_75[i]
-                                #print "row"
-                                spamwriter.writerow(row)
-                    except IOError:
-                        pass
+                    percentile_25,percentile_50,percentile_75 = close_up(planta)
+                    for i,e in enumerate(percentile_25): # chacamovement
+                            row = line[0],line[1],line[2],line[3],percentile_25[i],percentile_50[i],percentile_75[i]
+                            #print "row"
+                            spamwriter.writerow(row)
 
 
-def get_anio(anio):
+
+def get_anio(data,anio):
     dates = data.index.values
     for i,e in enumerate(dates):
         if e[:4] == str(anio):
@@ -57,9 +54,15 @@ def capacityFactor(data, mw):
 
 
 def close_up(planta):
-    estados  = os.listdir("../Correlation/plantas/Production-Drought-Precipitation")
+    estados  = os.listdir("../Data/Production")
+
     for estado in estados:
-        data = pd.read_csv("../Data/Production/%s/%s.csv" % (estado,planta), index_col=0)  # production info
+
+        try:
+            datas = pd.read_csv("../Data/Production/%s/%s.csv" % (estado,planta), index_col=0)  # production info
+            print estado,planta
+        except IOError:pass
+
     effective_capacity = pd.read_csv("../Data/capacidad_efectiva.csv", index_col=0)  # production info
     cfrecords = pd.read_csv("capacityFactorAD.csv") # capacity factors info
     e_c = effective_capacity[[effective_capacity.columns.values[0]]]
@@ -70,8 +73,8 @@ def close_up(planta):
     anios = [a0,a1,a2]
     meaty_data = []
     for an in anios:
-        k = get_anio(an)
-        c_up = data[k:k+12]
+        k = get_anio(datas,an)
+        c_up = datas[k:k+12]
         c_up = c_up[[c_up.columns.values[0]]]
         lista = []
         for i in range(12):
