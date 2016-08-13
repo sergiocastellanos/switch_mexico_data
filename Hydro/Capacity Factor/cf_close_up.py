@@ -9,7 +9,6 @@ import os
 percentile_25= [2013,2009,2007]
 percentile_50= [2006,2012,2015]
 percentile_75 = [2010,2011,2008,2014]
-date = ["01-31","02-29","03-31","04-30","05-31","06-30","07-31","08-31","09-30","10-31","11-30","12-31"]
 
 
 header = ["name_switch","name_prodesen","load_zone","load_area","timestamp","capacity_factor"]
@@ -31,11 +30,11 @@ class capacity_factor:
                     if line[0] == "name_switch":pass
                     else:
                         planta = line[0]
-                        dates = [str(self.a0),str(self.a1),str(self.a2)]
                         percentiles = self.close_up(planta)
+                        dates = [str(self.a0),str(self.a1),str(self.a2)]
                         for i,e in enumerate(percentiles): # chacamovement
                             for il,el in enumerate(e):
-                                row = line[0],line[1],line[2],line[3],dates[i]+str(self.date[il]),el                       #print "row"
+                                row = line[0],line[1],line[2],line[3],dates[i]+"-"+str(self.date[il]),el                       #print "row"
                                 spamwriter.writerow(row)
 
 
