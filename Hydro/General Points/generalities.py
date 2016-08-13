@@ -17,7 +17,6 @@ def historical():
     print content
     for element in content:
         ent = os.listdir("../Data/Production/%s"%element)
-
         e = ent[0]
         for e in ent:
             lista= []
@@ -33,12 +32,7 @@ def historical():
     output.close()
     return d
 
-
-
-
-
 def annual(element):
-
     ent = os.listdir("../Data/Production/%s"%element)
     d = {}
     e = ent[0]
