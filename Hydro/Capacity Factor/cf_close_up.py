@@ -18,7 +18,7 @@ percentile_75 = [2010,2011,2008,2014]
 
 
 header = ["name_switch","name_prodesen","load_zone","load_area","capacity_factor"]
-print header
+
 def storeresults():
     with open(r"meaty_data.csv", "wb") as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=',',
@@ -48,9 +48,12 @@ def get_anio(data,anio):
 
 
 def capacityFactor(data, mw):
+
+    print "MW:    ",mw
     lista = [0,0,0,0,0,0,0,0,0,0,0,0]
     for i,e in enumerate(data):
-        lista[i] = e/(720*mw)*100
+        lista[i] = (e/(720*mw))*100
+
     return lista
 
 
@@ -61,13 +64,16 @@ def close_up(planta):
 
         try:
             datas = pd.read_csv("../Data/Production/%s/%s.csv" % (estado,planta), index_col=0)  # production info
-            print estado,planta
+
         except IOError:pass
 
     effective_capacity = pd.read_csv("../Data/capacidad_efectiva.csv", index_col=0)  # production info
     cfrecords = pd.read_csv("capacityFactorAD.csv") # capacity factors info
+    #print effective_capacity.columns.values[0]
     e_c = effective_capacity[[effective_capacity.columns.values[0]]]
-    effective_capacity = e_c.loc[e_c.index.values[0]].tolist()[0]
+    print e_c.index.values[0]
+    effective_capacity = e_c.loc[planta].tolist()[0]
+    print effective_capacity
     a0 = percentile_25[random.randint(0, len(percentile_25)-1)]
     a1 = percentile_50[random.randint(0, len(percentile_50)-1)]
     a2 = percentile_75[random.randint(0, len(percentile_75)-1)]
@@ -82,7 +88,7 @@ def close_up(planta):
             a = c_up.loc[ c_up.index.values[i]][0]
             lista.append(a)
         meaty_data.append(capacityFactor(lista,effective_capacity))
-        print lista,effective_capacity
+
     return (meaty_data[0],meaty_data[1],meaty_data[2])
 
 
