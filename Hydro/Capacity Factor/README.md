@@ -1,7 +1,7 @@
 # Capacity Factors
 
 
-This folder contains data that presents that describes the production of hydro station on given scenarios.
+This folder contains data that describes the production of hydro station on given scenarios.
 
 
 The "capacityFactorHistoric.csv" contains a historical analysis of the production of a hydro station.
@@ -31,7 +31,7 @@ The "Year#%" columns represent the year to which each value belongs.
 
 The next plot illustrates the result
 
-![alt tag](https://github.com/sergiocastellanos/switch_mexico_data/blob/master/Hydro/Plots/cf.png)
+![alt tag](https://github.com/sergiocastellanos/switch_mexico_data/blob/master/Hydro/Plots/percentile.png)
 
 
 You will be able to generate a plot for a given hydro station by typing on command line:
