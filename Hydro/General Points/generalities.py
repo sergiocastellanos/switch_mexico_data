@@ -4,7 +4,7 @@ import os
 
 import matplotlib
 
-
+import pickle
 #import matplotlib.pyplot as plt
 
 
@@ -28,6 +28,9 @@ def historical():
                 anio = data.index.values[0][:4]
                 lista.append(data[column].mean())
             d[e] = lista
+    output = open('dataset.pkl', 'wb')
+    pickle.dump(d, output)
+    output.close()
     return d
 
 
