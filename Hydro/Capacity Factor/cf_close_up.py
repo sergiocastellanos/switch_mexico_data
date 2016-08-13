@@ -29,10 +29,29 @@ def close_up():
     a1 = percentile_50[random.randint(0, len(percentile_50)-1)]
     a2 = percentile_75[random.randint(0, len(percentile_75)-1)]
     anios = [a0,a1,a2]
-
     for an in anios:
         k = get_anio(an)
         c_up = data[k:k+12]
-        print c_up
+        c_up = c_up[[c_up.columns.values[0]]]
+        for i in range(12):
+            print c_up.loc[ c_up.index.values[i]][0]
+        print "lol"
+
+        #
+        # column = c_up.index.values
+        # print column
+        #print column
+
+        #print fecha
+        # print c_up[[fecha]]
+        # # dato0 = c_up[c_up.columns.values[0]].index.tolist()[0]
+        # # print dato0
+        # # year0 = data.loc[[dato0[0]]]
+        # # print year0
+        # #print c_up
 
 close_up()
+#
+# dato0 = data[data['Production-Ave'] == dato0].index.tolist()
+# year0 = data.loc[dato0]
+# year0 = year0.year.values[0]
