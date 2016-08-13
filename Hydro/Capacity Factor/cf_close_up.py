@@ -20,16 +20,16 @@ header = "name_switch,name_prodesen,load_zone,load_area,percentile_25,percentile
 print header
 def storeresults():
     with open(r"meaty_data.csv", "wb") as csvfile:
-        spamwriter = csv.writer(csvfile)
+        spamwriter = csv.writer(csvfile, delimiter=' ',
+                             quotechar=' ', quoting=csv.QUOTE_MINIMAL)
         spamwriter.writerow(header)
         with open("load_area.csv") as csvfile:
             for line in csv.reader(csvfile):
                 percentile_25,percentile_50,percentile_75 = close_up()
                 for i,e in enumerate(percentile_25): # chacamovement
-                        row = str(line[0])+","+str(line[1])+","+str(line[2])+","+str(line[3])+","+str(percentile_25[i])+","+str(percentile_50[i])+","+str(percentile_75[i])
-                        spamwriter.writerow(row)
-
-
+                        row = str(line[0]),",",str(line[1]),",",str(line[2]),",",str(line[3]),",",str(percentile_25[i]),",",str(percentile_50[i]),","+str(percentile_75[i])
+                        print row
+                        spamwriter.writerow([row])
 
 
 
@@ -76,10 +76,12 @@ def close_up():
     return (meaty_data[0],meaty_data[1],meaty_data[2])
 
 
-
-
-
-
 storeresults()
+
+
+
+
+
+
 
 #close_up()
