@@ -17,7 +17,7 @@ percentile_75 = [2010,2011,2008,2014]
 #
 
 
-header = ["name_switch","name_prodesen","load_zone","load_area","percentile_25","percentile_50","percentile_75"]
+header = ["name_switch","name_prodesen","load_zone","load_area","capacity_factor"]
 print header
 def storeresults():
     with open(r"meaty_data.csv", "wb") as csvfile:
@@ -30,10 +30,11 @@ def storeresults():
                 if line[0] == "name_switch":pass
                 else:
                     planta = line[0]
-                    percentile_25,percentile_50,percentile_75 = close_up(planta)
-                    for i,e in enumerate(percentile_25): # chacamovement
-                            row = line[0],line[1],line[2],line[3],percentile_25[i],percentile_50[i],percentile_75[i]
-                            #print "row"
+                    p_25,p_50,p_75 = close_up(planta)#must do for each
+                    percentiles = close_up(planta)
+                    for i,e in enumerate(percentiles): # chacamovement
+                        for el in e:
+                            row = line[0],line[1],line[2],line[3],el                       #print "row"
                             spamwriter.writerow(row)
 
 
@@ -81,6 +82,7 @@ def close_up(planta):
             a = c_up.loc[ c_up.index.values[i]][0]
             lista.append(a)
         meaty_data.append(capacityFactor(lista,effective_capacity))
+        print lista,effective_capacity
     return (meaty_data[0],meaty_data[1],meaty_data[2])
 
 
