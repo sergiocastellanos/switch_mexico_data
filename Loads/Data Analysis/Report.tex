@@ -53,7 +53,7 @@ The Script called "Graphical Analysis" displays graphics corresponding to this d
 \\This selected days are the following: the "PeakDay" from the "LoadHighlightsPerNode" table, the hourly average median day of the month (the day of the month whose hourly average load is the median compared to all the other days hourly average load), the day whose hourly average is closest to the "MonthlyAverage" value from "LoadHighlightsPerNode" table and a random day
 \\
 \\
-\\The last script called "Switch input creation and SQL import" creates a table called "la\_hourly\_demand\_*" where * is high, low or medium depending of the projection directory we are working in. These table is saved at the "OrganizedTables" folder of each projection directory. It also writes this table to the SWITCH database, that it is written in SQL, using a previously created SSH tunnel.
+\\The last script called "Switch input creation" creates a table called "la\_hourly\_demand\_*" where * is high, low or medium depending of the projection directory we are working in. These table is saved at the "OrganizedTables" folder of each projection directory. 
 \\
 \\ This table is used as input data for the SWITCH model, hence the importance of writing it to the database
 \end{document}
