@@ -6,9 +6,17 @@ import os
 
 
 
-percentile_25= [2013,2009,2007]
-percentile_50= [2006,2012,2015]
-percentile_75 = [2010,2011,2008,2014]
+
+
+percentile_25= [2008,2008,2008,2008]
+percentile_50= [2010,2010,2010,2010]
+percentile_75 = [2011,2011,2011,2011]
+
+# percentile_25= [2013,2009,2007]
+# percentile_50= [2006,2012,2015]
+# percentile_75 = [2010,2011,2008,2014]
+
+
 
 
 header = ["name_switch","name_prodesen","load_zone","load_area","timestamp","capacity_factor"]
@@ -20,7 +28,7 @@ class capacity_factor:
         self.a2 = 0
 
     def storeresults(self):
-        with open(r"meaty_data.csv", "wb") as csvfile:
+        with open(r"percentil_3.csv", "wb") as csvfile:
             spamwriter = csv.writer(csvfile, delimiter=',',
                                  quotechar=' ', quoting=csv.QUOTE_MINIMAL)
             spamwriter.writerow(header)
