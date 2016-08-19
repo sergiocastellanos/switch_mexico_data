@@ -17,8 +17,9 @@ import sys
 
 archivo = open("dataset.pkl")
 arch = pickle.load(archivo)
-
 archivo.close()
+years =['2006', '2007', '2008', '2009','2010', '2011', '2012', '2013','2014', '2015']
+
 
 def ave_of_ave():
     aves = [[],[],[],[],[],[],[],[],[],[]] #initialize to be able to iterate over it
@@ -33,7 +34,6 @@ def ave_of_ave():
     return averages
 
 def allx():
-    years =['2006', '2007', '2008', '2009','2010', '2011', '2012', '2013','2014', '2015']
     data = pd.DataFrame({'year':years, 'aves_of_aves':ave_of_ave()}) #data from the above func
     d = data['aves_of_aves']
     qs, bins = pd.qcut(d,[.25, .5, .75], retbins=True)
@@ -63,14 +63,12 @@ allx()
 
 
 def plotAves():
-    years =['2006', '2007', '2008', '2009','2010', '2011', '2012', '2013','2014', '2015']
     data = pd.DataFrame({'year':years, 'aves_of_aves':ave_of_ave()})
     d = data['aves_of_aves']
     qs, bins = pd.qcut(d,[.25, .5, .75], retbins=True)
     print data.columns.values[0]
     fig, ax = plt.subplots()
     fig.canvas.draw()
-    years =['2006', '2007', '2008', '2009','2010', '2011', '2012', '2013','2014', '2015']
     ax.set_xticklabels(years)
     plt.plot(years, data[data.columns.values[0]], marker='o', linestyle='-')
     plt.axhline(y=bins[0],linestyle='--', color='g', label="percentil_25")
@@ -134,7 +132,6 @@ def annual():
                         data =  data[i:i+12]
                         column = data.columns.values[0]
                         lista.append(data[column].mean())
-                    years =['2006', '2007', '2008', '2009','2010', '2011', '2012', '2013','2014', '2015']
                     data = pd.DataFrame({'year':years, 'Production-Ave':lista})
                     d= data['Production-Ave']
                     qs, bins = pd.qcut(d,[.25, .5, .75], retbins=True)

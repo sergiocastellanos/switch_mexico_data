@@ -19,6 +19,8 @@ percentile_75 = [2011,2011,2011,2011]
 
 
 
+
+
 header = ["name_switch","name_prodesen","load_zone","load_area","timestamp","capacity_factor"]
 class capacity_factor:
     def __init__(self):
