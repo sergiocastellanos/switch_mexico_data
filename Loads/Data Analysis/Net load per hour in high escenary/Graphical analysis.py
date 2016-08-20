@@ -1,18 +1,19 @@
 
 # coding: utf-8
 
-# In[2]:
+# In[1]:
 
 import pandas as pd
 import random
 import matplotlib.pyplot as plt
 import random
 import numpy as np
+get_ipython().magic(u'matplotlib inline')
 def nearest_value(array,value):
     idx=(np.abs(array-value)).argmin()
     return idx
-df=pd.read_csv("tables/HourlyLoadPerNode.csv",index_col=range(4))
-dfp=pd.read_csv("tables/LoadHighlightsPerNode.csv",index_col=range(2),header=range(2))
+df=pd.read_csv("OrganizedTables/HourlyLoadPerNode.csv",index_col=range(4))
+dfp=pd.read_csv("OrganizedTables/LoadHighlightsPerNode.csv",index_col=range(2),header=range(2))
 
 
 # In[4]:
@@ -43,11 +44,11 @@ for index, k in enumerate(df.columns.tolist()):
     plt.show()
 
 
-# In[5]:
+# In[12]:
 
-print 'Hourly analysis of a node. Given a node, year and month, it will show a plot of the hourly demand every day of the month and another plot of the selected days: peak day, median day, average (closest to monthly average) day and a random day'
+print 'Hourly analysis of a load area. Given a load area, year and month, it will show a plot of the hourly demand every day of the month and another plot of the selected days: peak day, median day, average (closest to monthly average) day and a random day'
 
-k=raw_input("Node: ")
+k=raw_input("Load area: ")
 a=int(raw_input("Year: "))
 m=int(raw_input("Month: "))
 res=int(raw_input("Hourly frequency:  "))
@@ -90,10 +91,10 @@ else:
         
 
 plt.figure(2,figsize=(10,8),dpi = 200)
-plt.scatter(range(1,25,res),[df.xs([a,m,indx_ale],level=range(3))[k].tolist()[i] for i in range(0,24,res)],s=80,c=[np.random.rand(3)]*24,alpha=.6,label="Random day ({0})".format(indx_ale))
-plt.scatter(range(1,25,res),[df.xs([a,m,indx_mean],level=range(3))[k].tolist()[i] for i in range(0,24,res)],s=80,c=[np.random.rand(3)]*24,alpha=.6,label="Average day ({0})".format(indx_mean))
-plt.scatter(range(1,25,res),[df.xs([a,m,indx_median],level=range(3))[k].tolist()[i] for i in range(0,24,res)],s=80,c=[np.random.rand(3)]*24,alpha=.6,label="Median day ({0})".format(indx_median))
-plt.scatter(range(1,25,res),[df.xs([a,m,dfp.xs([a,m])[k,'PeakDay']],level=range(3))[k].tolist()[i] for i in range(0,24,res)],s=80,c=[np.random.rand(3)]*24,alpha=.6,label="Peak day")
+plt.plot(range(1,25,res),[df.xs([a,m,indx_ale],level=range(3))[k].tolist()[i] for i in range(0,24,res)],c=np.random.rand(3),alpha=.6,label="Random day ({0})".format(indx_ale),marker='o')
+plt.plot(range(1,25,res),[df.xs([a,m,indx_mean],level=range(3))[k].tolist()[i] for i in range(0,24,res)],c=np.random.rand(3),alpha=.6,label="Average day ({0})".format(indx_mean),marker='o')
+plt.plot(range(1,25,res),[df.xs([a,m,indx_median],level=range(3))[k].tolist()[i] for i in range(0,24,res)],c=np.random.rand(3),alpha=.6,label="Median day ({0})".format(indx_median),marker='o')
+plt.plot(range(1,25,res),[df.xs([a,m,dfp.xs([a,m])[k,'PeakDay']],level=range(3))[k].tolist()[i] for i in range(0,24,res)],c=np.random.rand(3),alpha=.6,label="Peak day",marker='o')
 plt.xlabel('Hour')
 plt.ylabel('Load (MW)')
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
