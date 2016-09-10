@@ -15,7 +15,7 @@ import datetime as dt
 import sys
 
 
-archivo = open("dataset.pkl")   #open a pickle file that contains data reated to each hydro station and its production from 2006 to 20015
+archivo = open("dataset.pkl")   #open a pickle file that contains data related to each hydro station and its production from 2006 to 20015
 arch = pickle.load(archivo)     #store the data into a arch variable
 archivo.close()                 #closes the aforementioned file
 years =['2006', '2007', '2008', '2009','2010', '2011', '2012', '2013','2014', '2015'] #initialize a list containing the years that may be iterated
@@ -41,9 +41,9 @@ def allx():
     d = data['aves_of_aves'] #get the averages
     qs, bins = pd.qcut(d,[.25, .5, .75], retbins=True) #oparates over the averages and get the percentiles
     dfList = data['aves_of_aves'].tolist() #creates a list that contain the average
-    d0 = min(dfList, key=lambda x:abs(x-bins[0])) #calculate which of the values of this list is closer to the percentile 25
-    d1 = min(dfList, key=lambda x:abs(x-bins[1])) #calculate which of the values of this list is closer to the percentile 50
-    d2 = min(dfList, key=lambda x:abs(x-bins[2])) #calculate which of the values of this list is closer to the percentile 75
+    d0 = min(dfList, key=lambda x:abs(x-bins[0])) #calculate which of the values of this list is closest to the percentile 25
+    d1 = min(dfList, key=lambda x:abs(x-bins[1])) #calculate which of the values of this list is closest to the percentile 50
+    d2 = min(dfList, key=lambda x:abs(x-bins[2])) #calculate which of the values of this list is closest to the percentile 75
     dato0 = data[data['aves_of_aves'] == d0].index.tolist() # get the index of the closer value
     year0 = data.loc[dato0] # get the year of the closest value
     year0 = year0.year.values[0] #get the raw value i,e. 2006

@@ -2,7 +2,7 @@ import pandas as pd
 import os
 import csv
 
-#this script eas created to test the concatenation (read store fromat write and more) of two panda data frame
+#this script was created to test the concatenation ( and how to read store format write and more) of two panda data frame
 
 
 def storeresults():
