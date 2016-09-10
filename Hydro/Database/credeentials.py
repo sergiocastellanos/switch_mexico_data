@@ -5,4 +5,4 @@
 class Credentials:
     def __init__(self):
         self.password = ""
-	self.user = ""
+	    self.user = ""

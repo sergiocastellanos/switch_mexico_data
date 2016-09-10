@@ -14,4 +14,4 @@ BT_all = pd.read_csv('results.csv', encoding='UTF-8', delimiter = ',', dtype = {
 
 engine = create_engine('postgres://%s:%s@localhost:5433/switch_mexico'%(user,password))
 
-BT_all.to_sql('Hello Lexie World', engine, schema='mexico', if_exists = 'replace', chunksize = 10)
+BT_all.to_sql('Hello World', engine, schema='mexico', if_exists = 'replace', chunksize = 10)
