@@ -45,7 +45,7 @@ def allx():
     d1 = min(dfList, key=lambda x:abs(x-bins[1])) #calculate which of the values of this list is closer to the percentile 50
     d2 = min(dfList, key=lambda x:abs(x-bins[2])) #calculate which of the values of this list is closer to the percentile 75
     dato0 = data[data['aves_of_aves'] == d0].index.tolist() # get the index of the closer value
-    year0 = data.loc[dato0] # get the year of the closer value
+    year0 = data.loc[dato0] # get the year of the closest value
     year0 = year0.year.values[0] #get the raw value i,e. 2006
     dato1 = data[data['aves_of_aves'] == d1].index.tolist() #idem
     year1 = data.loc[dato1] #idem

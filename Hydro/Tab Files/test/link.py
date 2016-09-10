@@ -2,6 +2,9 @@ import pandas as pd
 import os
 import csv
 
+#this script eas created to test the concatenation (read store fromat write and more) of two panda data frame
+
+
 def storeresults():
     with open(r"pruebita.csv", "wb") as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=' ',
