@@ -5,14 +5,14 @@
 \usepackage{hyperref}
 \usepackage{amsmath}
 \author{Aldo Sayeg Pasos Trejo}
-\date{\today}
+\date{August 8, 2016}
 \title{Estimation of the distribution costs of the SEN for SWITCH-Mexico model at University of California, Berkeley}
 \begin{document}
 \maketitle
 \section{Introduction}
-Inside of all the data obtained, from different sources, of the mexican goverment regarding the SEN ("Sistema Eléctrico Nacional", national electric system), there is not any precise information regarding the the costs of the electricity distribution or the precise location of the distribution network.
+Within all the data obtained, from different sources, regarding Mexico's SEN ("Sistema Eléctrico Nacional", national electric system), there is not any precise information to be found regarding the the variable and fixed costs of the electricity distribution system nor the precise location of the distribution network.
 \\
-\\As a result of that, the SWITCH-Mexico team decided to estimate these data according to different rules and based on several kinds of data: population distribution in urban and rural, generic costs for elements of the electricity distribution network and number of elements that are part of the electricity distribution network.
+\\As a result of that, the SWITCH-Mexico team decided to estimate this data according to different rules and based on several assumptions coming from different kinds of data: population distribution in urban and rural, generic costs for elements of the electricity distribution network and number of elements that are part of the electricity distribution network.
 
 \section{Caracteristics of the territory}
 To make a good estimation of the distribution network costs, we need to categorize first the territories according to their infrastructure, dividing them, as usual, in "urban" and "rural" territories. We managed to categorize all of Mexico's counties in those categories using data from the INEGI ("Instituto Nacional de Geografía y Estadística", National Institute of Geography and Statistics) and the CONAPO ("Consejo Nacional de Población", National Population Council).
@@ -23,46 +23,53 @@ To make a good estimation of the distribution network costs, we need to categori
 \item The county is part of a group of adjoint counties that together have a population of between 15 000 and 50 000 people ("conurbación", conurbation).
 \item The county is part of group of highly-functional-connected counties that have a population of over 1 million people or 250 000 in the case of being near the US-Mexico border ("áreas metropolitanas", metropolitan areas).
 \end{itemize}
-According to these list of urban counties, we were able to classify all of the remaining counties as "rural". Now, we extracted from INEGI's  some distinguished statistics of every county: the state where they belong, their total population, their land area and the number of real states with electricity.\cite{inegi}
+According to this list of urban counties, we were able to classify all of the remaining counties as "rural". Now, we extracted from INEGI's sources some particular statistics for every county: the state where they belong, their total population, their land area and the number of buildings with electricity.\cite{inegi}
 \\
-\\This data influences the cost of the electricity distribution beacuse the price of building transmformation substations changes according to the region (and also due to other more precise factors), but more importantly, because the cable lines change have a diferent desing and infrastructure depending of the region they are. As an example, while in the rural locations the electric cables are mostly air lines, in some dense-populated urban areas there are subterranean lines. As one can expect, these cable infrastructures do not cost the same.
+\\The data describing the particular statistical aspects of every county influences the cost of the electricity distribution beacuse the cost of building substations changes according to the region, but more importantly, because the cable lines have a different design and infrastructure depending of the region they are. Mainly, the topology of the region and the construction prices influence the design of the distribution network. As an example, while in the rural locations the electric cables are mostly air lines, in some dense-populated urban areas there are subterranean lines. As one can expect, these cable infrastructures do not cost the same.
 \section{Estimation of every county distribution costs}
-The institution in charge of the electricity distribution all along Mexico, before and after the 2012 Mexico's Energetic Reform, is the CFE ("Comisión Federal de electridad", Federal Electricity Commission). Acorrding to data obtained from different sources, we were able to made a distribution operation and management cost estimation for every county in Mexico. Actually, we estimated 2 different distribution costs using different models.
+The institution in charge of the electricity distribution across Mexico, before and after the 2012 Mexico's Energy Reform, is the CFE ("Comisión Federal de electridad", Federal Electricity Commission). Acorrding to data obtained from different sources, we were able to make a cost estimate for operation and management for every county in Mexico. Actually, we estimated 2 different distribution costs using different models.
 \subsection{Model 1}
 The first estimation was made using some assumptions for each of the counties that depended on the county categorization as urban or rural. This estimation is presented in the column named \textbf{"DistributionCost1 (millions of MXN)"} at the "categorized counties.csv" table, which is located inside the "tables" folder at the distribution cost estimation directory
 \\
-\\For \textbf{urban} counties, we supposed that there was .5 km of distribution line for every square kilometer of land area. Also, that there was .005 km of distribution line for every house in the county that has access to electricity. We settled the operation and management cost of every kilometer of distribution line to 3000 MXN. We also estimated that there is one distribution substation for every  80 houses with electricity access, and that every substation has a operation and management cost of 35 000 MXN
+\\For \textbf{urban} counties, we assumed that there was .5 km of distribution line per square kilometer of land area ($LR_{urban}$). Also, that there was .005 km of distribution line for every building in the county that has access to electricity ($BL_{urban}$). We calculated the operation and management cost per kilometer of distribution line to be 3000 MXN ($L_{urban}$). We also estimated that there is one distribution substation for every 80 buildings with electricity access ($SR_{urban}$), and that every substation has a operation and management cost of 35 000 MXN ($S_{urban}$).
 \\
-\\For \textbf{rural} counties, we supposed that there was 1 km of distribution line for every square kilometer of land area. Also, that there was .05 km of distribution line for every house in the county that has access to electricity (due to the fact that houses are more far away from each other in rural counties). We settled the operation and management cost of every kilometer of distribution line to 5000 MXN. We also estimated that there is one distribution substation for every  40 houses with electricity access, and that every substation has a operation and management cost of 25 000 MXN.
+\\For \textbf{rural} counties, we assumed that there was 1 km of distribution line per square kilometer of land area ($LR_{rural}$). Also, that there was .05 km of distribution line for every building in the county that has access to electricity ($BL_{rural}$), due to the fact that houses are more far away from each other in rural counties. We settled the operation and management cost of every kilometer of distribution line to 5000 MXN ($L_{rural}$). We also estimated that there is one distribution substation for every  40 buildings with electricity access ($SR_{rural}$), and that every substation has a operation and management cost of 25 000 MXN ($S_{rural}$).
 \\
-\\In each one of the cases, we summed the cost of substations and of distribution lines to obtain the estimation of the operation and management costs for distribution in this model. You can check out in equation 1 and 2 the formulas used for ''DistributionCost1'' columns for urban and rural categorized-counties, respectively.
+\\It is important to notice that the assumptions regarding the distribution lines per square kilometer of territory and the the number of buildings with electricity per substation were completely arbitrary. The prices of the distribution line per kilometer and of the substations operation and management were based on CFE's documents\cite{cfe2}.
+\\
+\\For each one of the cases, we summed the cost of substations and of distribution lines to obtain the estimation of the operation and management costs for distribution in this model. Equations 1 and 2 represent the formulas used for ''DistributionCost1'' columns for urban and rural categorized-counties, respectively.
 \begin{equation}
 \begin{aligned}
-DistributionCost1\quad (urban) = & R_{County} \times .01 \times .05 + \frac{R_{County}}{30} \times .035 + L_{County } \times .5 \times .05
+DistributionCost1\quad (urban) = & B_{county} \times BL_{urban} \times L_{urban} + \frac{R_{county}}{SR_{urban}} \times S_{urban} + L_{county } \times LR_{urban} \times L_{urban}
 \end{aligned}
 \end{equation}
 \begin{equation}
 \begin{aligned}
-DistributionCost1\quad (rural)= & R_{County} \times .05 \times .003 + \frac{R_{County}}{30} \times .035 + L_{County } \times 1 \times .003
+DistributionCost1\quad (rural) = & B_{county} \times BL_{rural} \times L_{rural} + \frac{R_{county}}{SR_{rural}} \times S_{rural} + L_{county} \times LR_{rural} \times L_{rural}
 \\& L = Land\quad area
-\\& R = Real\quad state\quad with\quad electricity
+\\& B = Buildings\quad with\quad electricity
 \end{aligned}
 \end{equation}
-\subsection*{Model 2}
-The estimation 2 was made in the same way for urban and rural counties. This estimation is presented in the column named \textbf{"DistributionCost2 (millions of MXN)"} at the "categorized counties.csv" table, which is located inside the "tables" folder at the distribution cost estimation directory.
+\subsection{Model 2}
+Estimate \#2 was made in the same way for urban and rural counties. This approach is presented in the column named \textbf{"DistributionCost2 (millions of MXN)"} at the "categorized counties.csv" table, which is located inside the "tables" folder at the distribution cost estimation directory.
 \\
-\\For this estimation, we used the anual budget aproved to the CFE for distribution operation and management costs\cite{cfe3}. Using these, we estimated that one third of the budget is used for the distribution lines and the remaining two thirds is used for the substations. We divided the number of houses with electricity of a county by the national total of houses with electricity, and then we multiplied this to the anual budget destined to substations. In the same way, we divided the land area of each county by the national land area, and multiplied this to the anual budget destined to distribution lines. We summed this two quantities to obtain the estimated distribution cost. Equations 3 explicitly shows how was the ''DistributionCost2'' formula for that column
+\\For this estimation, we used the anual budget approved to the CFE for distribution operation and management costs in 2010\cite{cfe3}. Using these reported values, we assumed that one third of the budget is used for the distribution lines and the remaining two thirds is used for the substations. We divided the number of houses with electricity of a county by the national total of houses with electricity, and then we multiplied this to the anual budget destined to substations operation and management. In the same way, we divided the land area of each county by the national land area, and multiplied this to the anual budget destined to distribution lines. We summed this two quantities to obtain the estimated distribution cost. Equations 3 shows how was the ''DistributionCost2'' formula for that column.
 \begin{equation}
 \begin{aligned}
-DistributionCost2 = & \frac{R_{County}}{R_{National}} \times \frac{2}{3} T + \frac{L_{County}}{L_{National}} \times \frac{1}{3} T 
+DistributionCost2 = & \frac{B_{County}}{B_{National}} \times \frac{2}{3} T + \frac{L_{County}}{L_{National}} \times \frac{1}{3} T 
 \\
 \\& L = Land\quad area
-\\& R = Real\quad state\quad with\quad electricity
-\\& T= National\quad budget\quad for\quad distribution\quad network\quad 0\&M\cite{cfe3}
+\\& B = Buildings\quad with\quad electricity
+\\& T= National\quad budget\quad for\quad distribution\quad network\quad O\&M\cite{cfe3}
 \end{aligned}
 \end{equation}
-
-
+\\
+\\
+\\
+\section{Conclusions}
+The distribution cost that we recommend to use is the one estimated with the second model. We recommend this method for two reasons. First, it has less arbitrary assumptions when compared with the first method. The assumptions of the second method only regard the fraction of the national yearly budget approved for distribution O\&M costs, so it always gives a result that, if added for al counties, will give the national yearly budget of CFE.
+\\
+\\Also, this method is a little more precise than the first model, because it does not separate the counties in urban and rural, so that each of the counties have a better aproximation for the electrical distribution cost.
 \begin{thebibliography}{9}
 
 \bibitem{conapo}
