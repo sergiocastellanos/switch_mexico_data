@@ -27,34 +27,49 @@ for i in range(2017,2031):
 df=df.astype('float64')
 
 
-# In[4]:
+# In[17]:
 
-columnas =[df.columns.tolist(),['PeakDay','PeakDayValue','MonthlyAverage']]
-col = pd.MultiIndex.from_product(columnas)
+columns =[df.columns.tolist(),['PeakDay','PeakValue','MonthlyAverage']]
+col = pd.MultiIndex.from_product(columns)
 dfp=pd.DataFrame(index=pd.MultiIndex.from_tuples(df.xs([1,1],level=[2,3]).index.tolist()),columns=col)
 dfp
 for k in df.columns.tolist():
     for a in range(2016,2031):
         for m in range (1,13):
-            promedio_dias =[] 
-            for d in df.xs([a,m,1],level=[0,1,3])['01-hermosillo'].index.tolist():
-                promedio_dias.append(float(df.xs([a,m,d],level=range(3))[k].mean()))
-            p=max(promedio_dias)
-            dfp.xs([a,m])[k,'PeakDay']=promedio_dias.index(p)+1
-            dfp.xs([a,m])[k,'PeakDayValue']=p
-            dfp.xs([a,m])[k,'MonthlyAverage']=(sum(promedio_dias)-p)/(len(promedio_dias)-1)
-            
+            dfp.xs([a,m])[k,'PeakDay']=df.xs([a,m])[k].idxmax()[0]
+            dfp.xs([a,m])[k,'PeakValue']=df.xs([a,m])[k].max()
+            dfp.xs([a,m])[k,'MonthlyAverage']=(df.xs([a,m])[k].sum()-dfp.xs([a,m])[k,'PeakValue'])/(len(df.xs([a,m])[k])-1)
 
 
-# In[5]:
+# In[20]:
 
 df.to_csv("OrganizedTables/HourlyLoadPerNode.csv")
 dfp.to_csv("OrganizedTables/LoadHighlightsPerNode.csv")
 
 
-# In[7]:
+# In[ ]:
 
-df.xs([2016,12])
+
+
+
+# In[15]:
+
+
+
+
+# In[ ]:
+
+
+
+
+# In[16]:
+
+
+
+
+# In[15]:
+
+
 
 
 # In[ ]:
