@@ -52,7 +52,6 @@ m=int(raw_input("Month: "))
 res=int(raw_input("Hourly frequency:  "))
 
 #daily load variation plot
-get_ipython().magic(u'matplotlib inline')
 plt.figure(1,figsize=(10,8),dpi = 200)
 
 for d in df.xs([a,m,1],level=[0,1,3])[k].index.tolist():

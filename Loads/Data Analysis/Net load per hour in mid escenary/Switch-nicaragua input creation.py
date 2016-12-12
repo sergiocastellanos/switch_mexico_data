@@ -77,7 +77,7 @@ export=export.drop('load_area',axis=1)
 # In[7]:
 
 export.to_csv('OrganizedTables/la_hourly_demand_mid.csv')
-export.to_csv("../../../Main Tabs/la_hourly_demand_mid.csv")
+export.to_csv("../../../Main Tabs/csv/la_hourly_demand_mid.csv")
 export.to_csv("../../../Main Tabs/la_hourly_demand_mid.tab",sep='\t')
 
 

@@ -63,7 +63,7 @@ for d in df.xs([a,m,1],level=[0,1,3])[k].index.tolist():
 print dfp.xs([a, m])[k]
 plt.ylabel('Load (MW)')
 plt.xlabel('Hour')
-plt.title('Daily load variation, low escenary, in {0} at {1}/{2}'.format(k,m,a))
+plt.title('Daily load variation, mid escenary, in {0} at {1}/{2}'.format(k,m,a))
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 plt.show()
 
@@ -96,7 +96,7 @@ plt.plot(range(1,25,res),[df.xs([a,m,dfp.xs([a,m])[k,'PeakDay']],level=range(3))
 plt.xlabel('Hour')
 plt.ylabel('Load (MW)')
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-plt.title('Highligh days, low escenary, in {0} at {1}/{2}'.format(k,m,a))
+plt.title('Highligh days, mid escenary, in {0} at {1}/{2}'.format(k,m,a))
 plt.show()
 #monthly peak order plot
 

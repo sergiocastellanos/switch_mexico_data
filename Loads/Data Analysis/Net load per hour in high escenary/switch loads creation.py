@@ -76,7 +76,7 @@ for k in df.columns.tolist():
 
 #import
 c.to_csv("OrganizedTables/lz_peak_loads_high.csv")
-c.to_csv("../../../Main Tabs/lz_peak_loads_high.csv")
+c.to_csv("../../../Main Tabs/csv/lz_peak_loads_high.csv")
 c.to_csv("../../../Main Tabs/lz_peak_loads_high.tab",sep='\t')
 
 
