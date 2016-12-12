@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[3]:
 
 import pandas as pd
 import numpy as np
@@ -11,7 +11,7 @@ df=pd.read_csv("OrganizedTables/HourlyLoadPerNode.csv",index_col=range(4))
 dfp=pd.read_csv("OrganizedTables/LoadHighlightsPerNode.csv",index_col=range(2),header=range(2))
 
 
-# In[2]:
+# In[4]:
 
 #Creating a new dataframe for Median and Peak day dates and values
 col=[df.columns.tolist(),['MedianDay','MedianDayValues','PeakDay','PeakDayValues']]
@@ -19,7 +19,7 @@ indx=[range(2016,2031),range(1,13)]
 dfs=pd.DataFrame(index=pd.MultiIndex.from_product(indx),columns=pd.MultiIndex.from_product(col))
 
 
-# In[3]:
+# In[5]:
 
 #searching for the median and peak days of every node at each year and month
 for k in df.columns.tolist():
@@ -47,12 +47,7 @@ for k in df.columns.tolist():
 
 # In[6]:
 
-
-
-
-# In[4]:
-
-#Create a new dataframe to exoport into the tab file used in SWITCH
+#Create a new dataframe to export into the tab file used in SWITCH
 col=["load_area",'hour','load_mw']
 indx=[df.columns.tolist(),range(2016,2031),range(1,13),range(2),range(12)]
 #the "range(2)" part of the multindex is for selecting peak day (0) and median day (1)"
@@ -77,18 +72,18 @@ for k in df.columns.tolist():
 export.index=export["load_area"].tolist()
 export.index.name="load_area"
 export=export.drop('load_area',axis=1)
-    
 
 
-# In[5]:
+# In[7]:
 
-export.to_csv('OrganizedTables/la_hourly_demand_medium.csv')
+export.to_csv('OrganizedTables/la_hourly_demand_mid.csv')
+export.to_csv("../../../Main Tabs/la_hourly_demand_mid.csv")
+export.to_csv("../../../Main Tabs/la_hourly_demand_mid.tab",sep='\t')
 
 
 # In[ ]:
 
 
-    
 
 
 # In[ ]:

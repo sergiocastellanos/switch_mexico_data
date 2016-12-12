@@ -8,7 +8,6 @@ import random
 import matplotlib.pyplot as plt
 import random
 import numpy as np
-get_ipython().magic(u'matplotlib inline')
 def nearest_value(array,value):
     idx=(np.abs(array-value)).argmin()
     return idx
@@ -17,7 +16,6 @@ dfp=pd.read_csv("OrganizedTables/LoadHighlightsPerNode.csv",index_col=range(2),h
 
 
 # In[4]:
-
 
 for index, k in enumerate(df.columns.tolist()):
     
@@ -44,7 +42,7 @@ for index, k in enumerate(df.columns.tolist()):
     plt.show()
 
 
-# In[12]:
+# In[25]:
 
 print 'Hourly analysis of a load area. Given a load area, year and month, it will show a plot of the hourly demand every day of the month and another plot of the selected days: peak day, median day, average (closest to monthly average) day and a random day'
 
@@ -53,7 +51,7 @@ a=int(raw_input("Year: "))
 m=int(raw_input("Month: "))
 res=int(raw_input("Hourly frequency:  "))
 
-
+#daily load variation plot
 get_ipython().magic(u'matplotlib inline')
 plt.figure(1,figsize=(10,8),dpi = 200)
 
@@ -62,16 +60,15 @@ for d in df.xs([a,m,1],level=[0,1,3])[k].index.tolist():
     for h in range(1,25):
         yy.append(df.xs([a,m,d,h])[k])
     plt.scatter(range(1,25,res),[yy[i] for i in range(0,24,res)],s=40,c=[np.random.rand(3)]*24,alpha=.6,label='{0}'.format(d))
-name='Daily load variation, high escenary, in {0} at {1},{2}'.format(k,a,m)
 print dfp.xs([a, m])[k]
-plt.ylabel('Load')
+plt.ylabel('Load (MW)')
 plt.xlabel('Hour')
-plt.title(name)
+plt.title('Daily load variation, high escenary, in {0} at {1}/{2}'.format(k,m,a))
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 plt.show()
 
 
-
+#highlights calculation
 zz=[]
 for d in df.xs([a,m,1],level=[0,1,3])[k].index.tolist():
     zz.append(df.xs([a,m,d],level=range(3))[k].mean())
@@ -89,6 +86,7 @@ else:
     if indx_median>= n:
         indx_median= indx_median+1
         
+#highlights load variation plot
 
 plt.figure(2,figsize=(10,8),dpi = 200)
 plt.plot(range(1,25,res),[df.xs([a,m,indx_ale],level=range(3))[k].tolist()[i] for i in range(0,24,res)],c=np.random.rand(3),alpha=.6,label="Random day ({0})".format(indx_ale),marker='o')
@@ -100,9 +98,14 @@ plt.ylabel('Load (MW)')
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 plt.title('Highligh days, high escenary, in {0} at {1}/{2}'.format(k,m,a))
 plt.show()
+#monthly peak order plot
 
-
-# In[ ]:
-
-
+df1=df.xs([a,m])[k].copy()
+df1.sort(ascending=False)
+plt.figure(3,figsize=[10,8],dpi=200)
+plt.title("Ordered hourly load on {0} at {1}/{2}".format(k,a,m))
+plt.ylabel("Load (MW)")
+plt.plot(df1.tolist(),c=np.random.rand(3))
+plt.show()
+del df1
 

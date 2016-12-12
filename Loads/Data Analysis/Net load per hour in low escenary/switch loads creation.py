@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[3]:
+# In[1]:
 
 #script regarding the creation of the "loads.tab" and "lz_peak_loads"
 import pandas as pd
@@ -9,13 +9,13 @@ import numpy as np
 df=pd.read_csv("OrganizedTables/HourlyLoadPerNode.csv",index_col=range(4),header=0)
 
 
-# In[4]:
+# In[2]:
 
 #creation of an axuliary dataframe for the "loads.tab" file with needed columns
 a=pd.DataFrame(index=df.index,columns=['load_area','timepoint','lz_demand_tz'])
 
 
-# In[5]:
+# In[3]:
 
 #creation of timestamps for the new table
 for y in range(2016,2031):
@@ -27,7 +27,7 @@ time=a['timepoint'].tolist()
 del a
 
 
-# In[6]:
+# In[4]:
 
 '''creation of an empty data frame that will receive, by concatenation, 
  a dataframe created for each load zone'''
@@ -44,7 +44,7 @@ for k in df.columns.tolist():
     final=final.append(b)
 
 
-# In[7]:
+# In[5]:
 
 #Import of the tables to another place
 final.to_csv("OrganizedTables/loads_low.csv")
@@ -52,7 +52,7 @@ final.to_csv("../../../Main Tabs/csv/loads_low.csv")
 final.to_csv("../../../Main Tabs/loads_low.tab",sep='\t')
 
 
-# In[8]:
+# In[6]:
 
 #creation of data frame for the "lz_peak_loads file"
 c=pd.DataFrame()
@@ -72,12 +72,22 @@ for k in df.columns.tolist():
     c=c.append(d)  
 
 
-# In[9]:
+# In[7]:
 
 #import
 c.to_csv("OrganizedTables/lz_peak_loads_low.csv")
-c.to_csv("../../../Main Tabs/lz_peak_loads_low.csv")
+c.to_csv("../../../Main Tabs/csv/lz_peak_loads_low.csv")
 c.to_csv("../../../Main Tabs/lz_peak_loads_low.tab",sep='\t')
+
+
+# In[ ]:
+
+
+
+
+# In[ ]:
+
+
 
 
 # In[ ]:

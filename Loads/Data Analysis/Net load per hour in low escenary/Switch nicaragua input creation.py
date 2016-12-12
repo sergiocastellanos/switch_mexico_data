@@ -6,7 +6,6 @@
 import pandas as pd
 import numpy as np
 import random 
-
 #importing data from our tables
 df=pd.read_csv("OrganizedTables/HourlyLoadPerNode.csv",index_col=range(4))
 dfp=pd.read_csv("OrganizedTables/LoadHighlightsPerNode.csv",index_col=range(2),header=range(2))
@@ -46,9 +45,9 @@ for k in df.columns.tolist():
             dfs.xs([a,m])[k,'PeakDayValues']=df.xs([a,m,dfp.xs([a,m])[k,'PeakDay']],level=range(3))[k].tolist()
 
 
-# In[4]:
+# In[5]:
 
-#Create a new dataframe to exoport into the tab file used in SWITCH
+#Create a new dataframe to export into the tab file used in SWITCH
 col=["load_area",'hour','load_mw']
 indx=[df.columns.tolist(),range(2016,2031),range(1,13),range(2),range(12)]
 #the "range(2)" part of the multindex is for selecting peak day (0) and median day (1)"
@@ -76,9 +75,11 @@ export=export.drop('load_area',axis=1)
     
 
 
-# In[5]:
+# In[6]:
 
 export.to_csv('OrganizedTables/la_hourly_demand_low.csv')
+export.to_csv("../../../Main Tabs/csv/la_hourly_demand_low.csv")
+export.to_csv("../../../Main Tabs/la_hourly_demand_low.tab",sep='\t')
 
 
 # In[ ]:

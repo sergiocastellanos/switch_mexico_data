@@ -72,12 +72,22 @@ for k in df.columns.tolist():
     c=c.append(d)  
 
 
-# In[7]:
+# In[8]:
 
 #import
 c.to_csv("OrganizedTables/lz_peak_loads_mid.csv")
-c.to_csv("../../../Main Tabs/lz_peak_loads_mid.csv")
+c.to_csv("../../../Main Tabs/csv/lz_peak_loads_mid.csv")
 c.to_csv("../../../Main Tabs/lz_peak_loads_mid.tab",sep='\t')
+
+
+# In[ ]:
+
+
+
+
+# In[ ]:
+
+
 
 
 # In[ ]:
