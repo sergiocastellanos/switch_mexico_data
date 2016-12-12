@@ -3,3 +3,6 @@
 *.aux
 *.gz
 .~*
+loads_high*
+loads_mid*
+loads_low*
