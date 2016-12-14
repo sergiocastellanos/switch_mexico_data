@@ -1,0 +1,35 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[top=1.5cm, bottom=1.5cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\title{Details about the cost estimation for Mexico's power plants for the implementation of SWITCH Model}
+\usepackage{authblk}
+\author[1,2]{Aldo Sayeg Pasos Trejo}
+\affil[1]{\textit{Physics Departament. Facultad de Ciencias. Universidad Nacional Autonoma de Mexico}}
+\affil[2]{\textit{Visiting Student Researcher for the Berkeley Energy and Climate Institute at University of California, Berkeley}}
+\date{\today}
+\begin{document}
+\maketitle
+\section{Introduction}
+This documents discusses the costs estimation for selected elecrticity power plants of Mexico's SEN("Sistema eléctrico nacional", National electrical system). This data is contained in the tables located at the "Generation/data" folder of the SWITCH-Mexico repository\cite{repo} for the implementation of the SWITCH model for Mexico's electricity grid made at the University of California, Berkeley.
+\section{Plant selection}
+The source for the number of plants existing in the system is the PIIRCE ("Programa Indicativo para la Instalación y Retiro de Centrales Eléctricas ", Program for Power Plant Installation and Decommission). The PIIRCE, a part of the PRODESEN ("Programa de Desarrollo del Sistema Eléctrico Nacional", Developement Program for the National Electric System), publishes a list\cite{piirce} of existing and proposed (with more specific details about their status) power plants in Mexico's electricity grid. Several copies with small changes from the original cam be found in the GitHub repository.
+\\
+\\ A translated and refined version of this table can be found in the "Generation/data" folder, with the name "PowerPlants.csv". In this table, plants are asociated with it's generation technology, load area and other things. PIIRCE's contains power plants that do not exist yet, but are being considered to be built. The "being\_built" column of the "GenerationPlants.csv" table explains the status of the plant. The following is a list of the terms in this column and it's meaning:
+\begin{itemize}
+\item \textbf{operational: } an existing and functional power plant.
+\item \textbf{firm\_project:} non exiting power plant. A project that has been aproved by CENACE's ("Centro Nacional de Control de Energía", National Center for Energetic Control) criterion.
+\item \textbf{optimization:} Non existing power plant. A project that has \textbf{not} been aproved by CENACE's ("Centro Nacional de Control de Energía", National Center for Energetic Control) criterion.
+\item \textbf{generic\_project:} Non existing power plant. A project that has been proposed but without reviewn CENACE's criterion. Basically, suggested projects.
+\item \textbf{auction\_projects:} Projects that have planed by private indusrtries that have gained permission to build a power plant through an goverment-sponsored auction.
+\item \textbf{rehabilitation\_modernization:} existing power plant that will be improved.
+\end{itemize}
+\begin{thebibliography}{9}
+\bibitem{repo} Switch-Mexico data repository. \url{https://github.com/sergiocastellanos/switch_mexico_data}
+\bibitem{piirce}
+PIIRCE's power plants database. \url{base.energia.gob.mx/prodesen/BasedeDatos_PIIRCE-2016-2030_Generacion.xlsx}
+\end{thebibliography}
+\end{document}
