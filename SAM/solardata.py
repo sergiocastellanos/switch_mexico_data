@@ -46,7 +46,7 @@ def get_data (mesh, path, year, interval, name, email, reason, institution, api_
     mesh = (pd.read_csv(mesh, header = -1, encoding = "ISO-8859-1"))[1:]
     name = get_name(name)
     
-    for i, val in tqdm (enumerate(mesh[1]), desc = "Counties in Mexico completed for this day/dataframe"):
+    for i, val in tqdm (enumerate(mesh[1]), desc = "Iteration no: "):
         time.sleep(10)
         latitude = mesh[2].iloc[i]
         longitude = mesh[3].iloc[i]
@@ -70,5 +70,20 @@ def get_data (mesh, path, year, interval, name, email, reason, institution, api_
         info = info.to_csv (path + '/' + year + '/' + filenameoutput + '.csv')
         meta = meta.to_csv (path + '/' + year + 'meta/' + filenameoutput + '.csv')
 
-create_folders (sys.argv[2], sys.argv[3])
-get_data (sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9], 'true' if (sys.argv[10] == 'True') else 'false')
+if len(sys.argv) != 10:
+    print("There was an error with the parameters. Expected parameters/syntax were expected as following:\n\n \t <Mesh file path> <Save To Path> <Year> <Interval (in minutes)> <User name> <User email> <Reason for use> <Affiliation> <API Key> <UTC (\"True\" or \"False\")> \n\nPlease enter the following data: \n")
+    mesh = input("\t Mesh file path: ")
+    saveTo = input("\t Save to path: ")
+    year = input("\t Year of the data requested: ")
+    interval = input("\t Interval in minutes: ")
+    name = input("\t User name: ")
+    email = input("\t User email: ")
+    reason = input("\t Reason for use: ")
+    institution = input("\t Affiliation: ")
+    api_key = input("\t API Key: ")
+    utc = input("\t UTC (\"False\"/\"True\"): ")
+    create_folders (saveTo, year)
+    get_data (mesh, saveTo, year, interval, name, email, reason, institution, api_key, 'true' if (utc == 'True') else 'false')
+else:
+    create_folders (sys.argv[2], sys.argv[3])
+    get_data (sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9], 'true' if (sys.argv[10] == 'True') else 'false')
