@@ -5,7 +5,7 @@
 \usepackage{longtable}
 \usepackage{hyperref}
 \usepackage{booktabs}
-\title{Details about the cost estimation for Mexico's power plants for the implementation of SWITCH Model}
+\title{Details about the cost assigment for Mexico's power plants for the implementation of SWITCH Model}
 \usepackage{authblk}
 \author[1,2]{Aldo Sayeg Pasos Trejo}
 \affil[1]{\textit{Physics Departament. Facultad de Ciencias. Universidad Nacional Autonoma de Mexico}}
@@ -25,11 +25,26 @@ The source for the number of plants existing in the system is the PIIRCE ("Progr
 \item \textbf{optimization:} Non existing power plant. A project that has \textbf{not} been aproved by CENACE's ("Centro Nacional de Control de Energía", National Center for Energetic Control) criterion.
 \item \textbf{generic\_project:} Non existing power plant. A project that has been proposed but without reviewn CENACE's criterion. Basically, suggested projects.
 \item \textbf{auction\_projects:} Projects that have planed by private indusrtries that have gained permission to build a power plant through an goverment-sponsored auction.
-\item \textbf{rehabilitation\_modernization:} existing power plant that will be improved.
+\item \textbf{rehabilitation\_modernization:} existing power plant that will be upgraded and updated in it's infrastructure.
 \end{itemize}
+We estimated the costs only for power plants with a "being\_built" value of operational, firm\_project and rehabilitation\_modernization. We made this choice as this are the only power plants that are built or that have a high chance of being built.
+\section{Cost assignment sources}
+The Original PIIRCE power plant table already has a cost assigned to fixed and variable O \& M and to overnigh cost. However, we find that this cost does not fit or accomodates itself with international standards and other things. That is the main reason for making this estimation.
+\\
+\\This estimation will asign the mentioned costs to the selected power plants based on it's capacity and generation technology. We used as source of the costs of each plant the data contained in the COPAR ("Costos y parámetros de Referencia para la formulación de Proyectos de Inversión en el Sector Eléctrico", Reference costs ) generation report, which can be found in the "Generation/data" folder\cite{copar}.
+\\
+\\This document contains data refering to the O \& M and overnight costs of power plants of a determined capacity and technology in Mexico. However, this document doesn't has information for plants that use biofuels as their technology. To get an estimate of the costs of these plants, we used the data of the SWITCH model implementation for the West Coast of the United States. The report\cite{us} of this implementation contains the needed costs for each plant using biofuels.
+\\
+\\The "TechCosts.csv" file of the "Generation/data" folder contains this information.
+\section{Python Script and mathematical details}
+Using as a base the "PowerPlants.csv" table, the "Cost assignment" python script, located in the "Generation folder", assigned a fixed and variable O\&M cost and a overnight cost for all the selected power plants. For this, the script assignated the price of the "TechCosts.csv" table for the plant that had the neares value of capacity for the technology of the plant. For example, if a given selected plant is based on "combined\_cycle\_natural\_gas" tech and has a capacity of 260 MW, the script will assign to its costs the one of the plant with the same tech and a capacity of 285.7 MW that is pointed out in the "TechCosts.csv" table. 
+\\
+\\After assigning all of this information to the selected plants, it exports a table to the "Generation/data" folder called "PowerPlantsWithCost.csv"
 \begin{thebibliography}{9}
 \bibitem{repo} Switch-Mexico data repository. \url{https://github.com/sergiocastellanos/switch_mexico_data}
 \bibitem{piirce}
 PIIRCE's power plants database. \url{base.energia.gob.mx/prodesen/BasedeDatos_PIIRCE-2016-2030_Generacion.xlsx}
+\bibitem{copar} COPAR Generation report \url{https://github.com/sergiocastellanos/switch_mexico_data/tree/master/Generation/data/COPARGeneration}
+\bibitem{us}Timescales of power system balancing for decarbonization of the electricty sector. Supplemental Information \url{https://github.com/sergiocastellanos/switch_mexico_data/tree/master/Generation/data/SWITCHusinfo}
 \end{thebibliography}
 \end{document}
