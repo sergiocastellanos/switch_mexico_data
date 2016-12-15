@@ -1,8 +1,12 @@
+#jupyter notebook auxiliary file
 .ipynb_checkpoints/
+#latex auxiliary files
 *.log
 *.aux
 *.gz
+*.out
 .~*
+#files to large to be uploaded to github
 loads_high*
 loads_mid*
 loads_low*
