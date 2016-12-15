@@ -1,7 +1,10 @@
 
 #Dependencies
 
-You need ```Python``` 2.7.x and 3 ```Python``` libraries: ```Flask```
+You need ```Python``` 2.7.x 
+
+And Python libraries: ```Flask``` ...
+
 
 
 #How to run the code
