@@ -20,11 +20,11 @@ The source for the number of plants existing in the system is the PIIRCE ("Progr
 \\
 \\ A translated and refined version of this table can be found in the "Generation/data" folder, with the name "PowerPlants.csv". In this table, plants are asociated with it's generation technology, load area and other things. PIIRCE's contains power plants that do not exist yet, but are being considered to be built. The "being\_built" column of the "GenerationPlants.csv" table explains the status of the plant. The following is a list of the terms in this column and it's meaning:
 \begin{itemize}
-\item \textbf{operational: } an existing and functional power plant.
-\item \textbf{firm\_project:} non exiting power plant. A project that has been aproved by CENACE's ("Centro Nacional de Control de Energía", National Center for Energetic Control) criterion.
+\item \textbf{operational: } An existing and functional power plant.
+\item \textbf{firm\_project:} Non existing power plant. A project that has been aproved by CENACE's ("Centro Nacional de Control de Energía", National Center for Energetic Control) criterion.
 \item \textbf{optimization:} Non existing power plant. A project that has \textbf{not} been aproved by CENACE's ("Centro Nacional de Control de Energía", National Center for Energetic Control) criterion.
 \item \textbf{generic\_project:} Non existing power plant. A project that has been proposed but without reviewn CENACE's criterion. Basically, suggested projects.
-\item \textbf{auction\_projects:} Projects that have planed by private indusrtries that have gained permission to build a power plant through an goverment-sponsored auction.
+\item \textbf{auction\_projects:} Non existing power plant. Projects that have planed by private indusrtries that have gained permission to build a power plant through an goverment-sponsored auction.
 \item \textbf{rehabilitation\_modernization:} existing power plant that will be upgraded and updated in it's infrastructure.
 \end{itemize}
 We estimated the costs only for power plants with a "being\_built" value of operational, firm\_project and rehabilitation\_modernization. We made this choice as this are the only power plants that are built or that have a high chance of being built.
@@ -39,7 +39,18 @@ The Original PIIRCE power plant table already has a cost assigned to fixed and v
 \section{Python Script and mathematical details}
 Using as a base the "PowerPlants.csv" table, the "Cost assignment" python script, located in the "Generation folder", assigned a fixed and variable O\&M cost and a overnight cost for all the selected power plants. For this, the script assignated the price of the "TechCosts.csv" table for the plant that had the neares value of capacity for the technology of the plant. For example, if a given selected plant is based on "combined\_cycle\_natural\_gas" tech and has a capacity of 260 MW, the script will assign to its costs the one of the plant with the same tech and a capacity of 285.7 MW that is pointed out in the "TechCosts.csv" table. 
 \\
-\\After assigning all of this information to the selected plants, it exports a table to the "Generation/data" folder called "PowerPlantsWithCost.csv"
+\\After assigning all of this information to the selected plants, it exports a table to the "Generation/data" folder called "PowerPlantsWithCost.csv". The units of the cost columns are the following:
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Column & unit \\
+\hline
+fixed\_o\_m & USD/MWh \\
+variable\_o\_m & USD/MWh-year \\
+overnight\_cost & USD/KWh \\
+\hline
+\end{tabular}
+\end{center}
 \begin{thebibliography}{9}
 \bibitem{repo} Switch-Mexico data repository. \url{https://github.com/sergiocastellanos/switch_mexico_data}
 \bibitem{piirce}
