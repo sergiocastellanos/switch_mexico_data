@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 # In[2]:
 
-df= pd.read_csv("tables/future investment projects.csv",index_col=range(2),header=0)
+df= pd.read_csv("tables/FutureInvestmentProjects.csv",index_col=range(2),header=0)
 tec=list(set(df.xs([2016]).index.tolist()))
 dfi=pd.DataFrame(index=tec,columns=['Investment per brute generation (Millions of MXN/MW)'])
 e='Investment per brute generation (Millions of MXN/MW)'

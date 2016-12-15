@@ -6,7 +6,7 @@
 #another fuel cost table created, based on data from the piirce. Check documentation for further reference
 import pandas as pd
 import numpy as np
-df1=pd.read_csv("tables/PiirceGenerationUsingFuel.csv",header=0,index_col=[6,3])
+df1=pd.read_csv("tables/PiircePowerPlantsUsingFuel.csv",header=0,index_col=[6,3])
 df2=pd.read_csv("tables/PiirceFuels.csv",header=0,usecols=range(3),index_col=range(2),skip_blank_lines=True)
 first=df1.index.levels[0].tolist()[0]
 c=pd.DataFrame(index=pd.MultiIndex.from_product([[first],set(list(df1.xs([first]).index.tolist())),range(2016,2031)]),columns=['fuel_cost'])

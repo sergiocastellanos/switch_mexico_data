@@ -1,4 +1,4 @@
-name,year,cost,,fuel_code,descripción,units
+name,year,cost,,fuel_code,description,units
 c_i_manza,2016,45.32976302,,c_i_manza,fuel_oil,usd$/barril
 c_i_manza,2017,61.97651007,,c_n_alta,fuel_oil,usd$/barril
 c_i_manza,2018,65.81702538,,c_n_chih,fuel_oil,usd$/barril
