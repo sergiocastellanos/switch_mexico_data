@@ -1,9 +1,9 @@
 '''
 To generate SAM simulations over a set of .cvs files with solar energy info.:
 
-    ~: python samsimul.py ../MeshMexico.csv /home/ludwig/switch/SAM/2014 2014 30 
+    ~: python samsimul.py ../MeshMexico.csv /home/ludwig/switch/SAM/2014 2014 30 500 Optimal
 
-     / python samsimul.py <
+     / python samsimul.py <Mesh file> <SAM Files and Metafiles path> <Year> <Minutes> <KW> <Tilt ("Optimal"/"Normal")>
 '''
 import pandas as pd
 import numpy as np
@@ -16,12 +16,12 @@ site.addsitedir('SDK/languages/python/')
 import sscapi
 from tqdm import tqdm
 
-def create_folders (path, year, interval):
-    print (path + '/' + year + 'SAMgen_' + interval + 'mins/')
-    if not os.path.exists (path + '/' + year + 'SAMgen_' + interval + 'mins/'):
-        os.makedirs (path + '/' + year + 'SAMgen_' + interval + 'mins/')
+def create_folders (path, year, interval, MW, tilt):
+    if not os.path.exists (path + '/' + year + 'SAMgen_' + interval + 'mins_' + MW + 'MW_' + tilt):
+        print ('Creating folder >> ' + path + '/' + year + 'SAMgen_' + interval + 'mins_' + MW + 'MW_' + tilt)
+        os.makedirs (path + '/' + year + 'SAMgen_' + interval + 'mins_' + MW + 'MW_' + tilt)
         
-def get_csvs_simulations (mesh, path, year, interval):
+def get_csvs_simulations (mesh, path, year, interval, kw, tiltc):
     mesh = pd.read_csv(mesh, header = -1, encoding = "ISO-8859-1")[1:]
     
     for i, val in tqdm (enumerate(mesh[1]), desc = "Counties in Mexico completed for this day/dataframe"):
@@ -32,6 +32,7 @@ def get_csvs_simulations (mesh, path, year, interval):
         latitude = float(mesh[2].iloc[i])
         longitude = float(mesh[3].iloc[i])
 
+        kw = int(kw)
         year = df['Year'][i]
         month = df['Month'][i]
         day = df['Day'][i]
@@ -70,7 +71,7 @@ def get_csvs_simulations (mesh, path, year, interval):
 
         # Set tilt of system in degrees (default: 25)
         # Optimum: (latitude * .76) + 3.1
-        tilt = (float(mesh[2].iloc[i])*.76)+3.1
+        tilt = (float(mesh[2].iloc[i])) if tiltc == "Normal" else ((float(mesh[2].iloc[1])*.76) + 3.1)
         ssc.data_set_number(dat, 'tilt'.encode('utf-8'), tilt)
 
         # Set azimuth angle (in degrees) from north (0 degrees)
@@ -123,9 +124,18 @@ def get_csvs_simulations (mesh, path, year, interval):
                           ('fixed' if array_type == 1 else '')
         df['ID_scenario'] = systemconfig_id
 
-        df.to_csv (str(path + '/' + str(year) + 'SAMgen_' + str(interval) + 'mins/' + mesh[1].iloc[i] + '.csv'), index = False)
+        df.to_csv (str(path + '/' + str(year) + 'SAMgen_' + str(interval) + 'mins_' + str(float(kw)/1000.0) + 'MW_' + tiltc + '/' + mesh[1].iloc[i] + '.csv'), index = False)
 
-if (sys.argv[2].endswith('/')):
-    sys.argv[2] = (sys.argv[2])[:-1]
-create_folders (sys.argv[2], sys.argv[3], sys.argv[4])
-get_csvs_simulations (sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+
+if (len(sys.argv) != 7):
+    print ("There was an error with the parameters. Expected arguments: \n\n\t <Path to CSV with coordinates> <SAM Files and Metafiles path> <Year> <Minutes> <KW> <Tilt (\"Optimal\"/\"Normal\")>")
+else:
+    if (sys.argv[2].endswith('/')):
+        sys.argv[2] = (sys.argv[2])[:-1]
+
+    if sys.argv[6] != "Optimal" and sys.argv[6] != "Normal":
+        print ("Error in tilt value.")
+        exit
+
+    create_folders (sys.argv[2], sys.argv[3], sys.argv[4], str(float(sys.argv[5])/1000.0), sys.argv[6])
+    get_csvs_simulations (sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
