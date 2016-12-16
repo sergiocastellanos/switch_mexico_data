@@ -48,20 +48,11 @@ def get_data (mesh, path, year, token, height, model, kw):
         csv_string = s.get(api_base, params = args)
         cvs_handle = io.StringIO(csv_string.text)
         values = pd.read_csv(cvs_handle, index_col = 0, parse_dates = True)
-        filenameoutput = '{}'.format(i+1) + ".csv"
+        filenameoutput = '{}'.format(i+1)
         df = values.to_csv(path + '/' + year + '/' + filenameoutput + '.csv')
 
 if len(sys.argv) != 8:
-    print("There was an error with the parameters. Expected parameters/syntac were expected as following:\n\n\t <Path to CSV with coordinates> <Save to... path> <Year> <Token> <Height> <Model of the turbine> <KW> \n\nPlease enter the following data:\n")
-    mesh = input("\t Coordinates file (.csv): ")
-    saveTo = input("\t Save to path: ")
-    year = input("\t Year: ")
-    token = input("\t Token: ")
-    height = input("\t Height of the turbine: ")
-    model = input("\t Model of the turbine: ")
-    kw = input("\t Capacity (in KW): ")
-    create_folders (saveTo, year)
-    get_data (mesh, saveTo, year, token, height, model, kw)
+    print("There was an error with the parameters. Expected arguments:\n\n\t <Path to CSV with coordinates> <Save to... path> <Year> <Token> <Height> <Model of the turbine> <Capacity (KW)> \n")
 else:
     create_folders (sys.argv[2], sys.argv[3])
     get_data (sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7])
