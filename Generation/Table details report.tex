@@ -27,7 +27,7 @@ The source for the number of plants existing in the system is the PIIRCE ("Progr
 \item \textbf{auction\_projects:} Non existing power plant. Projects that have planed by private indusrtries that have gained permission to build a power plant through an goverment-sponsored auction.
 \item \textbf{rehabilitation\_modernization:} existing power plant that will be upgraded and updated in it's infrastructure.
 \end{itemize}
-We estimated the costs only for power plants with a "being\_built" value of operational, firm\_project and rehabilitation\_modernization. We made this choice as this are the only power plants that are built or that have a high chance of being built.
+We estimated the costs only for power plants with a "being\_built" value of operational, firm\_project, rehabilitation\_modernization and auction\_projects. We made this choice as this are the only power plants that are built or that have a high chance of being built, and also to include a projection of the influence of the private sector power plants in the electricity grid.
 \section{Cost assignment sources}
 The Original PIIRCE power plant table already has a cost assigned to fixed and variable O \& M and to overnigh cost. However, we find that this cost does not fit or accomodates itself with international standards and other things. That is the main reason for making this estimation.
 \\
@@ -46,8 +46,8 @@ Using as a base the "PowerPlants.csv" table, the "Cost assignment" python script
 Column & unit \\
 \hline
 fixed\_o\_m & USD/MWh \\
-variable\_o\_m & USD/MWh-year \\
-overnight\_cost & USD/KWh \\
+variable\_o\_m & USD/MW-year \\
+overnight\_cost & USD/KW \\
 \hline
 \end{tabular}
 \end{center}
