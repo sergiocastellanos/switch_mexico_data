@@ -30,7 +30,7 @@ def get_data (mesh, path, year, token, height, model, kw):
     s = requests.session()
     s.headers = {'Authorization' : 'Token ' + token}
 
-    counties = pd.read_csv(r'../MeshMexico.csv', header = -1, encoding = "ISO-8859-1")
+    counties = pd.read_csv(mesh, header = -1, encoding = "ISO-8859-1")
     counties = counties[1:]
 
     for i, val in tqdm(enumerate(counties[1]), desc = "Iteration"):
