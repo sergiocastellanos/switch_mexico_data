@@ -3,7 +3,7 @@ To generate SAM simulations over a set of .cvs files with solar energy info.:
 
     ~: python samsimul.py ../MeshMexico.csv /home/ludwig/switch/SAM/2014 2014 30 500 Optimal
 
-     / python samsimul.py <Mesh file> <SAM Files and Metafiles path> <Year> <Minutes> <KW> <Tilt ("Optimal"/"Normal")>
+     / python samsimul.py <Mesh file.csv> <NSRDB Files and Metafiles path> <Year> <Minutes> <KW> <Tilt ("Optimal"/"Normal")>
 '''
 import pandas as pd
 import numpy as np
