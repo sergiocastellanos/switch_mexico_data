@@ -1,0 +1,53 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[top=1.25cm,bottom=1.25cm,left=1.25cm,right=1.25cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{authblk}
+\title{"generation\_info" table creation for SWITCH-Mexico input}
+\author[1,2]{Aldo Sayeg Pasos Trejo}
+\affil[1]{\textit{Physics Departament. Facultad de Ciencias. Universidad Nacional Autónoma de México}}
+\affil[2]{\textit{Visiting Student Researcher for the Berkeley Energy and Climate Institute at University of California, Berkeley}}
+\date{\today}
+\begin{document}
+\maketitle
+\section{Introduction}
+This report discusses the creation of the "generation\_info" tab file that the SWITCH model uses as an input. Once we obtained the information that detailed the contents of each coulmn of this table,  different and multiple sources of information were needed to fill these columns. As we could not find all the information needed, several assumptions were made to complete this table.
+\section{Table contents}
+Examples of this table can be found at the each of the example directories located in the SWITCH-Master GitHub \cite{master} repository, always under the name "generator\_info.tab". Due to the amount of columns of this table, it is not optimal to show in this document an example of the table. 
+\\
+\\The table is indexed by generation technology and the columns consist of information regarding some general information of the generation technology: the variable operation and mantainence costs, the full load heat rate, outage rate for scheduled and forced mantainence and other information. The complete description and listing of this table columns can be found at the SWITCH input description document\cite{glos}, located at the Switch-mexico GitHub repository.
+\section{Column information sources}
+We now present a description of the information sources used to fill each of the table columns:
+\subsection{generation\_technology and energy\_sources}
+To obtain a list of all generation technologies, we used PIIRCE's ("Programa indicativo de instalaciones y retiro de centrales eléctricas", Program for Power Plant Installation and Decommission) table of all the existing and proposed power plants that contribute to Mexico's electricity grid. PIIRCE's list is indexed by the name of the power plant, and has columns that describe the power plant technology and energy source. The list of generation technologies was defined as the set of all the differente generation technologies found on PIIRCE's power plant list. 
+\\
+\\Afterwards, the fuel of each generation technology was found using the same table, asociating to each generation technology the fuel that was used by all the power plants using that technology.
+\subsection{g\_full\_load\_heat\_rate}
+PIIRCE's power plant table contained the full load heat rate of every power plant in GJ/MWh (gigajoules per megawatt-hour). First, we converted those values to the units of MMTU/MWh (MIllion british thermal units per megawatt-hour). Aferwards, to calculate the full load heat rate of a generation technology, we made a weighted average based on the capacity of the plant of each technology, that was also listed in PIIRCE's powerplant table. The following equation shows the formula for that.
+\begin{equation}
+FLHR(G)= \sum_{g \in G} \quad \frac{C_g}{\sum_{g \in G}\ C_g}\quad FLHR_g
+\end{equation}
+Where $G$ it the set of all power plants with generation technology G,$C_g$ the capacity of a power plant $g$ and $FLHR_g$ the full load heat rate of power plant $g$.
+\subsection{g\_is\_variable, g\_is\_baseload, g\_is\_flexible\_baseload, g\_is\_cogen, \\ g\_competes\_for\_space}
+A you can see in the SWITCH input description document, all of these columns are binary values that indicate a particular thing related to that technology. We made the assumption that this information does not change from region to region, as it is particular of the generation technology. With this assumption, we obained the values for each column from SWITCH-Chile input tables\cite{chile} and from SWITCH-WECC report\cite{wecc}.
+\subsection{g\_max\_age}
+The maximum age was obtained from CFE's ("Comisión Federal de Electricidad", Federal Electricity Comission) COPAR ("Costos y Parámetros de Referencia para la Formulación de Proyectos de Inversión en el Sector Eléctrico", Reference Costs and Paramters for the Formulation of Investment Proyects) 2015 Generation report\cite{copar}. As not every generation technology is listed in COPAR'S generation refort, we also used data from SWITCH-Chile input tables and SWITCH-WECC reports.
+\subsection{g\_variable\_o\_m}
+To calculate the variable operation and mantainence (O\&M) cost for each generation technology, we used COPAR's 2015 generation report as source of information.  For the generation technologies not listed in COPAR's document, we used PIIRCE's power plant table. For each generation technology missing from COPAR's document, we made a weighted average of it's O\&M cost based on the capacitu of the plant. We used the same formula of equation 1, just that this time we replaced the plant full load heat rate for its O\&M cost.
+\subsection{g\_min\_build\_capacity}
+As you can see on the SWITCH input description document, this column is particulary important for generation technologies with a large overnight cost, particulary the nuclear technology. As this is an optional parameter, we decided to calculate it just for the nuclear generation technology. For that, we used PIIRCE's power plant table. First, as this table contains rehabilitation and modernization projects for existing plants as a completely new power plant, we listed all the existing power plants that used nuclear technology and then we selected the minimum existing capacity of that lis as the minimum build capacity for the nuclar technology. All the other technologies were set to 0.
+\subsection{g\_scheduled\_outage\_rate, g\_forced\_outage\_rate}
+This data was contained in PIIRCE's power plants table. However, it remained constant for all the power plants of the same generation technology, so it was not necesary to make an estimation. We used the values for scheduled outage rate and forced outage rate obtained for a given power plant of that generation technology.
+\subsection{g\_unit\_size, g\_ccs\_capture\_efficiency, g\_ccs\_energy\_load, \\ g\_storage\_efficiency, g\_store\_to\_release\_ratio}
+All of these columns are optional parameters that, in this first aproximation to use the SWITCH model, will not be used. We defaulted all of these parameters to 0 for all generation technologies.
+\begin{thebibliography}{9}
+\bibitem{master} SWITCH-Master repository examples directory \url{https://github.com/switch-model/switch/tree/master/examples}
+\bibitem{glos} SWITCH input description  \url{https://github.com/switch-model/switch/tree/master/examples}
+\bibitem{wecc} SWITCH-WECC Data, Assumptions and Model Formulation \url{http://rael.berkeley.edu/old_drupal/sites/default/files/SWITCH-WECC_Documentation_October_2013.pdf}
+\bibitem{chile} SWITCH-Chile example input directory \url{https://github.com/bmaluenda/SWITCH-Pyomo-Chile/tree/Chile/inputs-chile-small}
+\bibitem{copar} COPAR 2015 generation report \url{https://github.com/sergiocastellanos/switch_mexico_data/blob/master/Generation/data/COPARGeneration.pdf}
+\end{thebibliography}
+\end{document}
