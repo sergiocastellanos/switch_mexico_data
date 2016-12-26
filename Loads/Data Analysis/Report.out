@@ -1,7 +1,0 @@
-\BOOKMARK [1][-]{section.1}{Creating the 'Hourly Demand' table and associated problems}{}% 1
-\BOOKMARK [1][-]{section.2}{Python scripts}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Problem solutions and "Organized table creation"}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Other scripts}{section.2}% 4
-\BOOKMARK [3][-]{subsubsection.2.2.1}{"LoadHighlightsPerNode" data details}{subsection.2.2}% 5
-\BOOKMARK [2][-]{subsection.2.3}{"switch loads creation" script}{section.2}% 6
-\BOOKMARK [2][-]{subsection.2.4}{Loads .tab files created outside of any script.}{section.2}% 7
