@@ -63,8 +63,8 @@ for index,row in df6.iterrows():
     df6.loc[index,'ts_period']=investment_period(int(index[:4]))
     if index[-1]=='M': 
         #calculating scaling factor according to "timescales.py"
-        df6.loc[index,'ts_scale_to_period']= 1*24*(df1.xs([int(index[:4]),int(index[4:6]),1],level=[0,1,3]).shape[0]-1)
-    else: df6.loc[index,'ts_scale_to_period']= 1*24
+        df6.loc[index,'ts_scale_to_period']= 1*(df1.xs([int(index[:4]),int(index[4:6]),1],level=[0,1,3]).shape[0]-1)*12*5
+    else: df6.loc[index,'ts_scale_to_period']= 1*12*5
 df6['ts_duration_of_tp']=2
 df6['ts_num_tps']=24
 df6['ts_period']=df6['ts_period'].astype('int64')
