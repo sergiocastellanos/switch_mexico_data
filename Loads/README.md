@@ -9,4 +9,6 @@ All of the python scripts here are presented in 2 versions:
 
 For further reference of the Jupyter Notebook, check http://jupyter.org/
 
-For a detailed description of the creation and function of some files, check the "report.pdf" document.
+For a detailed description of the folders of load projection scenarios, consult the "loads projections report" document.
+
+The "Timepoints and timeseries creation" script creates time-related SWITCH input tables. For a detailed description of this document, consult the "timeseries and timepoints report" document.
