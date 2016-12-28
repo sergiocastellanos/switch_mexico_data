@@ -5,11 +5,11 @@
 
 import pandas  as pd
 import numpy as np
-df1=pd.read_csv('chile_generator_info.tab',sep='\t')
+df1=pd.read_csv('data/chile_generator_info.tab',sep='\t')
 df2=pd.read_csv('../Main Tabs/generator_energy_sources.tab',sep='\t',index_col=0)
 df3=pd.read_csv('data/PowerPlants.csv')
 df4=pd.read_csv('data/gen_new_build_costs_v2-Draft.tab',sep="\t",index_col=0)
-df5=pd.read_csv('generator_max_age.tab',sep="\t",index_col=0)
+df5=pd.read_csv('data/generator_max_age.tab',sep="\t",index_col=0)
 df5=df5.fillna(value=0)
 df3=df3.fillna(value=0)
 
@@ -75,7 +75,7 @@ df2
 #optional parameters that will be ignored
 ignored=["g_unit_size","g_ccs_capture_efficiency","g_ccs_energy_load","g_storage_efficiency","g_store_to_release_ratio"]
 for i in ignored:
-    df2[i]=0
+    df2[i]="."
 #boolean parameters that will be estimated
 boole=["g_is_variable","g_is_baseload","g_is_flexible_baseload","g_is_cogen","g_competes_for_space"]
 
@@ -87,5 +87,5 @@ boole=["g_is_variable","g_is_baseload","g_is_flexible_baseload","g_is_cogen","g_
 
 # In[10]:
 
-df2.to_csv('generator_info_trial.tab',sep="\t")
+df2.to_csv('data/generator_info_trial.tab',sep="\t")
 
