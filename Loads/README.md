@@ -1,6 +1,8 @@
 #Loads data and analysis
 The following folder contains data tables and scripts related to the daily load of Mexico's electricity grid. Each folder represents a different scenario for the load: high, low and medium. For a detailed description of the information contained, check the readme file of each folder
 
+As the Loads are presented hourly, we must mention that all of the times are refered to Mexico's capital timezone, UTC-6
+
 All of the python scripts here are presented in 2 versions:
 
 *A normal .py python script
