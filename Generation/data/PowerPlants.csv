@@ -315,8 +315,8 @@ cooperativa_la_cruz_azul,bioenergy_natural_gas,03-occidental,10.3,9.763033175,0,
 coppel,solar,04-noroeste,0,0,0,0,0,0.986,,0.986,314,operational,,,01-hermosillo,0,1
 csi_en_saltillo,gas_turbine_natural_gas,06-noreste,9.6,9.099526066,0,9.22,5.5,2.6,,2.54,315,operational,g_ahnrr,natural_gas,17-saltillo,3.19,0.976923077
 deacero_power,combined_cycle_natural_gas,06-noreste,7.2,6.82464455,0,6.96,7.7,200,,193.8,316,operational,g_ahnrr,natural_gas,17-saltillo,4.43,0.969
-desarrollos_windos_mexicanos_de_oaxaca_1,wind,02-oriental,0,0,0,0,0,90,,26.973,317,operational,,,40-ixtepec,0,0.2997
-desarrolloswindosmexicanos2_piedralarga,wind,02-oriental,0,0,0,0,0,137.5,,41.20875,318,operational,,,40-ixtepec,0,0.2997
+desarrollos_eolicos_mexicanos_de_oaxaca_1,wind,02-oriental,0,0,0,0,0,90,,26.973,317,operational,,,40-ixtepec,0,0.2997
+desarrolloseolicosmexicanos2_piedralarga,wind,02-oriental,0,0,0,0,0,137.5,,41.20875,318,operational,,,40-ixtepec,0,0.2997
 destileria_del_golfo,bioenergy_diesel,02-oriental,9.6,9.099526066,0,11.44,7.1,8,,7.5,319,operational,d_naciona,diesel,33-veracruz,3.94,0.9375
 dominica_energia_limpia,wind,03-occidental,0,0,0,0,0,200,,29.97,320,operational,,,25-san_luis_potosi,0,0.14985
 draexlmaier_components_automotive_de_mexico,internal_combustion_diesel,03-occidental,10.3,9.763033175,0,11.23,7.4,2,,1.83,321,operational,d_naciona,diesel,25-san_luis_potosi,3.16,0.915
@@ -1129,8 +1129,8 @@ ce_otr_10,wind,09-baja_california_sur-la_paz,0,0,0,0,0,50,2019,12.4875,1127,firm
 ce_otr_02,wind,06-noreste,0,0,0,0,0,300,2017,74.925,1128,firm_project,,,18-valles,0,0.24975
 ce_otr_05,wind,06-noreste,0,0,0,0,0,95.7,2018,23.901075,1129,firm_project,,,18-valles,0,0.24975
 ce_otr_06,wind,03-occidental,0,0,0,0,0,200,2018,29.97,1130,firm_project,,,24-aguascalientes,0,0.14985
-parque_windo_chabacal,wind,07-peninsular,0,0,0,0,0,30,2018,8.991,1131,auction_projects,,,42-merida,0,0.2997
-parque_windo_tizimin,wind,07-peninsular,0,0,0,0,0,76,2018,22.78,1132,auction_projects,,,42-merida,0,0.299736842
+parque_eolico_chabacal,wind,07-peninsular,0,0,0,0,0,30,2018,8.991,1131,auction_projects,,,42-merida,0,0.2997
+parque_eolico_tizimin,wind,07-peninsular,0,0,0,0,0,76,2018,22.78,1132,auction_projects,,,42-merida,0,0.299736842
 ce_pie_01,wind,02-oriental,0,0,0,0,0,202.2,2019,60.6,1133,firm_project,,,36-temascal,0,0.299703264
 ce_pie_02,wind,02-oriental,0,0,0,0,0,300.3,2019,90,1134,firm_project,,,36-temascal,0,0.2997003
 ce_pie_03,wind,02-oriental,0,0,0,0,0,300.3,2019,90,1135,firm_project,,,36-temascal,0,0.2997003
@@ -1145,7 +1145,7 @@ ce_pp_12,wind,03-occidental,0,0,0,0,0,30,A_partir_de_2019,4.4955,1143,optimizati
 ce_pp_13,wind,07-peninsular,0,0,0,0,0,30,A_partir_de_2019,8.991,1144,optimization,,,42-merida,0,0.2997
 ce_pp_09,wind,03-occidental,0,0,0,0,0,24,A_partir_de_2019,3.5964,1145,optimization,,,24-aguascalientes,0,0.14985
 ce_pp_10,wind,05-norte,0,0,0,0,0,30,A_partir_de_2019,7.4925,1146,optimization,,,09-chihuahua,0,0.24975
-parque_windo_chabacal_ii,wind,07-peninsular,0,0,0,0,0,30,2018,8.991,1147,auction_projects,,,42-merida,0,0.2997
+parque_eolico_chabacal_ii,wind,07-peninsular,0,0,0,0,0,30,2018,8.991,1147,auction_projects,,,42-merida,0,0.2997
 cg_aut_03,geothermal,03-occidental,0,0,0,5.12,14.1,25,A_partir_de_2019,23.48,1148,optimization,,,23-guadalajara,0.06,0.9392
 cg_aut_04,geothermal,03-occidental,0,0,0,5.12,14.1,25,A_partir_de_2019,23.48,1149,optimization,,,23-guadalajara,0.06,0.9392
 cg_aut_01,geothermal,03-occidental,0,0,0,5.12,14.1,25,A_partir_de_2019,23.48,1150,optimization,,,30-queretaro,0.06,0.9392
