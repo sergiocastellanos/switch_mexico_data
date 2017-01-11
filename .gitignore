@@ -5,6 +5,7 @@
 *.aux
 *.gz
 *.out
+/Scripts/doc/*
 .~*
 #files to large to be uploaded to github
 loads_high*
