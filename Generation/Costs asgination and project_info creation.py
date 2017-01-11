@@ -40,13 +40,13 @@ df3.to_csv('../Main Tabs/project_info_trial.tab',sep="\t")
 
 
 # In[28]:
-
+'''
 #creation of variable_capacity_factors tab.
 df4=pd.read_csv("../Main Tabs/timepoints.tab",sep="\t")
 df5=pd.DataFrame(index=pd.MultiIndex.from_product([df3[df3['proj_gen_tech'].isin(['wind','solar'])].index.tolist(),df4['timepoint_id'].tolist()]))         
 df5.to_csv('../Main Tabs/variable_capacity_factors_trial.tab',sep="\t")
 
-
+'''
 # In[ ]:
 
 
