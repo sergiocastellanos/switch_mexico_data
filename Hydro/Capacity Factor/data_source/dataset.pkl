@@ -1,5 +1,5 @@
 (dp0
-S'san_pedro_puruas.csv'
+S'san_pedro_poruas.csv'
 p1
 (lp2
 cnumpy.core.multiarray
@@ -268,7 +268,7 @@ S'\xef5\x17\x92\xc6\xf9\xb6@'
 p133
 tp134
 Rp135
-asS'el_cobano.csv'
+asS'cobano.csv'
 p136
 (lp137
 g3
@@ -583,7 +583,7 @@ S'I\x9aRqvR\xbd@'
 p293
 tp294
 Rp295
-asS'la_villita.csv'
+asS'villita.csv'
 p296
 (lp297
 g3
@@ -646,7 +646,7 @@ S'\xe0O\x8d\x17\xb7\xf6\xf7@'
 p325
 tp326
 Rp327
-asS'infernillo.csv'
+asS'infiernillo.csv'
 p328
 (lp329
 g3
@@ -848,7 +848,7 @@ S',\xf9\xc5\x92_\x98\x8d@'
 p423
 tp424
 Rp425
-asS'macuzari.csv'
+asS'mocuzari.csv'
 p426
 (lp427
 g3
@@ -1415,7 +1415,7 @@ S'0\x96\xfcb\x89\xec\x9e@'
 p711
 tp712
 Rp713
-asS'el_platanal.csv'
+asS'platanal.csv'
 p714
 (lp715
 g3
@@ -1541,7 +1541,7 @@ S'k\xbct\x93\xd86\xae@'
 p775
 tp776
 Rp777
-asS'el_caracol.csv'
+asS'caracol.csv'
 p778
 (lp779
 g3
@@ -1730,7 +1730,7 @@ S'\xddk.$<\x8f\x00A'
 p871
 tp872
 Rp873
-asS'zumpinito.csv'
+asS'zumpimito.csv'
 p874
 (lp875
 g3
@@ -1793,7 +1793,7 @@ S'\x97\xb5:&\xf8\x0c\xb0@'
 p903
 tp904
 Rp905
-asS'las_minas.csv'
+asS'minas.csv'
 p906
 (lp907
 g3
@@ -1982,7 +1982,7 @@ S'\x01+\x87\x96/k\xfa@'
 p999
 tp1000
 Rp1001
-asS'colotipa.csv'
+asS'colotlipa.csv'
 p1002
 (lp1003
 g3
@@ -2990,7 +2990,7 @@ S'33333ej@'
 p1511
 tp1512
 Rp1513
-asS'bartonilas.csv'
+asS'bartolinas.csv'
 p1514
 (lp1515
 g3
@@ -3053,7 +3053,7 @@ S'@\xa7\rt\xda\xc4h@'
 p1543
 tp1544
 Rp1545
-asS'palazuelo_1.csv'
+asS'portezuelo_i.csv'
 p1546
 (lp1547
 g3
@@ -3620,7 +3620,7 @@ S'\x0et\xda@9G\xd4@'
 p1831
 tp1832
 Rp1833
-asS'el_encanto.csv'
+asS'encanto.csv'
 p1834
 (lp1835
 g3
@@ -3683,7 +3683,7 @@ S'\x00\x00\x00\x00\x00\x00\x00\x00'
 p1863
 tp1864
 Rp1865
-asS'solidaridad.csv'
+asS'aguamilpa_solidaridad.csv'
 p1866
 (lp1867
 g3
