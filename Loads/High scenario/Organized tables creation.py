@@ -18,7 +18,7 @@ for i in range(2017,2031):
     a.columns=df.columns.tolist()
     df=df.append(a)
 centraldata=pd.read_csv("RawTables/Central.csv",header=0,index_col=range(4))
-df['31-Central']=centraldata
+df['31-central']=centraldata
 del centraldata
 col1=[]
 col2=[]
