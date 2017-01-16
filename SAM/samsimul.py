@@ -62,7 +62,7 @@ def get_csvs_simulations (mesh, path, year, interval, kw, tiltc):
         ssc.data_free(wfd)
 
         # System Capacity in KW
-        system_capacity = 1000
+        system_capacity = kw
         ssc.data_set_number(dat, 'system_capacity'.encode('utf-8'), system_capacity)
 
         # Set DC/AC ratio (or power ratio). See https://sam.nrel.gov/sites/default/files/content/virtual_conf_july_2013/07-sam-virtual-conference-2013-woodcock.pdf
