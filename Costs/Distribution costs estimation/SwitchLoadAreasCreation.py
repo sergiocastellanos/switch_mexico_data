@@ -74,7 +74,7 @@ df.loc['51-la_paz','local_td_annual_cost_per_mw']=df1.iloc[18,0]
 # In[29]:
 
 for k in  df.index.tolist():
-    df.loc[k,'local_td_annual_cost_per_mw']=df.loc[k,'local_td_annual_cost_per_mw']*(10000000/17.1)/df.loc[k,'existing_local_td']
+    df.loc[k,'local_td_annual_cost_per_mw']=df.loc[k,'local_td_annual_cost_per_mw']*(10000000/15.8675574)/df.loc[k,'existing_local_td']
 
 
 # In[31]:
