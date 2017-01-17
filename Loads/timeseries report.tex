@@ -4,7 +4,10 @@
 \usepackage[top=1.5cm, bottom=1.5cm, left=1.5cm, right=1.5cm]{geometry}
 \usepackage{longtable}
 \usepackage{hyperref}
+\usepackage{float}
 \usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{booktabs}
 \usepackage{authblk}
 \author[1,2]{Aldo Sayeg Pasos Trejo}
@@ -36,16 +39,49 @@ For the description of Mexico's electricity grid we based our selection after re
 \\
 \\The \textbf{timepoints} consisted of 12 days inside each day of a given timeseries. Each point represented a 2 hour period of that day. The parity of the hours selected for each year was arbitrary for the median day and we choosed the even hours of the day. For the peak day timeseries, as we needed to include the value of the peak load as it is fundamental for the good implementation of the model, we selected the hours with the parity of the peak load hour. For example, if the peak load was at hour 15:00, we selected the odd hours for the peak load day timepoints: 1:00,3:00..,13:00,15:00,... . The timestamp asociated to each timepoint consisted on a string describing the day, month, day an hour represented by that timepoint. After creating all the time points, we sorted them by the time they represnt and asign them their ID as their position in this sorted list, begining from 0.
 \\
-\\We programmed a Python script to create the SWITCH input files asociated with this values. The  script is called "Timepoints and timeseries creation.py" and is located at the "Loads" folder of the SWITCH Mexico Github repository, while the "timepoints.tab" and "timeseries.tab" tables containing these information are located at the "Main Tabs" folder of the same repository.\cite{repo}.
+\\As we have three different load projections for the future (high, medium and low), it could exist the objetion that the peak and median days would be different in each load scenario so we would have to change the timepoints selected depending on the load scenario. However, the different load projection scenarios have the same normalized load distribution: the difference between this projection scenarios is just the annual growing rate, but the values have the same frecuency distribution. Due to his, the peak and median dates will be the same in each projection. In the following figure we show the different load scenarios values for Mexico's electrical grid at a random date, both normalized and not normalized.
+\begin{figure}[H]
+\centering
+\begin{subfigure}[h]{.45\textwidth}
+\includegraphics[width=\textwidth]{figs//month}
+\caption{}
+\end{subfigure}
+\begin{subfigure}[h]{.45\textwidth}
+\includegraphics[width=\textwidth]{figs//monthnormal}
+\caption{}
+\end{subfigure}
+\caption{Normalized (b) and unnormalized (a) load projections at 17/06/2026}
+\end{figure}  
+We programmed a Python script to create the SWITCH input files asociated with this values. The  script is called "Timepoints and timeseries creation.py" and is located at the "Loads" folder of the SWITCH Mexico Github repository, while the "timepoints.tab" and "timeseries.tab" tables containing these information are located at the "Main Tabs" folder of the same repository.\cite{repo}.
 \subsection{Details of the python script}
-The SWITCH input tables just mentioned contain columns that are calculated in specific ways, just as the "timescales.py" document explains\cite{master}. For example, the "scale\_to\_period" column of the "timeseries.tab" file describes the number of times a timeseries is expected to repeat itself in an investment period. For the timeseries representing the peak day of one month and year, this "scale\_to\_period" value is weighted by a factor that specifies that this timeseries represnts only one day of that month, meanwhile for the median day timeseries the factor weights this value uses the fact that the time series represents all the other days of the month. The following equations show the calculation of this factor in detail:
+The SWITCH input tables just mentioned contain columns that are calculated in specific ways, just as the "timescales.py" document explains\cite{master}. For example, the "scale\_to\_period" column of the "timeseries.tab" file describes the number of times a timeseries is expected to repeat itself in an investment period. For the timeseries representing the peak day of one month and year, this "scale\_to\_period" value is weighted by a factor that specifies that this timeseries represents only one day of that month, meanwhile for the median day timeseries the factor that weights this value uses the fact that the time series represents all the other days of the month. The following equations show the calculation of this factor in detail:
 \begin{equation}
-sp_{Peak}= \frac{1 \; timeseries}{24 \; hours} \times \frac{24 \; hour}{1 \; day} \times \frac{1 \; day}{1 \; month} \times \frac{12 \; Months}{1 \; year} \times \frac{5 \; years}{1 \; periods}
+sp_{Peak}= \frac{1 \; timeseries}{24 \; hours} \times \frac{24 \; hour}{1 \; day} \times \frac{1 \; day}{1 \; month} \times \frac{1 \; month}{1 \; year} \times \frac{1 \; year}{1 \; period} = 1
 \end{equation}
 \begin{equation}
-sp_{Median}= \frac{1 \; timeseries}{24 \; hours} \times \frac{24 \; hour}{1 \; day} \times \frac{k-1 \; days}{1 \; month} \times \frac{12 \; Months}{1 \; year} \times \frac{5 \; years}{1 \; periods}
+sp_{Median}= \frac{1 \; timeseries}{24 \; hours} \times \frac{24 \; hour}{1 \; day} \times \frac{k-1 \; days}{1 \; month} \times \frac{1 \; Months}{1 \; year} \times \frac{1 \; years}{1 \; periods}
 \end{equation}
 Where $k$ is the number of days in the month of the given timeseries.
+\\
+\\ In order to see that each investment period is accurately represented by its timeseries, SWITCH sums the number of hours that the timepoints of each timeseries of an investment period represent and compares this value to the number of hours in the investment period. SWITCH assumes that the number of hours in each year is 8766. This comparison can be represented in the following equation
+\begin{equation}
+\sum_{ts \in IP} \sum_{tp \in ts} ts\_duration\_of\_tp[ts] * ts\_scale\_to\_period[ts] \approx (8766 * period\_length) \pm 1 \%
+\end{equation}
+\section{Accuracy of representation for the loads}
+To make a review of the accuracy of the timepoints and timeseries repreentation of the monthly load i the electrical grid, we can review the difference of the integral of the load duration curve in that month and the integral of the load according to the peak and median timeseries of the month. We suppose that the load during the peak day timeseries has the peak value and the load during the median day timeseries has the average value of the median day. We show a figure comparing both functions for a given month and year:
+\begin{figure}[H]
+\centering
+\begin{subfigure}[h]{.45\textwidth}
+\includegraphics[width=\textwidth]{figs//load1}
+\caption{}
+\end{subfigure}
+\begin{subfigure}[h]{.45\textwidth}
+\includegraphics[width=\textwidth]{figs//load2}
+\caption{}
+\end{subfigure}
+\caption{Load duration and sampling load comparison at 05/2030 with a 0.54 $\%$ difference in (b) and at 06/2021 with a 7.67 $\%$ difference in (b)}
+\end{figure}  
+After making this review, the maximum porcentual value difference  between both integrals was of 11 $\%$. We think that this difference is small enough to say that our timepoints represenent the complete load of the electrical system.
 \begin{thebibliography}{9}
 \bibitem{input} SWITCH input description document.
 \bibitem{chile} SWITCH Chile small-input directory. \url{https://github.com/bmaluenda/SWITCH-Pyomo-Chile/tree/Chile/inputs-chile-small}
