@@ -25,7 +25,7 @@ for index in df1.index.tolist():
 #export data
 df1.to_csv('data/PowerPlantsWithCosts.csv')
 
-
+'''
 # In[27]:
 
 #selecting columns that we need for project_info:
@@ -38,7 +38,7 @@ df3.index.name='PROJECT'
 df3
 df3.to_csv('../Main Tabs/project_info_trial.tab',sep="\t")
 
-
+'''
 # In[28]:
 '''
 #creation of variable_capacity_factors tab.
