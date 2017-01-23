@@ -12,18 +12,34 @@ df2=df2.drop(['investment_period','source','Unnamed: 6'],axis=1)
 #selecting only the generating plants of interest. See report for more details.
 df1=df1.loc[df1['being_built'].isin([a for a in list(set(df1['being_built'].tolist())) if a  not in ['generic_project','optimization']])]
 
-
 # In[25]:
 
 for index in df1.index.tolist():
     for name in ['fixed_o_m','variable_o_m','overnight_cost']:
         df1.loc[index,name]=df2.loc[df1.loc[index,'gen_tech'],"g_"+name]
 
+#adjusting outage rates from percentages to fractions
+df1['scheduled_outage_rate']=df1['scheduled_outage_rate']/100
+df1['forced_outage_rate']=df1['forced_outage_rate']/100
+#adding a value for plants that are units of bigger plants
+names=df1.index.tolist()
+temp=pd.DataFrame(columns=df1.columns)
+for index,row in df1.iterrows():
+    if any(x[0]=='u' and len(x)==2 for x in index.split("_")):
+        #print index
+        #print x
+        #print "unidad {0} de {1}".format(x[1],index.replace("_"+x,""))
+        temp=temp.append(row)
+        temp.loc[index,'real_name']=index.replace(index[index.index('_u'):index.index('_u')+3],"")
+    else: 
+        temp=temp.append(row)
+        temp.loc[index,'real_name']=index
 
 # In[26]:
 
 #export data
-df1.to_csv('data/PowerPlantsWithCosts.csv')
+temp.index.name='project_name'
+temp.to_csv('data/PowerPlantsWithCosts.csv')
 
 '''
 # In[27]:
