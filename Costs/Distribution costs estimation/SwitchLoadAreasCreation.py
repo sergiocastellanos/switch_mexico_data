@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[39]:
 
 import pandas as pd
 import numpy as np
@@ -12,13 +12,7 @@ df3=pd.read_csv('../../Loads/High scenario/OrganizedTables/HourlyLoadPerNode.csv
 df4=pd.read_csv('tables/CountiesLoadZones.csv')
 
 
-# In[9]:
-
-#df1[df1['load_zone']=='47-ensenada']
-df1[df1['county']=='ensenada']
-
-
-# In[2]:
+# In[40]:
 
 df=pd.DataFrame(index=df2.index,columns=['lz_cost_multipliers','existing_local_td',"local_td_annual_cost_per_mw"])
 df['lz_cost_multipliers']=1
@@ -38,13 +32,13 @@ This is not representative as a load area distributes electricity to
 much more counties that the county that gives name to it."""
 
 
-# In[3]:
+# In[41]:
 
 for index in df1.index:
     df1.loc[index,'load_zone']=df4.loc[index,'lz']
 
 
-# In[10]:
+# In[42]:
 
 for k in df.index:
     if k!='53-mulege': df.loc[k,"local_td_annual_cost_per_mw"]=df1[df1['load_zone']==int(k[0:2])]['DistributionCost2 (millions of MXN)'].sum()
@@ -53,15 +47,27 @@ for k in df.index:
     df.loc[k,'local_td_annual_cost_per_mw']=df.loc[k,'local_td_annual_cost_per_mw']*(10000000/15.8675574)/df.loc[k,'existing_local_td']
 
 
-# In[12]:
-
-df.to_csv('../../Main Tabs/csv/load_zones.csv')
-df.to_csv('../../Main Tabs/load_zones.tab',sep="\t")
-
-
 # In[ ]:
 
 
+
+
+# In[43]:
+
+df6=df.copy()
+df['load_zone_scenario_id']=1
+df5=(df3.loc[2016,:].sum()/(df3.loc[2016,:].sum().sum()))
+annual_cost=1872.5
+df5=df5*1000000*1872.5/15.8675574
+df6['local_td_annual_cost_per_mw']=df5.tolist()/df6['existing_local_td']
+df6['load_zone_scenario_id']=2
+df=pd.concat([df,df6])
+
+
+# In[44]:
+
+df.to_csv('../../Main Tabs/csv/load_zones.csv')
+df.to_csv('../../Main Tabs/load_zones.tab',sep="\t")
 
 
 # In[ ]:
