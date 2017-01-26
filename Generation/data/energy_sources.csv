@@ -1,0 +1,11 @@
+energy_source,co2_intensity,upstream_co2_intensity,fuel
+fuel_oil ,0.788,0.0,True
+uranium ,0.0,0.0,True
+diesel,0.073164449,0.0,True
+natural_gas,0.053,0.0,True
+coal ,0.09552,0.0,True
+wind,0.0,0.0,False
+geosteam,0.0,0.0,False
+water,0.0,0.0,False
+solar,0.0,0.0,False
+kinetic,0.0,0.0,False

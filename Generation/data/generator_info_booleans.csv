@@ -10,8 +10,9 @@ combined_cycle_natural_gas,0,0,0,0,0
 fluidized_bed_coal,0,0,0,0,0
 gas_turbine_diesel,0,0,0,0,0
 gas_turbine_natural_gas,0,0,0,0,0
-geothermal,1,1,0,0,0
+geothermal,0,1,0,0,0
 hydroelectric,0,0,0,0,0
+hydroelectric_ror,1,0,0,0,0
 import_natural_gas,0,0,0,0,0
 internal_combustion_diesel,0,0,0,0,0
 internal_combustion_fuel_oil,0,0,0,0,0

@@ -1,0 +1,55 @@
+lz,tension,land_rights_usd_per_km,cost_type,state,notes,construction,engineering,total
+1,230,79600,urban,sonora,,196476,20389,296465
+2,230,20874,suburban,sonora,,196476,20389,237739
+3,230,79600,urban,sonora,,196476,20389,296465
+4,230,77811.5,suburban,sinaloa,Sinaloa's urban and Chihuahua's suburban average due to load zone delimitation and cities location,196476,20389,294676.5
+5,230,150027,suburban,sinaloa,Sinaloa's suburban and Durango's suburban average due to load zone location ,196476,20389,366892
+6,400,34746,rural,sinaloa,Sinaloa's rural and Durango's rural average due to load zone location ,486014,22005,542765
+7,230,66977,suburban,chihuahua,,196476,20389,283842
+8,230,16327,rural,chihuahua,,196476,20389,233192
+9,230,864343,urban,chihuahua,,196476,20389,1081208
+10,230,213888,suburban,durango,,196476,20389,430753
+11,230,20397,suburban,durango,Durango's rural and Coahuila's suburban average due to load zone location and cities,196476,20389,237262
+12,230,26327,urban,coahuila,,196476,20389,243192
+13,230,192028.5,urban,nuevo_leon,Nuevo leon's urban and tamaulipa's urban average due to load zone location ,196476,20389,408893.5
+14,400,265885.5,urban,nuevo_leon,Nuevo leon's urban and tamaulipa's urban average due to load zone location ,486014,22005,773904.5
+15,230,207322,urban,tamaulipas,,196476,20389,424187
+16,400,320465,urban,cohahuila,Coahuila's urban and Nuevo leon's urban average due to load zone location ,486014,22005,828484
+17,400,101894.5,rural,coahuila,Coahuila's rural and Zacatecas rural average due to load zone location,486014,22005,609913.5
+18,400,26755.5,rural,tamaulipas,Tamaulipas rural and San luis Potosi's rural average due to load zones location,486014,22005,534774.5
+19,400,36804,rural,tamaulipas,,486014,22005,544823
+20,400,220958.5,suburban,veracruz,Veracruz suburban and San luis Potosi's suburban average due to load zone location,486014,22005,728977.5
+21,400,106891,rural,nuevo_leon,Nuevlo Leon's rural and tamaulipas rural average due to load zone location,486014,22005,614910
+22,230,404835.5,urban,nayarit,Nayarit's urban and Jalisco's urban average due to load zone locations,196476,20389,621700.5
+23,400,414501.5,urban,jalisco,Jalisco's urban and Michoacan's urban average due to load zone location,486014,22005,922520.5
+24,230,278517.6667,urban,aguascalientes,"Zacatecas's urban, Aguascalientes urban and Jalisco's urban average fue to load zone location",196476,20389,495382.6667
+25,400,167579,suburban,san_luis_potosi,,486014,22005,675598
+26,400,527391.5,urban,guanajuato,Guanjuato's urban and Michoacan's suburban averague due to load zone location,486014,22005,1035410.5
+27,230,167021.5,suburban,colima,Colima's urban and Michoacan's suburban average due to load zone location,196476,20389,383886.5
+28,400,33788.5,rural,michoacan,Michoacan's rural and Oaxaca's rural average due to load zone location,486014,22005,541807.5
+29,230,32431,suburban,oaxaca,,196476,20389,249296
+30,400,575820,urban,queretaro,"Queretaro's urban, Guanajuato's urban and Hidalgo's urban average due to load zone location",486014,22005,1083839
+31,400,959590.5,urban,distrito_federal,"Distrito federal Urban, Guerrero's urban, Mexico's urban and Morelos urban average due to load zone location",486014,22005,1467609.5
+32,230,102763,urban,veracruz,"Veracruz urban, Puebla's urban and tlaxcala's urban average due to load zone location",196476,20389,319628
+33,400,331460,urban,veracruz,,486014,22005,839479
+34,400,49670.5,urban,puebla,Puebla's urban and oaxaca's suburban average due to load zone location,486014,22005,557689.5
+35,230,18735.5,rural,guerrero,Guerrero's rural and Oaxaca's rural average due to load zone location,196476,20389,235600.5
+36,230,32431,suburban,oaxaca,,196476,20389,249296
+37,400,331460,urban,veracruz,,486014,22005,839479
+38,230,132619,urban,tabasco,,196476,20389,349484
+39,400,44905,urban,chiapas,Oaxaca's suburban value due to the fact that chiapas is no listed in COPAR's land rigts costs list.,486014,22005,552924
+40,400,44905,urban,oaxaca,,486014,22005,552924
+41,115,63312,suburban,campeche,,178652,17892,259856
+42,115,113288,urban,yucatan,,178652,17892,309832
+43,115,72226,urban,quintana_roo,,178652,17892,268770
+44,115,50253,rural,quintana_roo,Quintana roo's urban and Campeche's rural average due to load zone location,178652,17892,246797
+45,115,72226,rural,quintana_roo,Quintana roo's urban due to no other price in zone,178652,17892,268770
+46,230,397793,urban,baja_california,,486014,22005,905812
+47,115,41944,rural,baja_california,,178652,17892,238488
+48,230,397793,urban,baja_california,,486014,22005,905812
+49,230,3100,rural,sonora,,486014,22005,511119
+50,115,1595,rural,baja_california_sur,,178652,17892,198139
+51,115,1595,rural,baja_california_sur,,178652,17892,198139
+52,115,305465,suburban,baja_california_sur,,178652,17892,502009
+53,115,1595,rural,baja_california_sur,,178652,17892,198139
+,,,,,,,,
