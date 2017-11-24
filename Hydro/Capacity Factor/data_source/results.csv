@@ -1,11 +1,3 @@
-Generation,Type,Year,capacity_factor
-36979.704494,percentile_25,2013,
-35876.866147,percentile_25,2009,
-36274.173868,percentile_25,2007,
-42388.094915,percentile_50,2006,
-43262.978123,percentile_50,2012,
-42174.466809,percentile_50,2015,
-52020.200995,percentile_75,2010,
-49734.598752,percentile_75,2011,
-53018.561447,percentile_75,2008,
-52448.32379,percentile_75,2014,
+version https://git-lfs.github.com/spec/v1
+oid sha256:0c0d09e8f4c6f0741c34b9cf84b2bd8a999bbbd3c8d6ca831df90cb2ea109309
+size 366

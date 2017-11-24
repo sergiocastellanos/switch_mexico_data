@@ -1,25 +1,3 @@
-generation_technology,energy_source
-carboelectric,coal 
-combined_cycle,natural_gas
-internal_combustion_fuel_oil,fuel_oil 
-internal_combustion_diesel,diesel
-internal_combustion_natural_gas,natural_gas
-wind,wind
-geothermal,steam
-hydroelectric ,water
-nuclear,uranium 
-solar ,solar
-thermal_fuel_oil,fuel_oil 
-thermal_natural_gas,natural_gas
-thermosolar ,solar
-gas_turbine_diesel,diesel
-gas_turbine_natural_gas,natural_gas
-bio_fuel_oil,fuel_oil 
-bio_natural_gas,natural_gas
-bio_diesel,diesel
-cogen_fuel_oil,fuel_oil 
-cogen_natural_gas,natural_gas
-cogen_diesel,diesel
-fluidized_bed,coal 
-import_natural_gas,natural_gas
-regen_brakes,kinetic
+version https://git-lfs.github.com/spec/v1
+oid sha256:f66284fd0e08e9a00983fa22dd1c93348d49c2876b2794538330f6de293063d8
+size 657
