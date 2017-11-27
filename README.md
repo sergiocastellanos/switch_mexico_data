@@ -8,3 +8,10 @@ Todo:
 - [ ] Update switch input creation
 - [ ] Publish runs
 - [ ] Write Readme and documentation for the codes
+
+Update: 11/27/2017
+
+Collaborators:
+Sergio
+Pedro
+Hector
