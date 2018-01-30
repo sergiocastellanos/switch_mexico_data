@@ -14,3 +14,6 @@ loads_high*
 loads_mid*
 loads_low*
 figs/
+
+# Input files
+*.tab
