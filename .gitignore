@@ -17,3 +17,5 @@ figs/
 
 # Input files
 *.tab
+
+secrets.yml
