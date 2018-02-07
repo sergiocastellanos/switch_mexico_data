@@ -9,8 +9,12 @@ name = "pypi"
 
 jupyter = "*"
 pandas = "*"
+requests = "*"
+pyyaml = "*"
+tqdm = "*"
 
 
 [dev-packages]
 
 matplotlib = "*"
+ipython = "*"
