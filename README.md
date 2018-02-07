@@ -15,3 +15,15 @@ Todo:
 
 Collaborators:
 Sergio, Pedro, Hector and others.
+
+
+How to run Renewable Ninja:
+
+Create a file in src/ called secrets.yml with your API\_KEY for using renewable
+ninja.
+
+```yaml
+
+API_KEY: "YOUR_API_KEY"
+
+```
