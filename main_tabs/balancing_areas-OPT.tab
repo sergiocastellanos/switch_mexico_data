@@ -1,1 +1,3 @@
-BALANCING_AREAS	quickstart_res_load_frac	quickstart_res_wind_frac	quickstart_res_solar_frac	spinning_res_load_frac	spinning_res_wind_frac	spinning_res_solar_frac00-autoabasto	0.04	0.05	0.05	0.02	0.05	0.0501-central	0.04	0.05	0.05	0.02	0.05	0.0502-oriental	0.04	0.05	0.05	0.02	0.05	0.0503-occidental	0.04	0.05	0.05	0.02	0.05	0.0504-noroeste	0.04	0.05	0.05	0.02	0.05	0.0505-norte	0.04	0.05	0.05	0.02	0.05	0.0506-noreste	0.04	0.05	0.05	0.02	0.05	0.0507-peninsular	0.04	0.05	0.05	0.02	0.05	0.0508-baja_california	0.04	0.05	0.05	0.02	0.05	0.0509-baja_california_sur-la_paz	0.04	0.05	0.05	0.02	0.05	0.0510-baja_california_sur-mulege	0.04	0.05	0.05	0.02	0.05	0.05
+version https://git-lfs.github.com/spec/v1
+oid sha256:80102caaa36b852daf90550cb05a25d1513d0640bde89e358bac2c98276d85e6
+size 667

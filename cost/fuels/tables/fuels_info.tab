@@ -1,6 +1,3 @@
-	upstream_co2_intensity	co2_intensity	source
-fuel_oil 	0	0.788	chile
-uranium 	0	0	chile
-diesel	0	0.073164449	https://www.eia.gov/tools/faqs/faq.cfm?id=73&t=11
-natural_gas	0	0.053	chile
-coal 	0	0.09552	chile
+version https://git-lfs.github.com/spec/v1
+oid sha256:28efa887e30accb2f7f1ed7cf19486b291a775e55179b48a7f9868257e80031b
+size 207

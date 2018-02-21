@@ -12,9 +12,9 @@ pandas = "*"
 requests = "*"
 pyyaml = "*"
 tqdm = "*"
-
+geopandas = "*"
+rtree = "*"
 
 [dev-packages]
 
 matplotlib = "*"
-ipython = "*"
