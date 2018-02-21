@@ -1,6 +1,5 @@
 #jupyter notebook auxiliary file
 .ipynb_checkpoints/
-
 #latex auxiliary files
 *.log
 *.aux
@@ -8,27 +7,8 @@
 *.out
 /Scripts/doc/*
 .~*
-
 #files to large to be uploaded to github
 loads_high*
 loads_mid*
 loads_low*
 figs/
-
-# Input files
-*.tab
-
-secrets.yml
-
-# macOS files
-.DS_Store
-
-# Figures
-*.png
-
-# Data files
-*.pdf
-*.txt
-*.geojson
-
-# Data folder
