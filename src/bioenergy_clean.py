@@ -54,10 +54,10 @@ for scenario, name in itertools.product(scenario, name):
     else:
         scenario = 'low'
     bio.loc[:, 'scenario'] = scenario
-    bio.loc[:, 'kind'] = name
+    bio.loc[:, 'id'] = name
     bio = bio.rename(columns={'X': 'lng', 'Y': 'lat', 'CLASIFICAC': 'source',
                              'TIPO': 'category', 'FP': 'cf',
                              'GENE_GWha': 'gen_GWha', 'CAPINST_MW':'cap_MW',
                              'PROCESO': 'fuel_type'})
     print ('Saving data: {0}_{1}'.format(scenario, name))
-    bio.to_csv('data/{0}_{1}.csv'.format(scenario, name), index=False)
+    bio.to_csv('data/bioenergy_{0}_{1}.csv'.format(scenario, name), index=False)
