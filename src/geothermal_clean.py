@@ -45,5 +45,5 @@ for scenario in scenario:
     geo = geo.rename(columns={'LATITUD': 'lng', 'LONGITUD': 'lat',
                              'TEMP': 'temperature', 'ENER_MED': 'gen_MWh',
                              'CAP_MED': 'cap_MW'})
-    print ('Saving data: geothermal_{0}'.format(scenario))
-    geo.to_csv('data/geothermal_{0}.csv'.format(scenario), index=False)
+    print ('Saving data: {0}_geothermal'.format(scenario))
+    geo.to_csv('data/{0}_geothermal.csv'.format(scenario), index=False)
