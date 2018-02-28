@@ -54,6 +54,7 @@ for scenario, name in itertools.product(scenario, name):
     else:
         scenario = 'low'
     bio.loc[:, 'scenario'] = scenario
+    bio.loc[:, 'kind'] = name
     bio = bio.rename(columns={'X': 'lng', 'Y': 'lat', 'CLASIFICAC': 'source',
                              'TIPO': 'category', 'FP': 'cf',
                              'GENE_GWha': 'gen_GWha', 'CAPINST_MW':'cap_MW',
