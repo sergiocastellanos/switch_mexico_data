@@ -162,9 +162,11 @@ def create_variablecp(data, ext='.tab'):
     periods = set(data.date.dt.year)
     output_file = output_path + 'variable_capacity_factors' + ext
     data_path = '../data/clean/SWITCH/'
-    ren_cap_data = pd.read_csv(data_path + 'ren-all.csv', index_col=0,
+    ren_cap_data = pd.read_csv(data_path + 'ren-all2.csv', index_col=0,
                                parse_dates=True)
-    filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True))
+
+    filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True)).strftime('%m-%d %H:%M:%S')
+    #  filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True))
     df = pd.DataFrame([])
     ren_tmp = ren_cap_data.copy()
     ren_tmp.index = ren_tmp.index + pd.DateOffset(years=2)
@@ -172,13 +174,11 @@ def create_variablecp(data, ext='.tab'):
     for year in periods:
         df = df.append(ren_tmp)
         ren_tmp.index = ren_tmp.index + pd.DateOffset(years=1)
-    grouped = (df.loc[filter_dates].dropna()
+    grouped = (df.loc[df['time'].isin(filter_dates)].dropna()
                 .reset_index(drop=True)
                 .groupby('GENERATION_PROJECT', as_index=False))
     tmp = []
-    for name, group in grouped:
-        tmp.append(group.reset_index(drop=True))
-    variable_cap = pd.concat(tmp)
+    variable_cap = pd.concat([group.reset_index(drop=True) for name, group in grouped])
     if os.path.exists(output_file):
         os.remove(output_file)
     variable_tab = variable_cap.groupby('GENERATION_PROJECT')
@@ -235,6 +235,6 @@ def create_inputs(**kwargs):
 
 
 if __name__ == '__main__':
-    df = create_inputs(number=2)
+    df = create_inputs(number=4)
     print (df.head())
 
