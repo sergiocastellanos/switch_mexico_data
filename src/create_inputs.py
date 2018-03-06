@@ -107,6 +107,8 @@ def create_investment_period(data, ext='.tab'):
 def create_timepoints(data, ext='.tab'):
     """ Create timepoints file
     """
+    if isinstance(data, list):
+        data = pd.concat(data)
     output_file = output_path + 'timepoints' + ext
     if ext == '.tab': sep='\t'
     # Write test to check if columns exist
@@ -159,6 +161,8 @@ def create_timeseries(data, number=4, ext='.tab'):
 def create_variablecp(data, ext='.tab'):
     """ Create variable capacity factor file
     """
+    if isinstance(data, list):
+        data = pd.concat(data)
     periods = set(data.date.dt.year)
     output_file = output_path + 'variable_capacity_factors' + ext
     data_path = '../data/clean/SWITCH/'
@@ -228,8 +232,8 @@ def create_inputs(**kwargs):
     median = create_strings(median_data, identifier='M')
     create_investment_period(peak)
     create_timeseries([peak, median], **kwargs)
-    create_timepoints(peak)
-    create_variablecp(peak)
+    create_timepoints([peak, median])
+    create_variablecp([peak, median])
     create_loads(load_data, peak_data)
     return (median)
 
