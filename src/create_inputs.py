@@ -200,6 +200,8 @@ def create_variablecp(data, ext='.tab'):
 def create_loads(load, data, ext='.tab'):
     """ Create loads file
     """
+    if isinstance(data, list):
+        data = pd.concat(data)
     output_file = output_path + 'loads' + ext
     loads_tmp = load[load.year <= 2025]
     list_tmp = []
@@ -234,7 +236,7 @@ def create_inputs(**kwargs):
     create_timeseries([peak, median], **kwargs)
     create_timepoints([peak, median])
     create_variablecp([peak, median])
-    create_loads(load_data, peak_data)
+    create_loads(load_data, [peak, median])
     return (median)
 
 
