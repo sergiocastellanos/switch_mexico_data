@@ -7,14 +7,20 @@ name = "pypi"
 
 [packages]
 
-jupyter = "*"
-pandas = "*"
-requests = "*"
-pyyaml = "*"
-tqdm = "*"
 geopandas = "*"
 rtree = "*"
+pandas = "*"
+request = "*"
+pyyaml = "*"
+tqdm = "*"
+
 
 [dev-packages]
 
 matplotlib = "*"
+jupyterlab = "*"
+
+
+[requires]
+
+python_version = "3.6"

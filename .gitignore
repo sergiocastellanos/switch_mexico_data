@@ -32,3 +32,10 @@ secrets.yml
 *.geojson
 
 # Data folder
+
+data/*
+src/data/*
+notebooks/data/*
+
+# Jupyter notebooks with no name
+Untitle*
