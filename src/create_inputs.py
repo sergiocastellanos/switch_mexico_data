@@ -134,29 +134,41 @@ def create_strings(data,identifier='P',  ext='.tab'):
     return (data)
 
 def create_timeseries(data, number=4, ext='.tab'):
-    """ Create timestamp file
     """
-    size = len(data)
-    if isinstance(data, list):
-        data = pd.concat(data)
+        Create timeseries file
+    """
+
+    # Filename convention
     output_file = output_path + 'timeseries' + ext
     if ext == '.tab': sep='\t'
-    data1 = data[['TIMESERIES', 'daysinmonth']].drop_duplicates('TIMESERIES')
-    data1.reset_index(drop=True, inplace=True)
-    # Fix this to change investment period 
+
+    # If multiple timeseries included in data
+    if isinstance(data, list):
+        data = pd.concat(data)
+
+    size = len(data)
+
+    # Extract unique timeseries_id
+    timeseries = data[['TIMESERIES', 'daysinmonth']].drop_duplicates('TIMESERIES')
+    timeseries.reset_index(drop=True, inplace=True)
+
+    # TODO: fix this to change investment period 
+    timeseries['ts_period'] = 2016
+
     ts_duration_of_tp = (24/number)
-    data1['ts_period'] = 2016
-    data1['count'] = data1.groupby('ts_period')['TIMESERIES'].transform(len)
-    data1['ts_duration_of_tp'] = ts_duration_of_tp
-    data1['ts_num_tps'] = data[['timestamp', 'TIMESERIES']].groupby('TIMESERIES').count().values
-    scaling = 10*24*(365/data1['count'])/data1['ts_duration_of_tp']*data1['ts_num_tps']
-    data1['ts_scale_to_period'] = scaling/size
-    data1.index += 1  # To start on 1 instead of 0
-    data1.index.name = 'timepoint_id'
-    print (data1.head())
-    del data1['daysinmonth']
-    del data1['count']
-    data1.to_csv(output_file, index=False, sep=sep)
+    timeseries['ts_duration_of_tp'] = ts_duration_of_tp
+
+    timeseries['count'] = timeseries.groupby('ts_period')['TIMESERIES'].transform(len)
+    timeseries['ts_num_tps'] = data[['timestamp', 'TIMESERIES']].groupby('TIMESERIES').count().values
+    scaling = 10*24*(365/timeseries['count'])/(timeseries['ts_duration_of_tp']*timeseries['ts_num_tps'])
+    timeseries['ts_scale_to_period'] = scaling
+
+    timeseries.index += 1  # To start on 1 instead of 0
+    timeseries.index.name = 'timepoint_id'
+    print (timeseries.head())
+    del timeseries['daysinmonth']
+    del timeseries['count']
+    timeseries.to_csv(output_file, index=False, sep=sep)
 
 def create_variablecp(data, ext='.tab'):
     """ Create variable capacity factor file
@@ -178,7 +190,7 @@ def create_variablecp(data, ext='.tab'):
     for year in periods:
         df = df.append(ren_tmp)
         ren_tmp.index = ren_tmp.index + pd.DateOffset(years=1)
-    grouped = (df.loc[df['time'].isin(filter_dates)].dropna()
+    grouped = (df.loc[df['time'].isin(filter_dates)]
                 .reset_index(drop=True)
                 .groupby('GENERATION_PROJECT', as_index=False))
     tmp = []
