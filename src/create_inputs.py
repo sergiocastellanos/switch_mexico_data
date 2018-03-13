@@ -8,6 +8,7 @@ Developers:
 """
 import os
 import sys
+import yaml
 import numpy as np
 import pandas as pd
 from collections import OrderedDict
@@ -19,7 +20,7 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
         corrections=True, total=False, *args, **kwargs):
     """
         Load consumption data
-        Todo:
+        TODO:
             * This could be a csv or it could connect to a DB.
     """
     print (os.path.join(path, filename))
@@ -35,14 +36,14 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
             # Fix below code to represent a year regression
             df.loc[df['year'] > last_year] -= pd.DateOffset(day=365)
         except ValueError as e:
-            # Todo Add error if data is wrong
+            # TODO Add error if data is wrong
             pass
     df.index = pd.to_datetime(df[['year', 'month', 'day', 'hour']])
 
     if total:
         df = df[['total']].sort_index()
     df = df.sort_index()
-    # Todo: Fix to return only total load
+    # TODO: Fix to return only total load
     return (df)
 
 def get_peak_day(data, number=4, freq='MS'):
@@ -52,9 +53,8 @@ def get_peak_day(data, number=4, freq='MS'):
     data
     dates
     number
-    Todo: Write readme
+    TODO: Write readme
     """
-    print (number)
     years = []
     if number & 1:
         raise ValueError('Odd number of timepoints. Use even number')
@@ -92,17 +92,26 @@ def get_median_day(data, number=4, freq='1MS'):
     return ( output_data )
 
 def create_investment_period(data, ext='.tab'):
-    """ Create periods file
     """
-    # Todo: implement multiple periods based on the data
+        Create periods file
+    """
+    # TODO: implement multiple periods based on the data
     output_file = output_path + 'periods' + ext
-    d = OrderedDict({'INVESTMENT_PERIOD': [2016], 'period_start': [2015],
-                    'period_end':[2025]})
+
+    # TODO: Migrate this to a function in utilities
+
+    with open("periods.yaml", "r") as stream:
+        try:
+            periods = yaml.load(stream)
+        except yaml.YAMLError as exc:
+            raise (exc)
+
+    d = OrderedDict(periods)
     periods_tab = pd.DataFrame(d)
-    periods_tab= periods_tab.set_index('INVESTMENT_PERIOD')
+    periods_tab = periods_tab.set_index('INVESTMENT_PERIOD')
     periods_tab.to_csv(output_file, sep='\t')
 
-    return ( True )
+    return  (True)
 
 def create_timepoints(data, ext='.tab'):
     """ Create timepoints file
@@ -122,7 +131,7 @@ def create_timepoints(data, ext='.tab'):
 
     return True
 
-def create_strings(data,identifier='P',  ext='.tab'):
+def create_strings(data, scale_to_period, identifier='P',  ext='.tab'):
     """ Create timestamp file
 
     """
@@ -130,33 +139,46 @@ def create_strings(data,identifier='P',  ext='.tab'):
     data['timestamp'] = data['date'].dt.strftime(strftime)
     data['TIMESERIES'] = data['date'].dt.strftime('%Y_%m{}'.format(identifier))
     data['daysinmonth'] = data['date'].dt.daysinmonth
-
+    # TODO: Fix this. Probably bug in near future
+    data['ts_period'] = data['date'].dt.year
+    data['scale_to_period'] = scale_to_period
     return (data)
 
 def create_timeseries(data, number=4, ext='.tab'):
-    """ Create timestamp file
     """
-    size = len(data)
-    if isinstance(data, list):
-        data = pd.concat(data)
+        Create timeseries file
+    """
+
+    # Filename convention
     output_file = output_path + 'timeseries' + ext
     if ext == '.tab': sep='\t'
-    data1 = data[['TIMESERIES', 'daysinmonth']].drop_duplicates('TIMESERIES')
-    data1.reset_index(drop=True, inplace=True)
-    # Fix this to change investment period 
+
+    # If multiple timeseries included in data
+    if isinstance(data, list):
+        data = pd.concat(data)
+
+    size = len(data)
+
+    # Extract unique timeseries_id
+    timeseries = data[['TIMESERIES', 'daysinmonth', 'ts_period',
+        'scale_to_period']].drop_duplicates('TIMESERIES')
+    timeseries.reset_index(drop=True, inplace=True)
+
     ts_duration_of_tp = (24/number)
-    data1['ts_period'] = 2016
-    data1['count'] = data1.groupby('ts_period')['TIMESERIES'].transform(len)
-    data1['ts_duration_of_tp'] = ts_duration_of_tp
-    data1['ts_num_tps'] = data[['timestamp', 'TIMESERIES']].groupby('TIMESERIES').count().values
-    scaling = 10*24*(365/data1['count'])/data1['ts_duration_of_tp']*data1['ts_num_tps']
-    data1['ts_scale_to_period'] = scaling/size
-    data1.index += 1  # To start on 1 instead of 0
-    data1.index.name = 'timepoint_id'
-    print (data1.head())
-    del data1['daysinmonth']
-    del data1['count']
-    data1.to_csv(output_file, index=False, sep=sep)
+    timeseries['ts_duration_of_tp'] = ts_duration_of_tp
+
+    timeseries['count'] = timeseries.groupby('ts_period')['TIMESERIES'].transform(len)
+    timeseries['ts_num_tps'] = data[['timestamp', 'TIMESERIES']].groupby('TIMESERIES').count().values
+    # TODO: Change 10 by difference of time between each period.
+    scaling = timeseries['scale_to_period']*24*(365/timeseries['count'])/(timeseries['ts_duration_of_tp']*timeseries['ts_num_tps'])
+    timeseries['ts_scale_to_period'] = scaling
+    #  timeseries.index += 1  # To start on 1 instead of 0
+    timeseries.index.name = 'timepoint_id'
+
+    del timeseries['daysinmonth']
+    del timeseries['scale_to_period']
+    del timeseries['count']
+    timeseries.to_csv(output_file, index=False, sep=sep)
 
 def create_variablecp(data, ext='.tab'):
     """ Create variable capacity factor file
@@ -178,7 +200,7 @@ def create_variablecp(data, ext='.tab'):
     for year in periods:
         df = df.append(ren_tmp)
         ren_tmp.index = ren_tmp.index + pd.DateOffset(years=1)
-    grouped = (df.loc[df['time'].isin(filter_dates)].dropna()
+    grouped = (df.loc[df['time'].isin(filter_dates)]
                 .reset_index(drop=True)
                 .groupby('GENERATION_PROJECT', as_index=False))
     tmp = []
@@ -203,7 +225,7 @@ def create_loads(load, data, ext='.tab'):
     if isinstance(data, list):
         data = pd.concat(data)
     output_file = output_path + 'loads' + ext
-    loads_tmp = load[load.year <= 2025]
+    loads_tmp = load #[load.year <= 2025]
     list_tmp = []
     tmp = (loads_tmp.loc[data['date']]
             .drop(['year', 'month','day','hour', 'total'], axis=1)
@@ -225,22 +247,39 @@ def create_loads(load, data, ext='.tab'):
 
 
 def create_inputs(**kwargs):
-    """ Create all inputs
+    """
+        Create all inputs
     """
     load_data = get_load_data()
-    peak_data = get_peak_day(load_data['2016']['total'], freq='1MS', **kwargs)
-    median_data = get_median_day(load_data['2016']['total'], freq='1MS', **kwargs)
-    peak = create_strings(peak_data)
-    median = create_strings(median_data, identifier='M')
-    create_investment_period(peak)
-    create_timeseries([peak, median], **kwargs)
-    create_timepoints([peak, median])
-    create_variablecp([peak, median])
-    create_loads(load_data, [peak, median])
-    return (median)
+
+    with open("periods.yaml", "r") as stream:
+        try:
+            periods = yaml.load(stream)
+        except yaml.YAMLError as exc:
+            raise (exc)
+
+    d = OrderedDict(periods)
+    periods_tab = pd.DataFrame(d)
+    periods_tab = periods_tab.set_index('INVESTMENT_PERIOD')
+
+    # Create timeseries selction. This will extract peak and median day
+
+    timeseries = []
+    for periods, row in periods_tab.iterrows():
+        scale_to_period = row[1] - row[0]
+        peak_data = get_peak_day(load_data[str(periods)]['total'], freq='1MS', **kwargs)
+        median_data = get_median_day(load_data[str(periods)]['total'], freq='1MS', **kwargs)
+        timeseries.append(create_strings(peak_data, scale_to_period))
+        timeseries.append(create_strings(median_data, scale_to_period,
+                                        identifier='M'))
+
+    create_investment_period(peak_data)
+    create_timeseries(timeseries, **kwargs)
+    create_timepoints(timeseries)
+    create_variablecp(timeseries)
+    create_loads(load_data, timeseries)
 
 
 if __name__ == '__main__':
-    df = create_inputs(number=4)
-    print (df.head())
+    create_inputs(number=4)
 
