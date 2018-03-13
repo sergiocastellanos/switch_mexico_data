@@ -8,6 +8,7 @@ Developers:
 """
 import os
 import sys
+import yaml
 import numpy as np
 import pandas as pd
 from collections import OrderedDict
@@ -19,7 +20,7 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
         corrections=True, total=False, *args, **kwargs):
     """
         Load consumption data
-        Todo:
+        TODO:
             * This could be a csv or it could connect to a DB.
     """
     print (os.path.join(path, filename))
@@ -35,14 +36,14 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
             # Fix below code to represent a year regression
             df.loc[df['year'] > last_year] -= pd.DateOffset(day=365)
         except ValueError as e:
-            # Todo Add error if data is wrong
+            # TODO Add error if data is wrong
             pass
     df.index = pd.to_datetime(df[['year', 'month', 'day', 'hour']])
 
     if total:
         df = df[['total']].sort_index()
     df = df.sort_index()
-    # Todo: Fix to return only total load
+    # TODO: Fix to return only total load
     return (df)
 
 def get_peak_day(data, number=4, freq='MS'):
@@ -52,7 +53,7 @@ def get_peak_day(data, number=4, freq='MS'):
     data
     dates
     number
-    Todo: Write readme
+    TODO: Write readme
     """
     print (number)
     years = []
@@ -92,17 +93,26 @@ def get_median_day(data, number=4, freq='1MS'):
     return ( output_data )
 
 def create_investment_period(data, ext='.tab'):
-    """ Create periods file
     """
-    # Todo: implement multiple periods based on the data
+        Create periods file
+    """
+    # TODO: implement multiple periods based on the data
     output_file = output_path + 'periods' + ext
-    d = OrderedDict({'INVESTMENT_PERIOD': [2016], 'period_start': [2015],
-                    'period_end':[2025]})
+
+    # TODO: Migrate this to a function in utilities
+
+    with open("periods.yaml", "r") as stream:
+        try:
+            periods = yaml.load(stream)
+        except yaml.YAMLError as exc:
+            raise (exc)
+
+    d = OrderedDict(periods)
     periods_tab = pd.DataFrame(d)
-    periods_tab= periods_tab.set_index('INVESTMENT_PERIOD')
+    periods_tab = periods_tab.set_index('INVESTMENT_PERIOD')
     periods_tab.to_csv(output_file, sep='\t')
 
-    return ( True )
+    return  (True)
 
 def create_timepoints(data, ext='.tab'):
     """ Create timepoints file
@@ -160,6 +170,7 @@ def create_timeseries(data, number=4, ext='.tab'):
 
     timeseries['count'] = timeseries.groupby('ts_period')['TIMESERIES'].transform(len)
     timeseries['ts_num_tps'] = data[['timestamp', 'TIMESERIES']].groupby('TIMESERIES').count().values
+    # TODO: Change 10 by difference of time between each period.
     scaling = 10*24*(365/timeseries['count'])/(timeseries['ts_duration_of_tp']*timeseries['ts_num_tps'])
     timeseries['ts_scale_to_period'] = scaling
 
