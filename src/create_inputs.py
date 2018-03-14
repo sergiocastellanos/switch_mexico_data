@@ -48,35 +48,44 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
 
 def get_peak_day(data, number=4, freq='MS'):
     """ Construc a representative day based on a single timestamp
-    # Month start is to avoid getting more timepoints in a even division
+
     Args:
-    data
-    dates
-    number
-    TODO: Write readme
+        data (pd.DataFrame): data to filter,
+        number (float): number of days to return.
+
+    Note: Month start is to avoid getting more timepoints in a even division
     """
     years = []
     if number & 1:
         raise ValueError('Odd number of timepoints. Use even number')
     for index, group in data.groupby([pd.Grouper(freq='A'),\
         pd.Grouper(freq=freq)]):
+        # Get index of max value
         peak_timestamp = group.idxmax()
+        # Convert the max value index to timestamp
         mask = peak_timestamp.strftime('%Y-%m-%d')
+        # Get the number of points inside the max timestamp
         years.append(group.loc[mask].iloc[::int((24/number))].reset_index())
 
     output_data = pd.concat(years)
-    output_data.rename(columns={'index':'date', 'total':'peak_day'},\
-            inplace=True)
-
+    output_data = output_data.rename(columns={'index':'date',
+                                    'total':'peak_day'})
     return (output_data)
 
-def get_median_day(data, number=4, freq='1MS'):
+def get_median_day(data, number=4, freq='MS'):
     """ Calculate median day giving a timeseries
+
+    Args:
+        data (pd.DataFrame): data to filter,
+        number (float): number of days to return.
+
+    Note: Month start is to avoid getting more timepoints in a even division
 
     """
     years = []
     for index, group in data.groupby([pd.Grouper(freq='A'),\
         pd.Grouper(freq=freq)]):
+        # Calculate the daily mean
         grouper = group.groupby(pd.Grouper(freq='D')).mean()
         if len(grouper) & 1:
             # Odd number of days
@@ -89,13 +98,12 @@ def get_median_day(data, number=4, freq='1MS'):
     output_data.rename(columns={'index':'date', 'total':'median_day'},\
             inplace=True)
 
-    return ( output_data )
+    return (output_data)
 
 def create_investment_period(data, ext='.tab'):
     """
         Create periods file
     """
-    # TODO: implement multiple periods based on the data
     output_file = output_path + 'periods' + ext
 
     # TODO: Migrate this to a function in utilities
@@ -111,37 +119,45 @@ def create_investment_period(data, ext='.tab'):
     periods_tab = periods_tab.set_index('INVESTMENT_PERIOD')
     periods_tab.to_csv(output_file, sep='\t')
 
-    return  (True)
 
 def create_timepoints(data, ext='.tab'):
-    """ Create timepoints file
     """
+        Create timepoints file
+    """
+
+    # Filename convention
+    if ext == '.tab': sep='\t'
+    output_file = output_path + 'timepoints' + ext
+
+    # If multiple timeseries included in data
     if isinstance(data, list):
         data = pd.concat(data)
-    output_file = output_path + 'timepoints' + ext
-    if ext == '.tab': sep='\t'
-    # Write test to check if columns exist
+
+    # TODO: Write test to check if columns exist
     data = data[['timestamp', 'TIMESERIES', 'daysinmonth']]
     data.index.name = 'timepoint_id'
     data = data.reset_index(drop=True)
     data = data.rename(columns={'TIMESERIES':'timeseries'})
     data.index += 1  # To start on 1 instead of 0
     data.index.name = 'timepoint_id'
-    data[['timestamp', 'timeseries']].to_csv(output_file, sep=sep)
+    output_cols = ['timestamp', 'timeseries']
+    data[output_cols].to_csv(output_file, sep=sep)
 
-    return True
 
 def create_strings(data, scale_to_period, identifier='P',  ext='.tab'):
-    """ Create timestamp file
+    """
+        Create timestamp file
 
     """
-    strftime = '%Y%M%d%H'
+    strftime = '%Y%M%d%H' #  Strftime for label
     data['timestamp'] = data['date'].dt.strftime(strftime)
     data['TIMESERIES'] = data['date'].dt.strftime('%Y_%m{}'.format(identifier))
     data['daysinmonth'] = data['date'].dt.daysinmonth
+
     # TODO: Fix this. Probably bug in near future
     data['ts_period'] = data['date'].dt.year
     data['scale_to_period'] = scale_to_period
+
     return (data)
 
 def create_timeseries(data, number=4, ext='.tab'):
@@ -157,56 +173,68 @@ def create_timeseries(data, number=4, ext='.tab'):
     if isinstance(data, list):
         data = pd.concat(data)
 
-    size = len(data)
+    size = len(data) #  Size to divide the timeseries in a timeperiod
 
     # Extract unique timeseries_id
     timeseries = data[['TIMESERIES', 'daysinmonth', 'ts_period',
         'scale_to_period']].drop_duplicates('TIMESERIES')
-    timeseries.reset_index(drop=True, inplace=True)
+    timeseries = timeseries.reset_index(drop=True)
 
-    ts_duration_of_tp = (24/number)
-    timeseries['ts_duration_of_tp'] = ts_duration_of_tp
-
+    timeseries['ts_duration_of_tp'] = 24/number
     timeseries['count'] = timeseries.groupby('ts_period')['TIMESERIES'].transform(len)
     timeseries['ts_num_tps'] = data[['timestamp', 'TIMESERIES']].groupby('TIMESERIES').count().values
-    # TODO: Change 10 by difference of time between each period.
+    # TODO: Change value of 24 for number of days to represent and 365 for
+    # the total amount of years?
     scaling = timeseries['scale_to_period']*24*(365/timeseries['count'])/(timeseries['ts_duration_of_tp']*timeseries['ts_num_tps'])
     timeseries['ts_scale_to_period'] = scaling
     #  timeseries.index += 1  # To start on 1 instead of 0
     timeseries.index.name = 'timepoint_id'
 
+    # Delete unused columns
     del timeseries['daysinmonth']
     del timeseries['scale_to_period']
     del timeseries['count']
+
     timeseries.to_csv(output_file, index=False, sep=sep)
 
 def create_variablecp(data, ext='.tab'):
-    """ Create variable capacity factor file
     """
+        Create variable capacity factor file
+    """
+    # Filename convention
+    output_file = output_path + 'variable_capacity_factors' + ext
+    if ext == '.tab': sep='\t'
+
+    # If multiple timeseries included in data
     if isinstance(data, list):
         data = pd.concat(data)
+
+    # Check if file exist and removeit
+    if os.path.exists(output_file):
+        os.remove(output_file)
+
     periods = set(data.date.dt.year)
     output_file = output_path + 'variable_capacity_factors' + ext
     data_path = '../data/clean/SWITCH/'
     ren_cap_data = pd.read_csv(data_path + 'ren-all2.csv', index_col=0,
                                parse_dates=True)
 
+    # Extract datetime without year information
     filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True)).strftime('%m-%d %H:%M:%S')
     #  filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True))
     df = pd.DataFrame([])
     ren_tmp = ren_cap_data.copy()
     ren_tmp.index = ren_tmp.index + pd.DateOffset(years=2)
-#df = df.append(ren_tmp)
+
+    # DEPRECATED FOR CYCLE.
+    # This function will dissapear in the nex version.
     for year in periods:
         df = df.append(ren_tmp)
         ren_tmp.index = ren_tmp.index + pd.DateOffset(years=1)
     grouped = (df.loc[df['time'].isin(filter_dates)]
                 .reset_index(drop=True)
                 .groupby('GENERATION_PROJECT', as_index=False))
-    tmp = []
     variable_cap = pd.concat([group.reset_index(drop=True) for name, group in grouped])
-    if os.path.exists(output_file):
-        os.remove(output_file)
     variable_tab = variable_cap.groupby('GENERATION_PROJECT')
     for keys in variable_tab.groups.keys():
         data = variable_tab.get_group(keys).reset_index(drop=True)
@@ -220,29 +248,41 @@ def create_variablecp(data, ext='.tab'):
                         os.path.exists(output_file)))
 
 def create_loads(load, data, ext='.tab'):
-    """ Create loads file
     """
+        Create loads file
+    """
+    # Filename convention
+    output_file = output_path + 'loads' + ext
+    if ext == '.tab': sep='\t'
+
+    # If multiple timeseries included in data
     if isinstance(data, list):
         data = pd.concat(data)
-    output_file = output_path + 'loads' + ext
-    loads_tmp = load #[load.year <= 2025]
+
+    loads_tmp = load.copy() #[load.year <= 2025]
     list_tmp = []
+
+    # Get data from the datetime provided
     tmp = (loads_tmp.loc[data['date']]
             .drop(['year', 'month','day','hour', 'total'], axis=1)
             .reset_index()
             .drop_duplicates('index')
             .reset_index(drop=True))
+
+    # TODO: Check why this column is created
     del tmp['index']
+
     tmp = tmp.unstack(0)
     for name, group in tmp.groupby(level=0):
         list_tmp.append(group.reset_index())
     loads_tab = pd.concat(list_tmp)
     loads_tab.index += 1
     loads_tab = loads_tab.rename(columns={'level_0':'LOAD_ZONE', 0:'zone_demand_mw'})
+    # TODO: Check why this is necesary
     del loads_tab['level_1']
     loads_tab.index.name = 'TIMEPOINT'
     loads_tab = loads_tab.reset_index()[['LOAD_ZONE', 'TIMEPOINT', 'zone_demand_mw']]
-    loads_tab.to_csv(output_file, sep='\t', index=False)
+    loads_tab.to_csv(output_file, sep=sep, index=False)
 
 
 
