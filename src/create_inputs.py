@@ -24,9 +24,14 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
             * This could be a csv or it could connect to a DB.
     """
     print (os.path.join(path, filename))
-    df = pd.read_csv(os.path.join(path, filename))
+    try:
+        df = pd.read_csv(os.path.join(path, filename))
+    except FileNotFoundError:
+        raise ('File not found. Please verify the file is in: {}'.format(os.path.join(path, filename)))
     # Calculate the sum of loads
     df['total'] = df.sum(axis=1)
+    print (df.head())
+    sys.exit()
     # Convert to datetime if does not exist
     last_year = df['year'].iloc[-1:].values
     if corrections:
@@ -36,8 +41,7 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
             # Fix below code to represent a year regression
             df.loc[df['year'] > last_year] -= pd.DateOffset(day=365)
         except ValueError as e:
-            # TODO Add error if data is wrong
-            pass
+            raise ('24 Hour timestamp  not found in Load data. Try another hour')
     df.index = pd.to_datetime(df[['year', 'month', 'day', 'hour']])
 
     if total:
@@ -243,7 +247,7 @@ def create_variablecp(data, ext='.tab'):
         data.rename(columns={'capacity_factor': 'gen_max_capacity_factor'},
                    inplace=True)
         data.reset_index()[['GENERATION_PROJECT', 'timepoint',
-            'gen_max_capacity_factor']].to_csv(output_file, sep='\t',
+            'gen_max_capacity_factor']].to_csv(output_file, sep=sep,
                     index=False, mode='a', header=(not
                         os.path.exists(output_file)))
 
