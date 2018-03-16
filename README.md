@@ -6,6 +6,7 @@ Repo for SWITCH-Mexico including code and data
 Todo:
 - [x] Implement git lfs,
 - [x] Verify switch input files creation,
+- [ ] Create function that check if folders exists
 - [ ] Clean folders,
 - [ ] Update switch folder,
 - [ ] Update switch input creation,
@@ -24,7 +25,7 @@ ninja API.
 
 
 The file should look like this:
-```yaml
 
+```yaml
 API_KEY: "YOUR_API_KEY"
 ```

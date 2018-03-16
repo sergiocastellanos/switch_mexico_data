@@ -30,8 +30,6 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
         raise ('File not found. Please verify the file is in: {}'.format(os.path.join(path, filename)))
     # Calculate the sum of loads
     df['total'] = df.sum(axis=1)
-    print (df.head())
-    sys.exit()
     # Convert to datetime if does not exist
     last_year = df['year'].iloc[-1:].values
     if corrections:
@@ -41,7 +39,9 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
             # Fix below code to represent a year regression
             df.loc[df['year'] > last_year] -= pd.DateOffset(day=365)
         except ValueError as e:
-            raise ('24 Hour timestamp  not found in Load data. Try another hour')
+            # TODO: Check why this function breaks
+            #raise ('24 Hour timestamp  not found in Load data. Try another hour')
+            pass
     df.index = pd.to_datetime(df[['year', 'month', 'day', 'hour']])
 
     if total:
