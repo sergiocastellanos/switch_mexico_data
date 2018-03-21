@@ -13,8 +13,11 @@ import numpy as np
 import pandas as pd
 from collections import OrderedDict
 
-data_path  = '../data/clean/loads/'
-output_path  = '../data/clean/switch_inputs/'
+script_path = os.path.dirname(__file__)
+parent_path = os.path.dirname(os.path.dirname(__file__))
+data_path = os.path.join(parent_path, 'data/clean/loads')
+print (data_path)
+output_path  = os.path.join(parent_path, 'data/clean/switch_inputs')
 
 def get_load_data(path=data_path, filename='HighLoads.csv',
         corrections=True, total=False, *args, **kwargs):
@@ -24,8 +27,9 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
             * This could be a csv or it could connect to a DB.
     """
     print (os.path.join(path, filename))
+    file_path = os.path.join(path, filename)
     try:
-        df = pd.read_csv(os.path.join(path, filename))
+        df = pd.read_csv(file_path)
     except FileNotFoundError:
         raise ('File not found. Please verify the file is in: {}'.format(os.path.join(path, filename)))
     # Calculate the sum of loads
@@ -104,15 +108,15 @@ def get_median_day(data, number=4, freq='MS'):
 
     return (output_data)
 
-def create_investment_period(data, ext='.tab'):
+def create_investment_period(data, path=script_path, ext='.tab'):
     """
         Create periods file
     """
     output_file = output_path + 'periods' + ext
 
     # TODO: Migrate this to a function in utilities
-
-    with open("periods.yaml", "r") as stream:
+    file_path = os.path.join(path, 'periods.yaml')
+    with open(file_path, "r") as stream:
         try:
             periods = yaml.load(stream)
         except yaml.YAMLError as exc:
@@ -201,7 +205,7 @@ def create_timeseries(data, number=4, ext='.tab'):
 
     timeseries.to_csv(output_file, index=False, sep=sep)
 
-def create_variablecp(data, timeseries_dict, ext='.tab'):
+def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab'):
     """
         Create variable capacity factor file
     """
@@ -219,8 +223,9 @@ def create_variablecp(data, timeseries_dict, ext='.tab'):
 
     periods = set(data.date.dt.year)
     output_file = output_path + 'variable_capacity_factors' + ext
-    data_path = '../data/clean/SWITCH/'
-    ren_cap_data = pd.read_csv(data_path + 'ren-all2.csv', index_col=0,
+    file_path = os.path.join(path, 'data/clean/SWITCH/')
+    filename = 'ren-all2.csv'
+    ren_cap_data = pd.read_csv(os.path.join(file_path, filename), index_col=0,
                                parse_dates=True)
 
     # Extract datetime without year information
@@ -295,32 +300,35 @@ def create_loads(load, data, ext='.tab'):
     loads_tab = loads_tab.reset_index()[['LOAD_ZONE', 'TIMEPOINT', 'zone_demand_mw']]
     loads_tab.to_csv(output_file, sep=sep, index=False)
 
-def create_gen_build_cost(data, ext='.tab', **kwargs):
+def create_gen_build_cost(data, ext='.tab', path=script_path,
+    **kwargs):
     if ext == '.tab': sep='\t'
     output_file = output_path + 'gen_build_costs' + ext
     # TODO: 
     # * Change the direction of this file
-    with open("periods.yaml", "r") as stream:
+    file_path = os.path.join(path, 'periods.yaml')
+    with open(file_path, "r") as stream:        
         try:
             periods = yaml.load(stream)
         except yaml.YAMLError as exc:
             raise (exc)
     asd = []
     for period in periods['INVESTMENT_PERIOD']:
-        costs = pd.read_csv('gen_build_costs.tab', sep=sep)
+        costs = pd.read_csv(os.path.join(path,'gen_build_costs.tab'), sep=sep)
         costs['build_year'] = period
         asd.append(costs)
     gen_build_costs = pd.concat(asd)
     gen_build_costs.to_csv(output_file, sep=sep, index=False)
 
 
-def create_inputs(**kwargs):
+def create_inputs(path=script_path, **kwargs):
     """
         Create all inputs
     """
     load_data = get_load_data()
 
-    with open("periods.yaml", "r") as stream:
+    file_path = os.path.join(path, 'periods.yaml')
+    with open(file_path, "r") as stream:  
         try:
             periods = yaml.load(stream)
         except yaml.YAMLError as exc:
