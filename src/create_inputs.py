@@ -201,7 +201,7 @@ def create_timeseries(data, number=4, ext='.tab'):
 
     timeseries.to_csv(output_file, index=False, sep=sep)
 
-def create_variablecp(data, ext='.tab'):
+def create_variablecp(data, timeseries_dict, ext='.tab'):
     """
         Create variable capacity factor file
     """
@@ -228,17 +228,24 @@ def create_variablecp(data, ext='.tab'):
     #  filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True))
     df = pd.DataFrame([])
     ren_tmp = ren_cap_data.copy()
-    ren_tmp.index = ren_tmp.index + pd.DateOffset(years=2)
+    #ren_tmp.index = ren_tmp.index + pd.DateOffset(years=2)
 
     # DEPRECATED FOR CYCLE.
     # This function will dissapear in the nex version.
-    for year in periods:
-        df = df.append(ren_tmp)
-        ren_tmp.index = ren_tmp.index + pd.DateOffset(years=1)
-    grouped = (df.loc[df['time'].isin(filter_dates)]
-                .reset_index(drop=True)
-                .groupby('GENERATION_PROJECT', as_index=False))
-    variable_cap = pd.concat([group.reset_index(drop=True) for name, group in grouped])
+    #for year in periods:
+    #    df = df.append(ren_tmp)
+    #    ren_tmp.index = ren_tmp.index + pd.DateOffset(years=1)
+    
+    list1 = []
+    for row, value in timeseries_dict.items():
+        print (row)
+        tmp2 = pd.concat(value)
+        filter_dates = pd.DatetimeIndex(tmp2['date'].reset_index(drop=True)).strftime('%m-%d %H:%M:%S')
+        grouped = (ren_tmp[ren_tmp['time'].isin(filter_dates)]
+                    .reset_index(drop=True)
+                    .groupby('GENERATION_PROJECT', as_index=False))
+        list1.append(pd.concat([group.reset_index(drop=True) for name, group in grouped]))
+    variable_cap = pd.concat(list1)
     variable_tab = variable_cap.groupby('GENERATION_PROJECT')
     for keys in variable_tab.groups.keys():
         data = variable_tab.get_group(keys).reset_index(drop=True)
@@ -288,6 +295,23 @@ def create_loads(load, data, ext='.tab'):
     loads_tab = loads_tab.reset_index()[['LOAD_ZONE', 'TIMEPOINT', 'zone_demand_mw']]
     loads_tab.to_csv(output_file, sep=sep, index=False)
 
+def create_gen_build_cost(data, ext='.tab', **kwargs):
+    if ext == '.tab': sep='\t'
+    output_file = output_path + 'gen_build_costs' + ext
+    # TODO: 
+    # * Change the direction of this file
+    with open("periods.yaml", "r") as stream:
+        try:
+            periods = yaml.load(stream)
+        except yaml.YAMLError as exc:
+            raise (exc)
+    asd = []
+    for period in periods['INVESTMENT_PERIOD']:
+        costs = pd.read_csv('gen_build_costs.tab', sep=sep)
+        costs['build_year'] = period
+        asd.append(costs)
+    gen_build_costs = pd.concat(asd)
+    gen_build_costs.to_csv(output_file, sep=sep, index=False)
 
 
 def create_inputs(**kwargs):
@@ -309,18 +333,24 @@ def create_inputs(**kwargs):
     # Create timeseries selction. This will extract peak and median day
 
     timeseries = []
+    timeseries_dict = {}
     for periods, row in periods_tab.iterrows():
+        timeseries_dict[periods] = []
         scale_to_period = row[1] - row[0]
         peak_data = get_peak_day(load_data[str(periods)]['total'], freq='1MS', **kwargs)
         median_data = get_median_day(load_data[str(periods)]['total'], freq='1MS', **kwargs)
+        timeseries_dict[periods].append(create_strings(peak_data, scale_to_period))
+        timeseries_dict[periods].append(create_strings(median_data, scale_to_period,
+                                        identifier='M'))
         timeseries.append(create_strings(peak_data, scale_to_period))
         timeseries.append(create_strings(median_data, scale_to_period,
                                         identifier='M'))
-
+    print (len(timeseries_dict[2030]))
     create_investment_period(peak_data)
+    create_gen_build_cost(peak_data)
     create_timeseries(timeseries, **kwargs)
     create_timepoints(timeseries)
-    create_variablecp(timeseries)
+    create_variablecp(timeseries, timeseries_dict)
     create_loads(load_data, timeseries)
 
 
