@@ -13,8 +13,10 @@ import numpy as np
 import pandas as pd
 from collections import OrderedDict
 
-data_path  = '../data/clean/loads/'
-output_path  = '../data/clean/switch_inputs/'
+script_path = os.path.dirname(__file__)
+parent_path = os.path.dirname(os.path.dirname(__file__))
+data_path = os.path.join(parent_path, 'data/clean/loads')
+output_path  = os.path.join(parent_path, 'data/clean/switch_inputs')
 
 def get_load_data(path=data_path, filename='HighLoads.csv',
         corrections=True, total=False, *args, **kwargs):
@@ -24,7 +26,11 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
             * This could be a csv or it could connect to a DB.
     """
     print (os.path.join(path, filename))
-    df = pd.read_csv(os.path.join(path, filename))
+    file_path = os.path.join(path, filename)
+    try:
+        df = pd.read_csv(file_path)
+    except FileNotFoundError:
+        raise ('File not found. Please verify the file is in: {}'.format(os.path.join(path, filename)))
     # Calculate the sum of loads
     df['total'] = df.sum(axis=1)
     # Convert to datetime if does not exist
@@ -36,7 +42,8 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
             # Fix below code to represent a year regression
             df.loc[df['year'] > last_year] -= pd.DateOffset(day=365)
         except ValueError as e:
-            # TODO Add error if data is wrong
+            # TODO: Check why this function breaks
+            #raise ('24 Hour timestamp  not found in Load data. Try another hour')
             pass
     df.index = pd.to_datetime(df[['year', 'month', 'day', 'hour']])
 
@@ -100,15 +107,15 @@ def get_median_day(data, number=4, freq='MS'):
 
     return (output_data)
 
-def create_investment_period(data, ext='.tab'):
+def create_investment_period(data, path=script_path, ext='.tab'):
     """
         Create periods file
     """
     output_file = output_path + 'periods' + ext
 
     # TODO: Migrate this to a function in utilities
-
-    with open("periods.yaml", "r") as stream:
+    file_path = os.path.join(path, 'periods.yaml')
+    with open(file_path, "r") as stream:
         try:
             periods = yaml.load(stream)
         except yaml.YAMLError as exc:
@@ -197,7 +204,7 @@ def create_timeseries(data, number=4, ext='.tab'):
 
     timeseries.to_csv(output_file, index=False, sep=sep)
 
-def create_variablecp(data, ext='.tab'):
+def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab'):
     """
         Create variable capacity factor file
     """
@@ -215,8 +222,9 @@ def create_variablecp(data, ext='.tab'):
 
     periods = set(data.date.dt.year)
     output_file = output_path + 'variable_capacity_factors' + ext
-    data_path = '../data/clean/SWITCH/'
-    ren_cap_data = pd.read_csv(data_path + 'ren-all2.csv', index_col=0,
+    file_path = os.path.join(path, 'data/clean/SWITCH/')
+    filename = 'ren-all2.csv'
+    ren_cap_data = pd.read_csv(os.path.join(file_path, filename), index_col=0,
                                parse_dates=True)
 
     # Extract datetime without year information
@@ -224,17 +232,24 @@ def create_variablecp(data, ext='.tab'):
     #  filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True))
     df = pd.DataFrame([])
     ren_tmp = ren_cap_data.copy()
-    ren_tmp.index = ren_tmp.index + pd.DateOffset(years=2)
+    #ren_tmp.index = ren_tmp.index + pd.DateOffset(years=2)
 
     # DEPRECATED FOR CYCLE.
     # This function will dissapear in the nex version.
-    for year in periods:
-        df = df.append(ren_tmp)
-        ren_tmp.index = ren_tmp.index + pd.DateOffset(years=1)
-    grouped = (df.loc[df['time'].isin(filter_dates)]
-                .reset_index(drop=True)
-                .groupby('GENERATION_PROJECT', as_index=False))
-    variable_cap = pd.concat([group.reset_index(drop=True) for name, group in grouped])
+    #for year in periods:
+    #    df = df.append(ren_tmp)
+    #    ren_tmp.index = ren_tmp.index + pd.DateOffset(years=1)
+    
+    list1 = []
+    for row, value in timeseries_dict.items():
+        print (row)
+        tmp2 = pd.concat(value)
+        filter_dates = pd.DatetimeIndex(tmp2['date'].reset_index(drop=True)).strftime('%m-%d %H:%M:%S')
+        grouped = (ren_tmp[ren_tmp['time'].isin(filter_dates)]
+                    .reset_index(drop=True)
+                    .groupby('GENERATION_PROJECT', as_index=False))
+        list1.append(pd.concat([group.reset_index(drop=True) for name, group in grouped]))
+    variable_cap = pd.concat(list1)
     variable_tab = variable_cap.groupby('GENERATION_PROJECT')
     for keys in variable_tab.groups.keys():
         data = variable_tab.get_group(keys).reset_index(drop=True)
@@ -243,7 +258,7 @@ def create_variablecp(data, ext='.tab'):
         data.rename(columns={'capacity_factor': 'gen_max_capacity_factor'},
                    inplace=True)
         data.reset_index()[['GENERATION_PROJECT', 'timepoint',
-            'gen_max_capacity_factor']].to_csv(output_file, sep='\t',
+            'gen_max_capacity_factor']].to_csv(output_file, sep=sep,
                     index=False, mode='a', header=(not
                         os.path.exists(output_file)))
 
@@ -284,15 +299,35 @@ def create_loads(load, data, ext='.tab'):
     loads_tab = loads_tab.reset_index()[['LOAD_ZONE', 'TIMEPOINT', 'zone_demand_mw']]
     loads_tab.to_csv(output_file, sep=sep, index=False)
 
+def create_gen_build_cost(data, ext='.tab', path=script_path,
+    **kwargs):
+    if ext == '.tab': sep='\t'
+    output_file = output_path + 'gen_build_costs' + ext
+    # TODO: 
+    # * Change the direction of this file
+    file_path = os.path.join(path, 'periods.yaml')
+    with open(file_path, "r") as stream:        
+        try:
+            periods = yaml.load(stream)
+        except yaml.YAMLError as exc:
+            raise (exc)
+    asd = []
+    for period in periods['INVESTMENT_PERIOD']:
+        costs = pd.read_csv(os.path.join(path,'gen_build_costs.tab'), sep=sep)
+        costs['build_year'] = period
+        asd.append(costs)
+    gen_build_costs = pd.concat(asd)
+    gen_build_costs.to_csv(output_file, sep=sep, index=False)
 
 
-def create_inputs(**kwargs):
+def create_inputs(path=script_path, **kwargs):
     """
         Create all inputs
     """
     load_data = get_load_data()
 
-    with open("periods.yaml", "r") as stream:
+    file_path = os.path.join(path, 'periods.yaml')
+    with open(file_path, "r") as stream:  
         try:
             periods = yaml.load(stream)
         except yaml.YAMLError as exc:
@@ -305,18 +340,24 @@ def create_inputs(**kwargs):
     # Create timeseries selction. This will extract peak and median day
 
     timeseries = []
+    timeseries_dict = {}
     for periods, row in periods_tab.iterrows():
+        timeseries_dict[periods] = []
         scale_to_period = row[1] - row[0]
         peak_data = get_peak_day(load_data[str(periods)]['total'], freq='1MS', **kwargs)
         median_data = get_median_day(load_data[str(periods)]['total'], freq='1MS', **kwargs)
+        timeseries_dict[periods].append(create_strings(peak_data, scale_to_period))
+        timeseries_dict[periods].append(create_strings(median_data, scale_to_period,
+                                        identifier='M'))
         timeseries.append(create_strings(peak_data, scale_to_period))
         timeseries.append(create_strings(median_data, scale_to_period,
                                         identifier='M'))
-
+    print (len(timeseries_dict[2030]))
     create_investment_period(peak_data)
+    create_gen_build_cost(peak_data)
     create_timeseries(timeseries, **kwargs)
     create_timepoints(timeseries)
-    create_variablecp(timeseries)
+    create_variablecp(timeseries, timeseries_dict)
     create_loads(load_data, timeseries)
 
 
