@@ -42,6 +42,7 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
             # Fix below code to represent a year regression
             df.loc[df['year'] > last_year] -= pd.DateOffset(day=365)
         except ValueError as e:
+            print (e)
             # TODO: Check why this function breaks
             #raise ('24 Hour timestamp  not found in Load data. Try another hour')
             pass
