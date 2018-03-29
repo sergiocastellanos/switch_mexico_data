@@ -16,7 +16,7 @@ from collections import OrderedDict
 script_path = os.path.dirname(__file__)
 parent_path = os.path.dirname(os.path.dirname(__file__))
 data_path = os.path.join(parent_path, 'data/clean/loads')
-output_path  = os.path.join(parent_path, 'data/clean/switch_inputs')
+output_path  = os.path.join(parent_path, 'data/clean/switch_inputs/')
 
 def get_load_data(path=data_path, filename='HighLoads.csv',
         corrections=True, total=False, *args, **kwargs):
