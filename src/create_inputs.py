@@ -51,7 +51,6 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
     if total:
         df = df[['total']].sort_index()
     df = df.sort_index()
-    # TODO: Fix to return only total load
     return (df)
 
 def get_peak_day(data, number=4, freq='MS'):
@@ -66,7 +65,7 @@ def get_peak_day(data, number=4, freq='MS'):
     years = []
     if number & 1:
         raise ValueError('Odd number of timepoints. Use even number')
-    for index, group in data.groupby([pd.Grouper(freq='A'),\
+    for _, group in data.groupby([pd.Grouper(freq='A'),\
         pd.Grouper(freq=freq)]):
         # Get index of max value
         peak_timestamp = group.idxmax()
@@ -91,7 +90,7 @@ def get_median_day(data, number=4, freq='MS'):
 
     """
     years = []
-    for index, group in data.groupby([pd.Grouper(freq='A'),\
+    for _, group in data.groupby([pd.Grouper(freq='A'),\
         pd.Grouper(freq=freq)]):
         # Calculate the daily mean
         grouper = group.groupby(pd.Grouper(freq='D')).mean()
@@ -108,7 +107,7 @@ def get_median_day(data, number=4, freq='MS'):
 
     return (output_data)
 
-def create_investment_period(data, path=script_path, ext='.tab'):
+def create_investment_period(data, path=script_path, ext='.tab', **kwargs):
     """
         Create periods file
     """
@@ -128,7 +127,7 @@ def create_investment_period(data, path=script_path, ext='.tab'):
     periods_tab.to_csv(output_file, sep='\t')
 
 
-def create_timepoints(data, ext='.tab'):
+def create_timepoints(data, ext='.tab', **kwargs):
     """
         Create timepoints file
     """
@@ -152,7 +151,7 @@ def create_timepoints(data, ext='.tab'):
     data[output_cols].to_csv(output_file, sep=sep)
 
 
-def create_strings(data, scale_to_period, identifier='P',  ext='.tab'):
+def create_strings(data, scale_to_period, identifier='P',  ext='.tab', **kwargs):
     """
         Create timestamp file
 
@@ -168,7 +167,7 @@ def create_strings(data, scale_to_period, identifier='P',  ext='.tab'):
 
     return (data)
 
-def create_timeseries(data, number=4, ext='.tab'):
+def create_timeseries(data, number=4, ext='.tab', **kwargs):
     """
         Create timeseries file
     """
@@ -181,7 +180,6 @@ def create_timeseries(data, number=4, ext='.tab'):
     if isinstance(data, list):
         data = pd.concat(data)
 
-    size = len(data) #  Size to divide the timeseries in a timeperiod
 
     # Extract unique timeseries_id
     timeseries = data[['TIMESERIES', 'daysinmonth', 'ts_period',
@@ -205,7 +203,7 @@ def create_timeseries(data, number=4, ext='.tab'):
 
     timeseries.to_csv(output_file, index=False, sep=sep)
 
-def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab'):
+def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwargs):
     """
         Create variable capacity factor file
     """
@@ -221,7 +219,6 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab'):
     if os.path.exists(output_file):
         os.remove(output_file)
 
-    periods = set(data.date.dt.year)
     output_file = output_path + 'variable_capacity_factors' + ext
     file_path = os.path.join(path, 'data/clean/SWITCH/')
     filename = 'ren-all2.csv'
@@ -231,7 +228,6 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab'):
     # Extract datetime without year information
     filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True)).strftime('%m-%d %H:%M:%S')
     #  filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True))
-    df = pd.DataFrame([])
     ren_tmp = ren_cap_data.copy()
     #ren_tmp.index = ren_tmp.index + pd.DateOffset(years=2)
 
@@ -263,7 +259,7 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab'):
                     index=False, mode='a', header=(not
                         os.path.exists(output_file)))
 
-def create_loads(load, data, ext='.tab'):
+def create_loads(load, data, ext='.tab', **kwargs):
     """
         Create loads file
     """
@@ -289,7 +285,7 @@ def create_loads(load, data, ext='.tab'):
     del tmp['index']
 
     tmp = tmp.unstack(0)
-    for name, group in tmp.groupby(level=0):
+    for _, group in tmp.groupby(level=0):
         list_tmp.append(group.reset_index())
     loads_tab = pd.concat(list_tmp)
     loads_tab.index += 1
@@ -338,7 +334,7 @@ def create_inputs(path=script_path, **kwargs):
     periods_tab = pd.DataFrame(d)
     periods_tab = periods_tab.set_index('INVESTMENT_PERIOD')
 
-    # Create timeseries selction. This will extract peak and median day
+    # Create timeseries selection. This will extract peak and median day
 
     timeseries = []
     timeseries_dict = {}
@@ -353,7 +349,6 @@ def create_inputs(path=script_path, **kwargs):
         timeseries.append(create_strings(peak_data, scale_to_period))
         timeseries.append(create_strings(median_data, scale_to_period,
                                         identifier='M'))
-    print (len(timeseries_dict[2030]))
     create_investment_period(peak_data)
     create_gen_build_cost(peak_data)
     create_timeseries(timeseries, **kwargs)
