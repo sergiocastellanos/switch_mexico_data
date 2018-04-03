@@ -337,19 +337,10 @@ def create_gen_build_cost(data, ext='.tab', path=script_path,
         costs.drop_duplicates('GENERATION_PROJECT', inplace=True)
         costs['build_year'] = period
         asd.append(costs[cols2])
-    print (costs.head())
     gen_build_costs = pd.concat(asd)
-    print (gen_build_costs['build_year'].unique())
     gen_new = pd.merge(gen_build_costs, gen_project[['GENERATION_PROJECT', 'gen_tech']], on=['GENERATION_PROJECT'])    
-    print (gen_build_costs['build_year'].unique())
-    print (len(gen_new))
-    print (gen_build_costs.head())
     gen_new_costs = modify_costs(gen_new)
-    print (gen_new_costs.head())
-    sys.exit(1)
-    print (gen_build_costs.tail())
-    sys.exit(1)
-    gen_build_costs.to_csv(output_file, sep=sep, index=False)
+    gen_new_costs.to_csv(output_file, sep=sep, index=False)
 
 def modify_costs(data):
     cost_table = pd.read_csv('src/cost_tables.csv')
@@ -367,8 +358,9 @@ def modify_costs(data):
                 df.loc[mask & (df['gen_tech'] == tech)]
                 cost_table.loc[mask2, 'gen_overnight_cost'].values[0]
                 df.loc[mask & (df['gen_tech'] == tech), 'gen_overnight_cost'] = cost_table.loc[mask2, 'gen_overnight_cost'].values[0]
-    pdb.set_trace()
-    return data
+    print (data.tail())
+    print (df.tail())
+    return df
 
 
 def create_inputs(path=script_path, **kwargs):
@@ -412,5 +404,5 @@ def create_inputs(path=script_path, **kwargs):
 
 
 if __name__ == '__main__':
-    create_inputs(number=4)
+    create_inputs(number=2)
 
