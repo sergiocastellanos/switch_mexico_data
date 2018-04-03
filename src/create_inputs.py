@@ -70,8 +70,9 @@ def get_peak_day(data, number=4, freq='MS'):
         pd.Grouper(freq=freq)]):
         # Get index of max value
         peak_timestamp = group.idxmax()
+        print (peak_timestamp)
         # Convert the max value index to timestamp
-        mask = peak_timestamp.strftime('%Y-%m-%d')
+        mask = peak_timestamp[0].strftime('%Y-%m-%d')
         # Get the number of points inside the max timestamp
         years.append(group.loc[mask].iloc[::int((24/number))].reset_index())
 
