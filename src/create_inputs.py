@@ -9,6 +9,7 @@ Developers:
 import os
 import sys
 import yaml
+import pdb
 import numpy as np
 import pandas as pd
 from collections import OrderedDict
@@ -224,7 +225,16 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwa
     filename = 'ren-all2.csv'
     ren_cap_data = pd.read_csv(os.path.join(file_path, filename), index_col=0,
                                parse_dates=True)
+    # Quick fix to names
+    replaces = ['é', 'á', 'í', 'ó', 'ú', 'ñ']
+    print (ren_cap_data.head())
 
+    ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('é', 'e')
+    ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('á', 'a')
+    ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('í', 'i')
+    ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ó', 'o')
+    ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ú', 'u')
+    ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ñ', 'n')
     # Extract datetime without year information
     filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True)).strftime('%m-%d %H:%M:%S')
     #  filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True))
@@ -309,12 +319,48 @@ def create_gen_build_cost(data, ext='.tab', path=script_path,
         except yaml.YAMLError as exc:
             raise (exc)
     asd = []
+    gen_project = pd.read_csv('src/generation_projects_info.tab', sep='\t')
+    gen_predeterimend = pd.read_csv('./src/gen_build_predetermined.tab', sep='\t')
+    gen_predeterimend.rename(columns={'PROJECT': 'GENERATION_PROJECT'}, inplace=True)
+    costs = pd.read_csv(os.path.join(path,'gen_build_costs.tab'), sep='\t')
+    columns = ['GENERATION_PROJECT','gen_overnight_cost', 'gen_fixed_om']
+    cols2 = ['GENERATION_PROJECT', 'build_year', 'gen_overnight_cost', 'gen_fixed_om']
+    merged = pd.merge(gen_predeterimend, costs[columns], on=['GENERATION_PROJECT'])
+    # TODO: Check why we get duplicate values from the previous row
+    merged.drop_duplicates('GENERATION_PROJECT', inplace=True)
+    predetermined = gen_predeterimend['GENERATION_PROJECT'].unique()
+    asd.append(merged[cols2])
     for period in periods['INVESTMENT_PERIOD']:
         costs = pd.read_csv(os.path.join(path,'gen_build_costs.tab'), sep=sep)
+        costs = costs[~costs['GENERATION_PROJECT'].isin(predetermined)]
+        # TODO: Check why we get duplicate values from the previous row
+        costs.drop_duplicates('GENERATION_PROJECT', inplace=True)
         costs['build_year'] = period
-        asd.append(costs)
+        asd.append(costs[cols2])
     gen_build_costs = pd.concat(asd)
-    gen_build_costs.to_csv(output_file, sep=sep, index=False)
+    gen_new = pd.merge(gen_build_costs, gen_project[['GENERATION_PROJECT', 'gen_tech']], on=['GENERATION_PROJECT'])    
+    gen_new_costs = modify_costs(gen_new)
+    gen_new_costs.to_csv(output_file, sep=sep, index=False)
+
+def modify_costs(data):
+    cost_table = pd.read_csv('src/cost_tables.csv')
+    print (cost_table.head())
+    df = data.copy()
+    techo = cost_table['Technology'].unique()
+    for index in df.build_year.unique():
+        print (index)
+        mask = (df['gen_tech'].isin(techo)) & (df['build_year'] == index)
+        df.loc[mask]
+        cost_table.loc[cost_table['Year'] == index]
+        for tech in df['gen_tech'].unique():
+            if tech in cost_table['Technology'].unique():
+                mask2 = (cost_table['Technology'] == tech) & (cost_table['Year'] == index)
+                df.loc[mask & (df['gen_tech'] == tech)]
+                cost_table.loc[mask2, 'gen_overnight_cost'].values[0]
+                df.loc[mask & (df['gen_tech'] == tech), 'gen_overnight_cost'] = cost_table.loc[mask2, 'gen_overnight_cost'].values[0]
+    print (data.tail())
+    print (df.tail())
+    return df
 
 
 def create_inputs(path=script_path, **kwargs):
@@ -358,5 +404,5 @@ def create_inputs(path=script_path, **kwargs):
 
 
 if __name__ == '__main__':
-    create_inputs(number=4)
+    create_inputs(number=2)
 
