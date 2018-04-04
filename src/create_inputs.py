@@ -26,6 +26,7 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
         TODO:
             * This could be a csv or it could connect to a DB.
     """
+    #TODO: Fix duplicate timestamps for hour = 1
     print (os.path.join(path, filename))
     file_path = os.path.join(path, filename)
     try:
@@ -38,6 +39,7 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
     last_year = df['year'].iloc[-1:].values
     if corrections:
         try:
+            # TODO: Rembmer why I wrote this fix
             df.loc[df['hour'] == 24, 'hour'] = 0
             df.loc[df['hour'] == 0, 'hour'] +=  1
             # Fix below code to represent a year regression
@@ -68,13 +70,21 @@ def get_peak_day(data, number=4, freq='MS'):
         raise ValueError('Odd number of timepoints. Use even number')
     for _, group in data.groupby([pd.Grouper(freq='A'),\
         pd.Grouper(freq=freq)]):
+
+        #Temporal fix for duplicates
+        group = group[~group.index.duplicated(keep='last')]
         # Get index of max value
         peak_timestamp = group.idxmax()
         print (peak_timestamp)
         # Convert the max value index to timestamp
-        mask = peak_timestamp[0].strftime('%Y-%m-%d')
+        mask = peak_timestamp.strftime('%Y-%m-%d')
         # Get the number of points inside the max timestamp
-        years.append(group.loc[mask].iloc[::int((24/number))].reset_index())
+        peak_timestamps = group.loc[mask].iloc[::int((24/number))].reset_index()
+        peak_timestamps.iloc[0] = (peak_timestamp, group.loc[peak_timestamp])
+
+        pdb.set_trace()
+        # Temporal fix if the peak date appears twice
+        peak_timestamps = peak_timestamps.drop_duplicates('index')
 
     output_data = pd.concat(years)
     output_data = output_data.rename(columns={'index':'date',
@@ -158,7 +168,7 @@ def create_strings(data, scale_to_period, identifier='P',  ext='.tab', **kwargs)
         Create timestamp file
 
     """
-    strftime = '%Y%M%d%H' #  Strftime for label
+    strftime = '%Y%m%d%H' #  Strftime for label
     data['timestamp'] = data['date'].dt.strftime(strftime)
     data['TIMESERIES'] = data['date'].dt.strftime('%Y_%m{}'.format(identifier))
     data['daysinmonth'] = data['date'].dt.daysinmonth
