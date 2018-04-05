@@ -20,7 +20,7 @@ data_path = os.path.join(parent_path, 'data/clean/loads')
 output_path  = os.path.join(parent_path, 'data/clean/switch_inputs/')
 
 def get_load_data(path=data_path, filename='HighLoads.csv',
-        corrections=True, total=False, *args, **kwargs):
+         total=False, *args, **kwargs):
     """
         Load consumption data
         TODO:
@@ -37,18 +37,13 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
     df['total'] = df.sum(axis=1)
     # Convert to datetime if does not exist
     last_year = df['year'].iloc[-1:].values
-    if corrections:
-        try:
-            # TODO: Rembmer why I wrote this fix
-            df.loc[df['hour'] == 24, 'hour'] = 0
-            df.loc[df['hour'] == 0, 'hour'] +=  1
-            # Fix below code to represent a year regression
-            df.loc[df['year'] > last_year] -= pd.DateOffset(day=365)
-        except ValueError as e:
-            print (e)
-            # TODO: Check why this function breaks
-            #raise ('24 Hour timestamp  not found in Load data. Try another hour')
-            pass
+    try:
+        # Shift load data to match generation.
+        df.loc[:, 'hour'] -= 1
+    except:
+        print ('Something went wrong')
+        pass
+
     df.index = pd.to_datetime(df[['year', 'month', 'day', 'hour']])
 
     if total:
@@ -66,25 +61,48 @@ def get_peak_day(data, number=4, freq='MS'):
     Note: Month start is to avoid getting more timepoints in a even division
     """
     years = []
-    if number & 1:
+
+    # Check if number of timepoints is multiple
+    if not 24 % number == 0 :
         raise ValueError('Odd number of timepoints. Use even number')
+
+    # Iterate over all months
     for _, group in data.groupby([pd.Grouper(freq='A'),\
         pd.Grouper(freq=freq)]):
 
+        delta_t = int(24/number)
+
         #Temporal fix for duplicates
         group = group[~group.index.duplicated(keep='last')]
+
         # Get index of max value
         peak_timestamp = group.idxmax()
-        print (peak_timestamp)
+
         # Convert the max value index to timestamp
         mask = peak_timestamp.strftime('%Y-%m-%d')
-        # Get the number of points inside the max timestamp
-        peak_timestamps = group.loc[mask].iloc[::int((24/number))].reset_index()
-        peak_timestamps.iloc[0] = (peak_timestamp, group.loc[peak_timestamp])
 
-        pdb.set_trace()
-        # Temporal fix if the peak date appears twice
-        peak_timestamps = peak_timestamps.drop_duplicates('index')
+        peak_loc = group[mask].index.get_loc(peak_timestamp)
+
+        # Check if delta_t does not jump to next day
+        if (peak_timestamp.hour + delta_t ) > 23:
+            peak_timestamps = group.loc[mask].iloc[peak_loc::-delta_t]
+            if len(peak_timestamps) < delta_t:
+                missing = number - len(peak_timestamps)
+                peak_timestamps = (peak_timestamps.append(group
+                                    .loc[mask]
+                                    .iloc[peak_loc::delta_t][1:missing+1]))
+        else:
+            peak_timestamps = group.loc[mask].iloc[peak_loc::delta_t]
+            if len(peak_timestamps) < delta_t:
+                missing = number - len(peak_timestamps)
+                peak_timestamps = (peak_timestamps.append(group
+                                    .loc[mask]
+                                    .iloc[peak_loc::-delta_t][1:missing+1]))
+
+        # Sort the index. Why not?
+        peak_timestamps = peak_timestamps.sort_index().reset_index()
+
+        years.append(peak_timestamps)
 
     output_data = pd.concat(years)
     output_data = output_data.rename(columns={'index':'date',
@@ -101,7 +119,9 @@ def get_median_day(data, number=4, freq='MS'):
     Note: Month start is to avoid getting more timepoints in a even division
 
     """
+
     years = []
+
     for _, group in data.groupby([pd.Grouper(freq='A'),\
         pd.Grouper(freq=freq)]):
         # Calculate the daily mean
@@ -201,10 +221,12 @@ def create_timeseries(data, number=4, ext='.tab', **kwargs):
     timeseries['ts_duration_of_tp'] = 24/number
     timeseries['count'] = timeseries.groupby('ts_period')['TIMESERIES'].transform(len)
     timeseries['ts_num_tps'] = data[['timestamp', 'TIMESERIES']].groupby('TIMESERIES').count().values
+
     # TODO: Change value of 24 for number of days to represent and 365 for
     # the total amount of years?
     scaling = timeseries['scale_to_period']*24*(365/timeseries['count'])/(timeseries['ts_duration_of_tp']*timeseries['ts_num_tps'])
     timeseries['ts_scale_to_period'] = scaling
+
     #  timeseries.index += 1  # To start on 1 instead of 0
     timeseries.index.name = 'timepoint_id'
 
@@ -257,7 +279,6 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwa
     #for year in periods:
     #    df = df.append(ren_tmp)
     #    ren_tmp.index = ren_tmp.index + pd.DateOffset(years=1)
-    
     list1 = []
     for row, value in timeseries_dict.items():
         print (row)
@@ -381,7 +402,7 @@ def create_inputs(path=script_path, **kwargs):
     load_data = get_load_data()
 
     file_path = os.path.join(path, 'periods.yaml')
-    with open(file_path, "r") as stream:  
+    with open(file_path, "r") as stream:
         try:
             periods = yaml.load(stream)
         except yaml.YAMLError as exc:
