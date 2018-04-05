@@ -308,7 +308,7 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwa
     file_name = 'ren-all2.csv'
     file_path = os.path.join(path, 'data/clean/SWITCH/')
 
-    ren_cap_data = pd.read_csv(os.path.join(file_path, filename), index_col=0,
+    ren_cap_data = pd.read_csv(os.path.join(file_path, file_name), index_col=0,
                                parse_dates=True)
 
     # Quick fix to names
@@ -324,6 +324,7 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwa
     filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True)).strftime('%m-%d %H:%M:%S')
 
     ren_tmp = ren_cap_data.copy()
+    print (ren_tmp.head())
 
     list1 = []
     for row, value in timeseries_dict.items():
@@ -331,7 +332,7 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwa
         tmp2 = pd.concat(value)
         filter_dates = (pd.DatetimeIndex(tmp2['date']
                                     .reset_index(drop=True))
-                                    .strftime('%m-%d%H:%M:%S'))
+                                    .strftime('%m-%d %H:%M:%S'))
         grouped = (ren_tmp[ren_tmp['time'].isin(filter_dates)]
                     .reset_index(drop=True)
                     .groupby('GENERATION_PROJECT', as_index=False))
