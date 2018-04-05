@@ -39,3 +39,7 @@ notebooks/data/*
 
 # Jupyter notebooks with no name
 Untitle*
+
+# Pytest cache
+.pytest_cache/
+.vscode
