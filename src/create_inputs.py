@@ -21,22 +21,29 @@ output_path  = os.path.join(parent_path, 'data/clean/switch_inputs/')
 
 def get_load_data(path=data_path, filename='HighLoads.csv',
          total=False, *args, **kwargs):
-    """
-        Load consumption data
+    """ Read load consumption data
+
+    Args:
+        path (str): path to the file,
+        filename (str): name of the file,
+        total (bool): if true returns only the sum of all loads.
+
         TODO:
+            * Migrate this function to utilities
+            * This could be a csv or it could connect to a DB.
             * This could be a csv or it could connect to a DB.
     """
-    #TODO: Fix duplicate timestamps for hour = 1
-    print (os.path.join(path, filename))
+
     file_path = os.path.join(path, filename)
+
     try:
         df = pd.read_csv(file_path)
     except FileNotFoundError:
         raise ('File not found. Please verify the file is in: {}'.format(os.path.join(path, filename)))
+
     # Calculate the sum of loads
     df['total'] = df.sum(axis=1)
-    # Convert to datetime if does not exist
-    last_year = df['year'].iloc[-1:].values
+
     try:
         # Shift load data to match generation.
         df.loc[:, 'hour'] -= 1
@@ -44,12 +51,15 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
         print ('Something went wrong')
         pass
 
+    # Add datetime index
     df.index = pd.to_datetime(df[['year', 'month', 'day', 'hour']])
 
-    if total:
-        df = df[['total']].sort_index()
     df = df.sort_index()
-    return (df)
+
+    if total:
+        return df[['total']]
+    else:
+        return df
 
 def get_peak_day(data, number=4, freq='MS'):
     """ Construc a representative day based on a single timestamp
@@ -58,7 +68,8 @@ def get_peak_day(data, number=4, freq='MS'):
         data (pd.DataFrame): data to filter,
         number (float): number of days to return.
 
-    Note: Month start is to avoid getting more timepoints in a even division
+    Note:
+        * Month start is to avoid getting more timepoints in a even division
     """
     years = []
 
@@ -116,8 +127,8 @@ def get_median_day(data, number=4, freq='MS'):
         data (pd.DataFrame): data to filter,
         number (float): number of days to return.
 
-    Note: Month start is to avoid getting more timepoints in a even division
-
+    Note(s):
+        * Month start is to avoid getting more timepoints in a even division
     """
 
     years = []
@@ -139,10 +150,17 @@ def get_median_day(data, number=4, freq='MS'):
 
     return (output_data)
 
-def create_investment_period(data, path=script_path, ext='.tab', **kwargs):
+def create_investment_period(path=script_path, ext='.tab', **kwargs):
+    """ Create periods file using periods.yaml input
+
+    Args:
+        path (str): path to file,
+        ext (str): output extension to save the file
+
+    Note(s):
+        * .tab extension is to match the switch inputs,
     """
-        Create periods file
-    """
+
     output_file = output_path + 'periods' + ext
 
     # TODO: Migrate this to a function in utilities
@@ -160,12 +178,19 @@ def create_investment_period(data, path=script_path, ext='.tab', **kwargs):
 
 
 def create_timepoints(data, ext='.tab', **kwargs):
-    """
-        Create timepoints file
+    """ Create timepoints file
+
+    Args:
+        data (pd.DataFrame): dataframe witht dates ,
+        ext (str): output extension to save the file.
+
+    Note(s):
+        * .tab extension is to match the switch inputs,
     """
 
     # Filename convention
     if ext == '.tab': sep='\t'
+
     output_file = output_path + 'timepoints' + ext
 
     # If multiple timeseries included in data
@@ -183,11 +208,20 @@ def create_timepoints(data, ext='.tab', **kwargs):
     data[output_cols].to_csv(output_file, sep=sep)
 
 
-def create_strings(data, scale_to_period, identifier='P',  ext='.tab', **kwargs):
-    """
-        Create timestamp file
+def create_strings(data, scale_to_period, identifier='P',  ext='.tab',
+        **kwargs):
+    """ Create strings to process files
 
+    Args:
+        data (pd.DataFrame): dataframe witht dates,
+        scale_to_period (int): difference between period ranges,
+        identifier (str): identifier for each series
+        ext (str): output extension to save the file.
+
+    Note(s):
+        * .tab extension is to match the switch inputs,
     """
+
     strftime = '%Y%m%d%H' #  Strftime for label
     data['timestamp'] = data['date'].dt.strftime(strftime)
     data['TIMESERIES'] = data['date'].dt.strftime('%Y_%m{}'.format(identifier))
@@ -200,8 +234,15 @@ def create_strings(data, scale_to_period, identifier='P',  ext='.tab', **kwargs)
     return (data)
 
 def create_timeseries(data, number=4, ext='.tab', **kwargs):
-    """
-        Create timeseries file
+    """ Create timeseries output file
+
+    Args:
+        data (pd.DataFrame): dataframe witht dates,
+        number (int) : number of timepoints
+        ext (str): output extension to save the file.
+
+    Note(s):
+        * .tab extension is to match the switch inputs,
     """
 
     # Filename convention
@@ -223,7 +264,7 @@ def create_timeseries(data, number=4, ext='.tab', **kwargs):
     timeseries['ts_num_tps'] = data[['timestamp', 'TIMESERIES']].groupby('TIMESERIES').count().values
 
     # TODO: Change value of 24 for number of days to represent and 365 for
-    # the total amount of years?
+    #       the total amount of years?
     scaling = timeseries['scale_to_period']*24*(365/timeseries['count'])/(timeseries['ts_duration_of_tp']*timeseries['ts_num_tps'])
     timeseries['ts_scale_to_period'] = scaling
 
@@ -238,9 +279,18 @@ def create_timeseries(data, number=4, ext='.tab', **kwargs):
     timeseries.to_csv(output_file, index=False, sep=sep)
 
 def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwargs):
+    """ Create variable capacity factor  output file
+
+    Args:
+        data (pd.DataFrame): dataframe witht dates,
+        timeseries_dict (Dict): dictionary with the timeseries for each period,
+        path (string): path to renewable energy file,
+        ext (str): output extension to save the file.
+
+    Note(s):
+        * .tab extension is to match the switch inputs,
     """
-        Create variable capacity factor file
-    """
+
     # Filename convention
     output_file = output_path + 'variable_capacity_factors' + ext
     if ext == '.tab': sep='\t'
@@ -254,40 +304,39 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwa
         os.remove(output_file)
 
     output_file = output_path + 'variable_capacity_factors' + ext
+
+    file_name = 'ren-all2.csv'
     file_path = os.path.join(path, 'data/clean/SWITCH/')
-    filename = 'ren-all2.csv'
+
     ren_cap_data = pd.read_csv(os.path.join(file_path, filename), index_col=0,
                                parse_dates=True)
+
     # Quick fix to names
     replaces = ['é', 'á', 'í', 'ó', 'ú', 'ñ']
-    print (ren_cap_data.head())
-
     ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('é', 'e')
     ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('á', 'a')
     ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('í', 'i')
     ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ó', 'o')
     ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ú', 'u')
     ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ñ', 'n')
+
     # Extract datetime without year information
     filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True)).strftime('%m-%d %H:%M:%S')
-    #  filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True))
-    ren_tmp = ren_cap_data.copy()
-    #ren_tmp.index = ren_tmp.index + pd.DateOffset(years=2)
 
-    # DEPRECATED FOR CYCLE.
-    # This function will dissapear in the nex version.
-    #for year in periods:
-    #    df = df.append(ren_tmp)
-    #    ren_tmp.index = ren_tmp.index + pd.DateOffset(years=1)
+    ren_tmp = ren_cap_data.copy()
+
     list1 = []
     for row, value in timeseries_dict.items():
         print (row)
         tmp2 = pd.concat(value)
-        filter_dates = pd.DatetimeIndex(tmp2['date'].reset_index(drop=True)).strftime('%m-%d %H:%M:%S')
+        filter_dates = (pd.DatetimeIndex(tmp2['date']
+                                    .reset_index(drop=True))
+                                    .strftime('%m-%d%H:%M:%S'))
         grouped = (ren_tmp[ren_tmp['time'].isin(filter_dates)]
                     .reset_index(drop=True)
                     .groupby('GENERATION_PROJECT', as_index=False))
         list1.append(pd.concat([group.reset_index(drop=True) for name, group in grouped]))
+
     variable_cap = pd.concat(list1)
     variable_tab = variable_cap.groupby('GENERATION_PROJECT')
     for keys in variable_tab.groups.keys():
@@ -302,9 +351,17 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwa
                         os.path.exists(output_file)))
 
 def create_loads(load, data, ext='.tab', **kwargs):
+    """ Create load data output file
+
+    Args:
+        load (pd.DataFrame): load data
+        data (pd.DataFrame): dataframe witht dates,
+        ext (str): output extension to save the file.
+
+    Note(s):
+        * .tab extension is to match the switch inputs,
     """
-        Create loads file
-    """
+
     # Filename convention
     output_file = output_path + 'loads' + ext
     if ext == '.tab': sep='\t'
@@ -327,11 +384,14 @@ def create_loads(load, data, ext='.tab', **kwargs):
     del tmp['index']
 
     tmp = tmp.unstack(0)
+
     for _, group in tmp.groupby(level=0):
         list_tmp.append(group.reset_index())
+
     loads_tab = pd.concat(list_tmp)
     loads_tab.index += 1
     loads_tab = loads_tab.rename(columns={'level_0':'LOAD_ZONE', 0:'zone_demand_mw'})
+
     # TODO: Check why this is necesary
     del loads_tab['level_1']
     loads_tab.index.name = 'TIMEPOINT'
@@ -340,16 +400,27 @@ def create_loads(load, data, ext='.tab', **kwargs):
 
 def create_gen_build_cost(data, ext='.tab', path=script_path,
     **kwargs):
+    """ Create gen build cost output file
+
+    Args:
+        data (pd.DataFrame): dataframe witht dates,
+        ext (str): output extension to save the file.
+
+    Note(s):
+        * .tab extension is to match the switch inputs,
+    """
+
     if ext == '.tab': sep='\t'
     output_file = output_path + 'gen_build_costs' + ext
-    # TODO: 
-    # * Change the direction of this file
+
+    # TODO:  Change the direction of this file
     file_path = os.path.join(path, 'periods.yaml')
-    with open(file_path, "r") as stream:        
+    with open(file_path, "r") as stream:
         try:
             periods = yaml.load(stream)
         except yaml.YAMLError as exc:
             raise (exc)
+
     asd = []
     gen_project = pd.read_csv('src/generation_projects_info.tab', sep='\t')
     gen_predeterimend = pd.read_csv('./src/gen_build_predetermined.tab', sep='\t')
@@ -358,6 +429,7 @@ def create_gen_build_cost(data, ext='.tab', path=script_path,
     columns = ['GENERATION_PROJECT','gen_overnight_cost', 'gen_fixed_om']
     cols2 = ['GENERATION_PROJECT', 'build_year', 'gen_overnight_cost', 'gen_fixed_om']
     merged = pd.merge(gen_predeterimend, costs[columns], on=['GENERATION_PROJECT'])
+
     # TODO: Check why we get duplicate values from the previous row
     merged.drop_duplicates('GENERATION_PROJECT', inplace=True)
     predetermined = gen_predeterimend['GENERATION_PROJECT'].unique()
@@ -365,22 +437,32 @@ def create_gen_build_cost(data, ext='.tab', path=script_path,
     for period in periods['INVESTMENT_PERIOD']:
         costs = pd.read_csv(os.path.join(path,'gen_build_costs.tab'), sep=sep)
         costs = costs[~costs['GENERATION_PROJECT'].isin(predetermined)]
+
         # TODO: Check why we get duplicate values from the previous row
         costs.drop_duplicates('GENERATION_PROJECT', inplace=True)
         costs['build_year'] = period
         asd.append(costs[cols2])
     gen_build_costs = pd.concat(asd)
-    gen_new = pd.merge(gen_build_costs, gen_project[['GENERATION_PROJECT', 'gen_tech']], on=['GENERATION_PROJECT'])    
+    gen_new = pd.merge(gen_build_costs, gen_project[['GENERATION_PROJECT', 'gen_tech']], on=['GENERATION_PROJECT'])
     gen_new_costs = modify_costs(gen_new)
     gen_new_costs.to_csv(output_file, sep=sep, index=False)
 
 def modify_costs(data):
+    """ Modify cost data to derate it
+
+    Args:
+        data (pd.DataFrame): dataframe witht dates,
+
+    Note(s):
+        * This read the cost table and modify the cost by period
+    """
+
+    # TODO: Make a more cleaner way to load the file
     cost_table = pd.read_csv('src/cost_tables.csv')
-    print (cost_table.head())
+
     df = data.copy()
     techo = cost_table['Technology'].unique()
     for index in df.build_year.unique():
-        print (index)
         mask = (df['gen_tech'].isin(techo)) & (df['build_year'] == index)
         df.loc[mask]
         cost_table.loc[cost_table['Year'] == index]
@@ -390,15 +472,19 @@ def modify_costs(data):
                 df.loc[mask & (df['gen_tech'] == tech)]
                 cost_table.loc[mask2, 'gen_overnight_cost'].values[0]
                 df.loc[mask & (df['gen_tech'] == tech), 'gen_overnight_cost'] = cost_table.loc[mask2, 'gen_overnight_cost'].values[0]
-    print (data.tail())
-    print (df.tail())
-    return df
+    return (df)
 
 
 def create_inputs(path=script_path, **kwargs):
+    """ Main function that creates all the inputs
+
+    Args:
+        path (str): path to script folder
+
+    Note(s):
+        * This generates all the inputs
     """
-        Create all inputs
-    """
+
     load_data = get_load_data()
 
     file_path = os.path.join(path, 'periods.yaml')
@@ -427,7 +513,7 @@ def create_inputs(path=script_path, **kwargs):
         timeseries.append(create_strings(peak_data, scale_to_period))
         timeseries.append(create_strings(median_data, scale_to_period,
                                         identifier='M'))
-    create_investment_period(peak_data)
+    create_investment_period()
     create_gen_build_cost(peak_data)
     create_timeseries(timeseries, **kwargs)
     create_timepoints(timeseries)
@@ -436,5 +522,6 @@ def create_inputs(path=script_path, **kwargs):
 
 
 if __name__ == '__main__':
-    create_inputs(number=2)
+    number = int(sys.argv[1])
+    create_inputs(number=number)
 
