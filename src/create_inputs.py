@@ -10,6 +10,7 @@ import os
 import sys
 import yaml
 import pdb
+import click
 import numpy as np
 import pandas as pd
 from collections import OrderedDict
@@ -475,8 +476,10 @@ def modify_costs(data):
                 df.loc[mask & (df['gen_tech'] == tech), 'gen_overnight_cost'] = cost_table.loc[mask2, 'gen_overnight_cost'].values[0]
     return (df)
 
-
-def create_inputs(path=script_path, **kwargs):
+@click.command()
+@click.option('--number', default=4, help='Number of timepoints')
+@click.option('--debug', is_flag=True )
+def create_inputs(number, path=script_path, **kwargs):
     """ Main function that creates all the inputs
 
     Args:
@@ -485,6 +488,8 @@ def create_inputs(path=script_path, **kwargs):
     Note(s):
         * This generates all the inputs
     """
+    print (number)
+    sys.exit(1)
 
     load_data = get_load_data()
 
@@ -523,6 +528,5 @@ def create_inputs(path=script_path, **kwargs):
 
 
 if __name__ == '__main__':
-    number = int(sys.argv[1])
-    create_inputs(number=number)
+    create_inputs()
 
