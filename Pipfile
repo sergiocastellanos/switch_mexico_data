@@ -11,6 +11,7 @@ request = "*"
 pyyaml = "*"
 tqdm = "*"
 pytest = "*"
+click = "*"
 
 [dev-packages]
 matplotlib = "*"

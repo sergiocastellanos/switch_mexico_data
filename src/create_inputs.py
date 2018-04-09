@@ -10,6 +10,7 @@ import os
 import sys
 import yaml
 import pdb
+import click
 import numpy as np
 import pandas as pd
 from collections import OrderedDict
@@ -61,7 +62,7 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
     else:
         return df
 
-def get_peak_day(data, number=4, freq='MS'):
+def get_peak_day(data, number, freq='MS'):
     """ Construc a representative day based on a single timestamp
 
     Args:
@@ -120,7 +121,7 @@ def get_peak_day(data, number=4, freq='MS'):
                                     'total':'peak_day'})
     return (output_data)
 
-def get_median_day(data, number=4, freq='MS'):
+def get_median_day(data, number, freq='MS'):
     """ Calculate median day giving a timeseries
 
     Args:
@@ -233,7 +234,7 @@ def create_strings(data, scale_to_period, identifier='P',  ext='.tab',
 
     return (data)
 
-def create_timeseries(data, number=4, ext='.tab', **kwargs):
+def create_timeseries(data, number, ext='.tab', **kwargs):
     """ Create timeseries output file
 
     Args:
@@ -475,8 +476,10 @@ def modify_costs(data):
                 df.loc[mask & (df['gen_tech'] == tech), 'gen_overnight_cost'] = cost_table.loc[mask2, 'gen_overnight_cost'].values[0]
     return (df)
 
-
-def create_inputs(path=script_path, **kwargs):
+@click.command()
+@click.option('--number', default=4, prompt='Number of timepoints',
+        help='Number of timepoints')
+def create_inputs(number, path=script_path, **kwargs):
     """ Main function that creates all the inputs
 
     Args:
@@ -485,6 +488,7 @@ def create_inputs(path=script_path, **kwargs):
     Note(s):
         * This generates all the inputs
     """
+    print (number)
 
     load_data = get_load_data()
 
@@ -506,8 +510,8 @@ def create_inputs(path=script_path, **kwargs):
     for periods, row in periods_tab.iterrows():
         timeseries_dict[periods] = []
         scale_to_period = row[1] - row[0]
-        peak_data = get_peak_day(load_data[str(periods)]['total'], freq='1MS', **kwargs)
-        median_data = get_median_day(load_data[str(periods)]['total'], freq='1MS', **kwargs)
+        peak_data = get_peak_day(load_data[str(periods)]['total'], number, freq='1MS', **kwargs)
+        median_data = get_median_day(load_data[str(periods)]['total'], number, freq='1MS', **kwargs)
         timeseries_dict[periods].append(create_strings(peak_data, scale_to_period))
         timeseries_dict[periods].append(create_strings(median_data, scale_to_period,
                                         identifier='M'))
@@ -516,13 +520,12 @@ def create_inputs(path=script_path, **kwargs):
                                         identifier='M'))
     create_investment_period()
     create_gen_build_cost(peak_data)
-    create_timeseries(timeseries, **kwargs)
+    create_timeseries(timeseries, number, **kwargs)
     create_timepoints(timeseries)
     create_variablecp(timeseries, timeseries_dict)
     create_loads(load_data, timeseries)
 
 
 if __name__ == '__main__':
-    number = int(sys.argv[1])
-    create_inputs(number=number)
+    create_inputs()
 
