@@ -1,15 +1,15 @@
 # SWITCH Mexico
-Update: 02/27/2018
+Update: 03/05/2018
 
 Repo for SWITCH-Mexico including code and data
 
 Todo:
 - [x] Implement git lfs,
 - [x] Verify switch input files creation,
+- [x] Clean folders,
+- [x] Update switch input creation,
 - [ ] Create function that check if folders exists
-- [ ] Clean folders,
 - [ ] Update switch folder,
-- [ ] Update switch input creation,
 - [ ] Publish runs,
 - [ ] Write Readme and documentation for the codes.
 
