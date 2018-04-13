@@ -449,6 +449,48 @@ def create_gen_build_cost(data, ext='.tab', path=script_path,
     gen_new_costs = modify_costs(gen_new)
     gen_new_costs.to_csv(output_file, sep=sep, index=False)
 
+def create_gen_build_cost_new(data, ext='.tab', path=script_path,
+    **kwargs):
+    """ Create gen build cost output file
+
+    Args:
+        data (pd.DataFrame): dataframe witht dates,
+        ext (str): output extension to save the file.
+
+    Note(s):
+        * .tab extension is to match the switch inputs,
+    """
+    gen_project = pd.read_csv('src/generation_projects_info.tab', sep='\t')
+    cost_table = pd.read_csv('src/cost_tables.csv')
+
+    if ext == '.tab': sep='\t'
+
+    output_file = output_path + 'gen_build_costs' + ext
+
+    # TODO:  Change the direction of this file
+    file_path = os.path.join(path, 'periods.yaml')
+    with open(file_path, "r") as stream:
+        try:
+            periods = yaml.load(stream)
+        except yaml.YAMLError as exc:
+            raise (exc)
+
+    df = data.copy()
+    techo = cost_table['Technology'].unique()
+    for period in periods['INVESTMENT_PERIOD']:
+        print (period)
+        mask = (gen_project['gen_tech'].isin(techo)))
+        sys.exit(1)
+        df.loc[mask]
+        cost_table.loc[cost_table['Year'] == index]
+        for tech in df['gen_tech'].unique():
+            if tech in cost_table['Technology'].unique():
+                mask2 = (cost_table['Technology'] == tech) & (cost_table['Year'] == index)
+                df.loc[mask & (df['gen_tech'] == tech)]
+                cost_table.loc[mask2, 'gen_overnight_cost'].values[0]
+                df.loc[mask & (df['gen_tech'] == tech), 'gen_overnight_cost'] = cost_table.loc[mask2, 'gen_overnight_cost'].values[0]
+    return (df)
+
 def modify_costs(data):
     """ Modify cost data to derate it
 
@@ -519,7 +561,8 @@ def create_inputs(number, path=script_path, **kwargs):
         timeseries.append(create_strings(median_data, scale_to_period,
                                         identifier='M'))
     create_investment_period()
-    create_gen_build_cost(peak_data)
+    #  create_gen_build_cost(peak_data)
+    create_gen_build_cost_new(peak_data)
     create_timeseries(timeseries, number, **kwargs)
     create_timepoints(timeseries)
     create_variablecp(timeseries, timeseries_dict)
