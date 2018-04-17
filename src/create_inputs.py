@@ -54,6 +54,10 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
 
     # Add datetime index
     df.index = pd.to_datetime(df[['year', 'month', 'day', 'hour']])
+    df.index.rename('datetime', inplace=True)
+
+    # Remove  columns
+    df = df.drop(['year', 'month', 'day', 'hour'], axis=1)
 
     df = df.sort_index()
 
@@ -117,7 +121,7 @@ def get_peak_day(data, number, freq='MS'):
         years.append(peak_timestamps)
 
     output_data = pd.concat(years)
-    output_data = output_data.rename(columns={'index':'date',
+    output_data = output_data.rename(columns={'datetime':'date',
                                     'total':'peak_day'})
     return (output_data)
 
@@ -146,7 +150,7 @@ def get_median_day(data, number, freq='MS'):
             index_median = (np.abs(grouper-grouper.median())).idxmin()
         years.append(group.loc[index_median.strftime('%Y-%m-%d')].iloc[::int((24/number))].reset_index())
     output_data = pd.concat(years)
-    output_data.rename(columns={'index':'date', 'total':'median_day'},\
+    output_data.rename(columns={'datetime': 'date', 'total':'median_day'},\
             inplace=True)
 
     return (output_data)
@@ -369,6 +373,8 @@ def create_loads(load, data, ext='.tab', **kwargs):
     Note(s):
         * .tab extension is to match the switch inputs,
     """
+    if 'total' in load.columns:
+        del load['total']
 
     # Filename convention
     output_file = output_path + 'loads' + ext
@@ -379,31 +385,33 @@ def create_loads(load, data, ext='.tab', **kwargs):
         data = pd.concat(data)
 
     loads_tmp = load.copy() #[load.year <= 2025]
-    list_tmp = []
 
+    # FIXME: This function is weird. We will need to change it
+    # for something clearer.
     # Get data from the datetime provided
-    tmp = (loads_tmp.loc[data['date']]
-            .drop(['year', 'month','day','hour', 'total'], axis=1)
-            .reset_index()
-            .drop_duplicates('index')
-            .reset_index(drop=True))
 
-    # TODO: Check why this column is created
-    del tmp['index']
+    unstack_loads = (loads_tmp.loc[data['date']] # Get filter dates
+                        .reset_index(drop=True)  # Remove datetime
+                        .unstack(0))             # Change rows and columns
 
-    tmp = tmp.unstack(0)
+    # Temporal fix to convert series to dataframe
+    loads_tab = pd.concat([group.reset_index()
+                        for _, group in unstack_loads.groupby(level=0)]
+                        )
 
-    for _, group in tmp.groupby(level=0):
-        list_tmp.append(group.reset_index())
+    # Renaming columns
+    loads_tab = loads_tab.rename(columns={'level_0':'LOAD_ZONE',
+                                0:'zone_demand_mw',
+                                'level_1': 'TIMEPOINT'})
 
-    loads_tab = pd.concat(list_tmp)
-    loads_tab.index += 1
-    loads_tab = loads_tab.rename(columns={'level_0':'LOAD_ZONE', 0:'zone_demand_mw'})
+    # Restart numbering of timepoint to start from 1
+    loads_tab.loc[:, 'TIMEPOINT'] += 1
 
-    # TODO: Check why this is necesary
-    del loads_tab['level_1']
-    loads_tab.index.name = 'TIMEPOINT'
-    loads_tab = loads_tab.reset_index()[['LOAD_ZONE', 'TIMEPOINT', 'zone_demand_mw']]
+    # Change columns order
+    columns_order = ['LOAD_ZONE', 'TIMEPOINT', 'zone_demand_mw']
+    loads_tab = loads_tab[columns_order]
+
+    # Save output file
     loads_tab.to_csv(output_file, sep=sep, index=False)
 
 def create_gen_build_cost(data, ext='.tab', path=script_path,
