@@ -306,7 +306,7 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwa
 
     output_file = output_path + 'variable_capacity_factors' + ext
 
-    file_name = 'ren-all2.csv'
+    file_name = 'ren-all4.csv'
     file_path = os.path.join(path, 'data/clean/SWITCH/')
 
     ren_cap_data = pd.read_csv(os.path.join(file_path, file_name), index_col=0,
@@ -314,12 +314,12 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwa
 
     # Quick fix to names
     replaces = ['é', 'á', 'í', 'ó', 'ú', 'ñ']
-    ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('é', 'e')
-    ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('á', 'a')
-    ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('í', 'i')
-    ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ó', 'o')
-    ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ú', 'u')
-    ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ñ', 'n')
+    #  ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('é', 'e')
+    #  ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('á', 'a')
+    #  ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('í', 'i')
+    #  ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ó', 'o')
+    #  ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ú', 'u')
+    #  ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ñ', 'n')
 
     # Extract datetime without year information
     filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True)).strftime('%m-%d %H:%M:%S')
@@ -336,16 +336,22 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwa
                                     .strftime('%m-%d %H:%M:%S'))
         grouped = (ren_tmp[ren_tmp['time'].isin(filter_dates)]
                     .reset_index(drop=True)
-                    .groupby('GENERATION_PROJECT', as_index=False))
+                    .groupby('project_name', as_index=False))
         list1.append(pd.concat([group.reset_index(drop=True) for name, group in grouped]))
 
     variable_cap = pd.concat(list1)
-    variable_tab = variable_cap.groupby('GENERATION_PROJECT')
+    # FIXME: Temporal fix
+    try:
+        del variable_cap['GENERATION_PROJECT']
+    except:
+        pass
+    variable_tab = variable_cap.groupby('project_name')
     for keys in variable_tab.groups.keys():
         data = variable_tab.get_group(keys).reset_index(drop=True)
         data.index +=1
         data.index.name = 'timepoint'
-        data.rename(columns={'capacity_factor': 'gen_max_capacity_factor'},
+        data.rename(columns={'capacity_factor': 'gen_max_capacity_factor',
+                             'project_name':'GENERATION_PROJECT'},
                    inplace=True)
         data.reset_index()[['GENERATION_PROJECT', 'timepoint',
             'gen_max_capacity_factor']].to_csv(output_file, sep=sep,
@@ -449,48 +455,6 @@ def create_gen_build_cost(data, ext='.tab', path=script_path,
     gen_new_costs = modify_costs(gen_new)
     gen_new_costs.to_csv(output_file, sep=sep, index=False)
 
-def create_gen_build_cost_new(data, ext='.tab', path=script_path,
-    **kwargs):
-    """ Create gen build cost output file
-
-    Args:
-        data (pd.DataFrame): dataframe witht dates,
-        ext (str): output extension to save the file.
-
-    Note(s):
-        * .tab extension is to match the switch inputs,
-    """
-    gen_project = pd.read_csv('src/generation_projects_info.tab', sep='\t')
-    cost_table = pd.read_csv('src/cost_tables.csv')
-
-    if ext == '.tab': sep='\t'
-
-    output_file = output_path + 'gen_build_costs' + ext
-
-    # TODO:  Change the direction of this file
-    file_path = os.path.join(path, 'periods.yaml')
-    with open(file_path, "r") as stream:
-        try:
-            periods = yaml.load(stream)
-        except yaml.YAMLError as exc:
-            raise (exc)
-
-    df = data.copy()
-    techo = cost_table['Technology'].unique()
-    for period in periods['INVESTMENT_PERIOD']:
-        print (period)
-        mask = (gen_project['gen_tech'].isin(techo)))
-        sys.exit(1)
-        df.loc[mask]
-        cost_table.loc[cost_table['Year'] == index]
-        for tech in df['gen_tech'].unique():
-            if tech in cost_table['Technology'].unique():
-                mask2 = (cost_table['Technology'] == tech) & (cost_table['Year'] == index)
-                df.loc[mask & (df['gen_tech'] == tech)]
-                cost_table.loc[mask2, 'gen_overnight_cost'].values[0]
-                df.loc[mask & (df['gen_tech'] == tech), 'gen_overnight_cost'] = cost_table.loc[mask2, 'gen_overnight_cost'].values[0]
-    return (df)
-
 def modify_costs(data):
     """ Modify cost data to derate it
 
@@ -562,7 +526,7 @@ def create_inputs(number, path=script_path, **kwargs):
                                         identifier='M'))
     create_investment_period()
     #  create_gen_build_cost(peak_data)
-    create_gen_build_cost_new(peak_data)
+    #  create_gen_build_cost_new(peak_data)
     create_timeseries(timeseries, number, **kwargs)
     create_timepoints(timeseries)
     create_variablecp(timeseries, timeseries_dict)
