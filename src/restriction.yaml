@@ -1,0 +1,30 @@
+#Plant technology restriction by loadzone
+#
+technology:
+        cogeneration_natural_gas:
+                - 12-rio_escondido
+                - 18-valles
+                - 21-guemez
+                - 22-tepic
+                - 34-puebla
+                - 36-temascal
+                - 44-chetumal 
+                - 45-cozumel
+                - 50-villa_constitucion
+                - 51-la_paz
+                - 52-los_cabos
+                - 53-mulege
+        combinedcycle_natural_gas:
+                - 12-rio_escondido
+                - 18-valles
+                - 21-guemez
+                - 22-tepic
+                - 34-puebla
+                - 36-temascal
+                - 44-chetumal 
+                - 45-cozumel
+                - 50-villa_constitucion
+                - 51-la_paz
+                - 52-los_cabos
+                - 53-mulege
+
