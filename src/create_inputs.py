@@ -14,6 +14,7 @@ import click
 import numpy as np
 import pandas as pd
 from collections import OrderedDict
+from utils import read_yaml
 
 script_path = os.path.dirname(__file__)
 parent_path = os.path.dirname(os.path.dirname(__file__))
@@ -168,13 +169,7 @@ def create_investment_period(path=script_path, ext='.tab', **kwargs):
 
     output_file = output_path + 'periods' + ext
 
-    # TODO: Migrate this to a function in utilities
-    file_path = os.path.join(path, 'periods.yaml')
-    with open(file_path, "r") as stream:
-        try:
-            periods = yaml.load(stream)
-        except yaml.YAMLError as exc:
-            raise (exc)
+    periods = read_yaml(path, 'periods.yaml')
 
     d = OrderedDict(periods)
     periods_tab = pd.DataFrame(d)
@@ -429,13 +424,7 @@ def create_gen_build_cost(data, ext='.tab', path=script_path,
     if ext == '.tab': sep='\t'
     output_file = output_path + 'gen_build_costs' + ext
 
-    # TODO:  Change the direction of this file
-    file_path = os.path.join(path, 'periods.yaml')
-    with open(file_path, "r") as stream:
-        try:
-            periods = yaml.load(stream)
-        except yaml.YAMLError as exc:
-            raise (exc)
+    periods = read_yaml(path, 'periods.yaml')
 
     asd = []
     gen_project = pd.read_csv('src/generation_projects_info.tab', sep='\t')
@@ -506,12 +495,7 @@ def create_inputs(number, path=script_path, **kwargs):
 
     load_data = get_load_data()
 
-    file_path = os.path.join(path, 'periods.yaml')
-    with open(file_path, "r") as stream:
-        try:
-            periods = yaml.load(stream)
-        except yaml.YAMLError as exc:
-            raise (exc)
+    periods = read_yaml(path, 'periods.yaml')
 
     d = OrderedDict(periods)
     periods_tab = pd.DataFrame(d)

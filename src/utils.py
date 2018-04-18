@@ -18,6 +18,18 @@ parent_path = os.path.dirname(os.path.dirname(__file__))
 data_path = os.path.join(parent_path, 'data/clean/loads')
 output_path  = os.path.join(parent_path, 'data/clean/switch_inputs/')
 
+def read_yaml(path, filename: str):
+    """ Read yaml file"""
+
+    file_path = os.path.join(path, filename)
+
+    with open(file_path, 'r') as stream:
+        try:
+            yaml_file = yaml.load(stream)
+        except yaml.YAMLError as exc:
+            raise (exc)
+
+    return yaml_file
 
 def create_renewable_data(path: os.PathLike, filename: str):
     logger.debug('often makes a very good meal of %s', 'visiting tourists')
@@ -56,14 +68,11 @@ def create_gen_build_cost_new(ext='.tab', path=script_path,
     output_file = output_path + 'gen_build_costs' + ext
 
     # TODO:  Change the direction of this file
-    file_path = os.path.join(path, 'periods.yaml')
-    with open(file_path, "r") as stream:
-        try:
-            periods = yaml.load(stream)
-        except yaml.YAMLError as exc:
-            raise (exc)
+
+    periods = read_yaml(path, 'periods.yaml')
 
     # FIXME: This will only work if there is no repeated elements
+
     gen_costs = pd.merge(gen_project, cost_table, on='gen_tech')
     cols = ['GENERATION_PROJECT', 'build_year', 'gen_overnight_cost',
             'gen_fixed_om', 'gen_tech']
@@ -74,8 +83,10 @@ def create_gen_build_cost_new(ext='.tab', path=script_path,
         print (period)
         gen_costs.loc[:, 'build_year'] = period
         output_list.append(gen_costs[cols])
+
     gen_build_cost = pd.concat(output_list)
     gen_build_cost.to_csv('gen_build_cost.tab', sep=sep)
+
     return (gen_build_cost)
 
 def modify_costs(data):
@@ -87,9 +98,9 @@ def modify_costs(data):
     Note(s):
         * This read the cost table and modify the cost by period
     """
-    sep='\t'
 
     # TODO: Make a more cleaner way to load the file
+
     cost_table = pd.read_csv('src/cost_tables.csv')
 
     df = data.copy()
@@ -107,9 +118,7 @@ def modify_costs(data):
 
 
 def create_default_scenario():
-    """
-    Create default scenario with existing technology for each loadzone
-    """
+    """  Create default scenario with existing technology for each loadzone """
 
     gen_project = pd.read_csv('src/generation_projects_info.tab', sep='\t')
     column_order = gen_project.columns
