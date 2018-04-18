@@ -1,7 +1,7 @@
 #Plant technology restriction by loadzone
 #
 technology:
-        - natural_gas:
+        cogeneration_natural_gas:
                 - 12-rio_escondido
                 - 18-valles
                 - 21-guemez
@@ -14,7 +14,7 @@ technology:
                 - 51-la_paz
                 - 52-los_cabos
                 - 53-mulege
-        - combined_cycle:
+        combinedcycle_natural_gas:
                 - 12-rio_escondido
                 - 18-valles
                 - 21-guemez
