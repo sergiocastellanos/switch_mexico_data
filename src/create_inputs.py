@@ -499,7 +499,7 @@ def gen_build_predetermined(existing, path=default_path, ext='.tab'):
 def print_version(ctx, param, value):
     if not value or ctx.resilient_parsing:
         return
-    version = '0.1'
+    version = '0.1.1'
     click.echo(f'Version {version}')
     ctx.exit()
 
