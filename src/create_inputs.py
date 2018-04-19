@@ -523,8 +523,12 @@ def main(number, existing, proposed, path=script_path, **kwargs):
     click.echo('Starting app')
 
     click.echo('Creating generation project info')
+
+    # TODO: include more scenarios
+
     if existing and proposed:
-        gen_project_legacy = pd.read_csv('src/generation_projects_info.tab', sep='\t')
+        gen_project_legacy = pd.read_csv('src/generation_projects_info.tab',
+                                         sep='\t')
         gen_project_proposed = create_default_scenario()
         gen_project = pd.concat([gen_project_legacy, gen_project_proposed])
         gen_legacy = gen_build_predetermined(existing)
@@ -534,7 +538,6 @@ def main(number, existing, proposed, path=script_path, **kwargs):
 
     # FIXME: Temporal fix of name
     gen_project['gen_tech'] = gen_project['gen_tech'].replace('tg', 'turbo_gas')
-
 
     click.echo(f'Number of timepoints selected: {number}')
 
@@ -550,6 +553,7 @@ def main(number, existing, proposed, path=script_path, **kwargs):
 
     # Create timeseries selection. This will extract peak and median day
 
+    click.echo(f'Creating timeseries')
     timeseries = []
     timeseries_dict = {}
     for periods, row in periods_tab.iterrows():
@@ -563,15 +567,18 @@ def main(number, existing, proposed, path=script_path, **kwargs):
         timeseries.append(create_strings(peak_data, scale_to_period))
         timeseries.append(create_strings(median_data, scale_to_period,
                                         identifier='M'))
+    click.echo(f'Creating investment period')
     create_investment_period()
 
     #  create_gen_build_cost_new(peak_data)
     create_timeseries(timeseries, number, **kwargs)
     create_timepoints(timeseries)
+    click.echo(f'Creating variable capacity factor')
     create_variablecp(timeseries, timeseries_dict)
+    click.echo(f'Creating loads')
     create_loads(load_data, timeseries)
+    click.echo(f'App ended')
 
 
 if __name__ == '__main__':
     main()
-
