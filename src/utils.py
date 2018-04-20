@@ -48,7 +48,7 @@ class PowerPlant:
     def add(self):
         print (type(self))
 
-def create_gen_build_cost_new(ext='.tab', path=script_path,
+def create_gen_build_cost_new(gen_project, ext='.tab', path=script_path,
     **kwargs):
     """ Create gen build cost output file
 
@@ -61,7 +61,6 @@ def create_gen_build_cost_new(ext='.tab', path=script_path,
     """
     cost_table = pd.read_csv('src/gen_cost_reference.csv')
     tech_costs = pd.read_csv('./src/technology_cost.csv')
-    gen_project = pd.read_csv('generation_test.tab', sep='\t')
 
     if ext == '.tab': sep='\t'
 
@@ -74,7 +73,7 @@ def create_gen_build_cost_new(ext='.tab', path=script_path,
     # FIXME: This will only work if there is no repeated elements
 
     gen_costs = pd.merge(gen_project, cost_table, on='gen_tech')
-    cols = ['GENERATION_PROJECT', 'build_year', 'gen_overnight_cost',
+    column_order = ['GENERATION_PROJECT', 'build_year', 'gen_overnight_cost',
             'gen_fixed_om', 'gen_tech']
 
     output_list = []
@@ -82,9 +81,10 @@ def create_gen_build_cost_new(ext='.tab', path=script_path,
     for period in periods['INVESTMENT_PERIOD']:
         print (period)
         gen_costs.loc[:, 'build_year'] = period
-        output_list.append(gen_costs[cols])
+        output_list.append(gen_costs[column_order])
 
     gen_build_cost = pd.concat(output_list)
+    gen_build_cost = modify_costs(gen_build_cost)
     gen_build_cost.to_csv('gen_build_cost.tab', sep=sep)
 
     return (gen_build_cost)
@@ -167,6 +167,8 @@ def create_default_scenario():
         iterator +=1
     gen_project = pd.concat(prop_gens)
     gen_project[column_order].to_csv('generation_test.tab', sep='\t', index=False)
+
+    return gen_project[column_order]
 
 
 if __name__ == '__main__':

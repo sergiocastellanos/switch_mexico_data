@@ -27,4 +27,26 @@ technology:
                 - 51-la_paz
                 - 52-los_cabos
                 - 53-mulege
+        geothermal:
+                - 02-cananea
+                - 07-juarez
+                - 11-laguna
+                - 12-rio_escondido
+                - 13-nuevo_laredo
+                - 14-reynosa
+                - 15-matamoros
+                - 17-saltillo
+                - 18-valles
+                - 25-san_luis_potosi
+                - 37-coatzacoalcos
+                - 40-ixtepec
+                - 41-lerma
+                - 43-cancun
+                - 45-cozumel
+                - 47-ensenada
+                - 49-san_luis_rio_colorado
+                - 50-villa_constitucion
+                - 51-la_paz
+                - 52-los_cabos
+                - 53-mulege
 

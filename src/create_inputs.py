@@ -14,11 +14,13 @@ import click
 import numpy as np
 import pandas as pd
 from collections import OrderedDict
-from utils import read_yaml
+from utils import read_yaml, create_default_scenario
+from utils import create_gen_build_cost_new
 
 script_path = os.path.dirname(__file__)
 parent_path = os.path.dirname(os.path.dirname(__file__))
 data_path = os.path.join(parent_path, 'data/clean/loads')
+default_path = os.path.join(parent_path, 'data/default/')
 output_path  = os.path.join(parent_path, 'data/clean/switch_inputs/')
 
 def get_load_data(path=data_path, filename='HighLoads.csv',
@@ -409,7 +411,7 @@ def create_loads(load, data, ext='.tab', **kwargs):
     # Save output file
     loads_tab.to_csv(output_file, sep=sep, index=False)
 
-def create_gen_build_cost(data, ext='.tab', path=script_path,
+def create_gen_build_cost(gen_project, gen_legacy,  ext='.tab', path=script_path,
     **kwargs):
     """ Create gen build cost output file
 
@@ -426,31 +428,29 @@ def create_gen_build_cost(data, ext='.tab', path=script_path,
 
     periods = read_yaml(path, 'periods.yaml')
 
-    asd = []
-    gen_project = pd.read_csv('src/generation_projects_info.tab', sep='\t')
-    gen_predeterimend = pd.read_csv('./src/gen_build_predetermined.tab', sep='\t')
-    gen_predeterimend.rename(columns={'PROJECT': 'GENERATION_PROJECT'}, inplace=True)
-    costs = pd.read_csv(os.path.join(path,'gen_build_costs.tab'), sep='\t')
+    output_costs = []
+    gen_legacy.rename(columns={'PROJECT': 'GENERATION_PROJECT'}, inplace=True)
+    costs_legacy = pd.read_csv(os.path.join(default_path,'gen_build_costs.tab'), sep='\t')
     columns = ['GENERATION_PROJECT','gen_overnight_cost', 'gen_fixed_om']
-    cols2 = ['GENERATION_PROJECT', 'build_year', 'gen_overnight_cost', 'gen_fixed_om']
-    merged = pd.merge(gen_predeterimend, costs[columns], on=['GENERATION_PROJECT'])
+    output_columns = ['GENERATION_PROJECT', 'build_year', 'gen_overnight_cost',
+                        'gen_fixed_om']
+
+    # Merge to get the build year of the predetermined plants
+    merged = pd.merge(gen_legacy, costs_legacy[columns], on=['GENERATION_PROJECT'])
 
     # TODO: Check why we get duplicate values from the previous row
     merged.drop_duplicates('GENERATION_PROJECT', inplace=True)
-    predetermined = gen_predeterimend['GENERATION_PROJECT'].unique()
-    asd.append(merged[cols2])
-    for period in periods['INVESTMENT_PERIOD']:
-        costs = pd.read_csv(os.path.join(path,'gen_build_costs.tab'), sep=sep)
-        costs = costs[~costs['GENERATION_PROJECT'].isin(predetermined)]
+    old_plants = gen_legacy['GENERATION_PROJECT'].unique()
+    new_plants = gen_project.loc[~gen_project['GENERATION_PROJECT'].isin(old_plants)]
 
-        # TODO: Check why we get duplicate values from the previous row
-        costs.drop_duplicates('GENERATION_PROJECT', inplace=True)
-        costs['build_year'] = period
-        asd.append(costs[cols2])
-    gen_build_costs = pd.concat(asd)
-    gen_new = pd.merge(gen_build_costs, gen_project[['GENERATION_PROJECT', 'gen_tech']], on=['GENERATION_PROJECT'])
-    gen_new_costs = modify_costs(gen_new)
-    gen_new_costs.to_csv(output_file, sep=sep, index=False)
+    # First add old plants 
+    output_costs.append(merged[output_columns])
+
+    # Add new plants
+    new_cost = create_gen_build_cost_new(new_plants)
+    output_costs.append(new_cost)
+    gen_build_cost = pd.concat(output_costs)
+    gen_build_cost.to_csv(output_file, sep=sep, index=False)
 
 def modify_costs(data):
     """ Modify cost data to derate it
@@ -479,10 +479,39 @@ def modify_costs(data):
                 df.loc[mask & (df['gen_tech'] == tech), 'gen_overnight_cost'] = cost_table.loc[mask2, 'gen_overnight_cost'].values[0]
     return (df)
 
+def gen_build_predetermined(existing, path=default_path, ext='.tab'):
+    """ Construct gen build predetermined file"""
+    output_file = output_path + 'gen_build_predetermined' + ext
+
+    if ext == '.tab': sep = '\t'
+
+    # FIXME: Check what format is better to read
+    file_name = 'gen_build_predetermined' + ext
+
+    file_path = os.path.join(path, file_name)
+
+    gen_legacy = pd.read_csv(file_path, sep=sep) if existing else None
+
+    gen_legacy.to_csv(output_file, sep=sep, index=False)
+
+    return gen_legacy
+
+def print_version(ctx, param, value):
+    if not value or ctx.resilient_parsing:
+        return
+    version = '0.1.1'
+    click.echo(f'Version {version}')
+    ctx.exit()
+
+
 @click.command()
 @click.option('--number', default=4, prompt='Number of timepoints',
-        help='Number of timepoints')
-def create_inputs(number, path=script_path, **kwargs):
+                help='Number of timepoints')
+@click.option('--existing/--no-existing', default=False)
+@click.option('--proposed/--no-proposed', default=True)
+@click.option('--version', is_flag=True, callback=print_version,
+              expose_value=False, is_eager=True)
+def main(number, existing, proposed, path=script_path, **kwargs):
     """ Main function that creates all the inputs
 
     Args:
@@ -491,10 +520,31 @@ def create_inputs(number, path=script_path, **kwargs):
     Note(s):
         * This generates all the inputs
     """
-    print (number)
+    click.echo('Starting app')
 
+    click.echo('Creating generation project info')
+
+    # TODO: include more scenarios
+
+    if existing and proposed:
+        gen_project_legacy = pd.read_csv('src/generation_projects_info.tab',
+                                         sep='\t')
+        gen_project_proposed = create_default_scenario()
+        gen_project = pd.concat([gen_project_legacy, gen_project_proposed])
+        gen_legacy = gen_build_predetermined(existing)
+        create_gen_build_cost(gen_project, gen_legacy)
+    else:
+        sys.exit(1)
+
+    # FIXME: Temporal fix of name
+    gen_project['gen_tech'] = gen_project['gen_tech'].replace('tg', 'turbo_gas')
+
+    click.echo(f'Number of timepoints selected: {number}')
+
+    click.echo(f'Reading load data')
     load_data = get_load_data()
 
+    click.echo(f'Reading periods data')
     periods = read_yaml(path, 'periods.yaml')
 
     d = OrderedDict(periods)
@@ -503,6 +553,7 @@ def create_inputs(number, path=script_path, **kwargs):
 
     # Create timeseries selection. This will extract peak and median day
 
+    click.echo(f'Creating timeseries')
     timeseries = []
     timeseries_dict = {}
     for periods, row in periods_tab.iterrows():
@@ -516,15 +567,18 @@ def create_inputs(number, path=script_path, **kwargs):
         timeseries.append(create_strings(peak_data, scale_to_period))
         timeseries.append(create_strings(median_data, scale_to_period,
                                         identifier='M'))
+    click.echo(f'Creating investment period')
     create_investment_period()
-    #  create_gen_build_cost(peak_data)
+
     #  create_gen_build_cost_new(peak_data)
     create_timeseries(timeseries, number, **kwargs)
     create_timepoints(timeseries)
+    click.echo(f'Creating variable capacity factor')
     create_variablecp(timeseries, timeseries_dict)
+    click.echo(f'Creating loads')
     create_loads(load_data, timeseries)
+    click.echo(f'App ended')
 
 
 if __name__ == '__main__':
-    create_inputs()
-
+    main()
