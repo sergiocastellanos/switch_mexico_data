@@ -507,19 +507,16 @@ def print_version(ctx, param, value):
 @click.command()
 @click.option('--number', default=4, prompt='Number of timepoints',
                 help='Number of timepoints')
-@click.option('--existing/--no-existing', default=False)
-@click.option('--proposed/--no-proposed', default=True)
+@click.option('--existing/--no-existing',
+              default=False,
+              help='Add existing plants to the analysis')
+@click.option('--proposed/--no-proposed',
+              default=True,
+              help='Add new plants to the analysis')
 @click.option('--version', is_flag=True, callback=print_version,
               expose_value=False, is_eager=True)
 def main(number, existing, proposed, path=script_path, **kwargs):
-    """ Main function that creates all the inputs
-
-    Args:
-        path (str): path to script folder
-
-    Note(s):
-        * This generates all the inputs
-    """
+    """ Main function that creates all the inputs 🔥"""
     click.echo('Starting app')
 
     click.echo('Creating generation project info')
