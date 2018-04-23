@@ -37,6 +37,10 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
             * This could be a csv or it could connect to a DB.
             * This could be a csv or it could connect to a DB.
     """
+    if filename == 'high':
+        filename = 'HighLoads.csv'
+    else:
+        filename = None
 
     file_path = os.path.join(path, filename)
 
@@ -509,21 +513,27 @@ def print_version(ctx, param, value):
                 help='Number of timepoints')
 @click.option('--existing/--no-existing',
               default=False,
+              prompt='Include existing plants',
               help='Add existing plants to the analysis')
 @click.option('--proposed/--no-proposed',
               default=True,
+              prompt='Include proposed plants',
               help='Add new plants to the analysis')
+@click.option('--load', type=click.Choice(['low', 'medium', 'high']),
+              prompt='Select load profile [low/medium/high]', 
+              default='high',
+              help='Load profile to use')
 @click.option('--version', is_flag=True, callback=print_version,
               expose_value=False, is_eager=True)
-def main(number, existing, proposed, path=script_path, **kwargs):
+def main(number, existing, proposed, load, path=script_path, **kwargs):
     """ Main function that creates all the inputs 🔥"""
     click.echo('Starting app')
 
-    click.echo('Creating generation project info')
 
     # TODO: include more scenarios
 
     if existing and proposed:
+        click.echo('Creating generation project info')
         gen_project_legacy = pd.read_csv('src/generation_projects_info.tab',
                                          sep='\t')
         gen_project_proposed = create_default_scenario()
@@ -531,6 +541,7 @@ def main(number, existing, proposed, path=script_path, **kwargs):
         gen_legacy = gen_build_predetermined(existing)
         create_gen_build_cost(gen_project, gen_legacy)
     else:
+        click.echo('Oops I do not know what to do yet')
         sys.exit(1)
 
     # FIXME: Temporal fix of name
@@ -539,7 +550,7 @@ def main(number, existing, proposed, path=script_path, **kwargs):
     click.echo(f'Number of timepoints selected: {number}')
 
     click.echo(f'Reading load data')
-    load_data = get_load_data()
+    load_data = get_load_data(filename=load)
 
     click.echo(f'Reading periods data')
     periods = read_yaml(path, 'periods.yaml')
