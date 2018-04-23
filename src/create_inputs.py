@@ -39,15 +39,21 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
     """
     if filename == 'high':
         filename = 'HighLoads.csv'
+    elif filename == 'low':
+        filename = 'LowLoads.csv'
+    elif filename == 'medium':
+        filename = 'MediumLoads.csv'
     else:
-        filename = None
+        # Is this really necessary?
+        sys.exit(1)
+
 
     file_path = os.path.join(path, filename)
 
     try:
         df = pd.read_csv(file_path)
     except FileNotFoundError:
-        raise ('File not found. Please verify the file is in: {}'.format(os.path.join(path, filename)))
+        raise FileNotFoundError('File not found. Please verify the file is in: {}'.format(os.path.join(path, filename)))
 
     # Calculate the sum of loads
     df['total'] = df.sum(axis=1)
