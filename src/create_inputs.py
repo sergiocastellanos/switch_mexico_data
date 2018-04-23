@@ -189,6 +189,23 @@ def create_investment_period(path=script_path, ext='.tab', **kwargs):
     periods_tab.to_csv(output_file, sep='\t')
 
 
+def create_rps(path=default_path, filename='rps_targets.yaml', ext='.tab'):
+    """ Create rps targets file using rps_target.yaml"""
+
+    if ext == '.tab': sep='\t'
+
+    output_file = output_path + 'rps_targets' + ext
+
+    rps = read_yaml(path, 'rps_targets.yaml')
+
+    d = OrderedDict(rps)
+    rps_tab = pd.DataFrame(d)
+    rps_tab = rps_tab.set_index('PERIOD')
+
+    rps_tab.to_csv(output_file, sep=sep)
+
+
+
 def create_timepoints(data, ext='.tab', **kwargs):
     """ Create timepoints file
 
@@ -591,6 +608,10 @@ def main(number, existing, proposed, load, path=script_path, **kwargs):
     create_variablecp(timeseries, timeseries_dict)
     click.echo(f'Creating loads')
     create_loads(load_data, timeseries)
+
+    click.echo(f'Creating rps')
+    create_rps()
+
     click.echo(f'App ended')
 
 
