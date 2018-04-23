@@ -336,11 +336,11 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwa
     filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True)).strftime('%m-%d %H:%M:%S')
 
     ren_tmp = ren_cap_data.copy()
-    print (ren_tmp.head())
+    #  print (ren_tmp.head())
 
     list1 = []
     for row, value in timeseries_dict.items():
-        print (row)
+        #  print (row)
         tmp2 = pd.concat(value)
         filter_dates = (pd.DatetimeIndex(tmp2['date']
                                     .reset_index(drop=True))
@@ -516,7 +516,7 @@ def print_version(ctx, param, value):
 
 @click.command()
 @click.option('--number', default=4, prompt='Number of timepoints',
-                help='Number of timepoints')
+                help='Number of timepoints possible [1, 2, 3, 4, 6, 8, 12]')
 @click.option('--existing/--no-existing',
               default=False,
               prompt='Include existing plants',
@@ -526,7 +526,7 @@ def print_version(ctx, param, value):
               prompt='Include proposed plants',
               help='Add new plants to the analysis')
 @click.option('--load', type=click.Choice(['low', 'medium', 'high']),
-              prompt='Select load profile [low/medium/high]', 
+              prompt='Select load profile',
               default='high',
               help='Load profile to use')
 @click.option('--version', is_flag=True, callback=print_version,

@@ -10,7 +10,7 @@ import pandas as pd
 from logging.config import fileConfig
 
 logfile_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'log.ini')
-print ( f'Log file configuration located at: {logfile_path}')
+#  print ( f'Log file configuration located at: {logfile_path}')
 fileConfig(logfile_path)
 logger = logging.getLogger('Logger')
 script_path = os.path.dirname(__file__)
@@ -79,7 +79,7 @@ def create_gen_build_cost_new(gen_project, ext='.tab', path=script_path,
     output_list = []
     #  output_list.append(gen_costs[cols])
     for period in periods['INVESTMENT_PERIOD']:
-        print (period)
+        #  print (period)
         gen_costs.loc[:, 'build_year'] = period
         output_list.append(gen_costs[column_order])
 
