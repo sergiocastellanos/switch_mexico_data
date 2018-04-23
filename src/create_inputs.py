@@ -37,13 +37,23 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
             * This could be a csv or it could connect to a DB.
             * This could be a csv or it could connect to a DB.
     """
+    if filename == 'high':
+        filename = 'HighLoads.csv'
+    elif filename == 'low':
+        filename = 'LowLoads.csv'
+    elif filename == 'medium':
+        filename = 'MediumLoads.csv'
+    else:
+        # Is this really necessary?
+        sys.exit(1)
+
 
     file_path = os.path.join(path, filename)
 
     try:
         df = pd.read_csv(file_path)
     except FileNotFoundError:
-        raise ('File not found. Please verify the file is in: {}'.format(os.path.join(path, filename)))
+        raise FileNotFoundError('File not found. Please verify the file is in: {}'.format(os.path.join(path, filename)))
 
     # Calculate the sum of loads
     df['total'] = df.sum(axis=1)
@@ -326,11 +336,11 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwa
     filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True)).strftime('%m-%d %H:%M:%S')
 
     ren_tmp = ren_cap_data.copy()
-    print (ren_tmp.head())
+    #  print (ren_tmp.head())
 
     list1 = []
     for row, value in timeseries_dict.items():
-        print (row)
+        #  print (row)
         tmp2 = pd.concat(value)
         filter_dates = (pd.DatetimeIndex(tmp2['date']
                                     .reset_index(drop=True))
@@ -506,27 +516,30 @@ def print_version(ctx, param, value):
 
 @click.command()
 @click.option('--number', default=4, prompt='Number of timepoints',
-                help='Number of timepoints')
-@click.option('--existing/--no-existing', default=False)
-@click.option('--proposed/--no-proposed', default=True)
+                help='Number of timepoints possible [1, 2, 3, 4, 6, 8, 12]')
+@click.option('--existing/--no-existing',
+              default=False,
+              prompt='Include existing plants',
+              help='Add existing plants to the analysis')
+@click.option('--proposed/--no-proposed',
+              default=True,
+              prompt='Include proposed plants',
+              help='Add new plants to the analysis')
+@click.option('--load', type=click.Choice(['low', 'medium', 'high']),
+              prompt='Select load profile',
+              default='high',
+              help='Load profile to use')
 @click.option('--version', is_flag=True, callback=print_version,
               expose_value=False, is_eager=True)
-def main(number, existing, proposed, path=script_path, **kwargs):
-    """ Main function that creates all the inputs
-
-    Args:
-        path (str): path to script folder
-
-    Note(s):
-        * This generates all the inputs
-    """
+def main(number, existing, proposed, load, path=script_path, **kwargs):
+    """ Main function that creates all the inputs 🔥"""
     click.echo('Starting app')
 
-    click.echo('Creating generation project info')
 
     # TODO: include more scenarios
 
     if existing and proposed:
+        click.echo('Creating generation project info')
         gen_project_legacy = pd.read_csv('src/generation_projects_info.tab',
                                          sep='\t')
         gen_project_proposed = create_default_scenario()
@@ -534,6 +547,7 @@ def main(number, existing, proposed, path=script_path, **kwargs):
         gen_legacy = gen_build_predetermined(existing)
         create_gen_build_cost(gen_project, gen_legacy)
     else:
+        click.echo('Oops I do not know what to do yet')
         sys.exit(1)
 
     # FIXME: Temporal fix of name
@@ -542,7 +556,7 @@ def main(number, existing, proposed, path=script_path, **kwargs):
     click.echo(f'Number of timepoints selected: {number}')
 
     click.echo(f'Reading load data')
-    load_data = get_load_data()
+    load_data = get_load_data(filename=load)
 
     click.echo(f'Reading periods data')
     periods = read_yaml(path, 'periods.yaml')

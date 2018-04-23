@@ -11,3 +11,6 @@ def test_check_folders():
     assert os.path.exists(os.path.join(parent_path, 'data'))
     assert os.path.exists(os.path.join(parent_path, 'data/clean'))
 
+def test_load_zones():
+    assert (2 + 2) == 4
+
