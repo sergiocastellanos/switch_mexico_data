@@ -53,6 +53,8 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
     try:
         df = pd.read_csv(file_path)
     except FileNotFoundError:
+        # TODO: Change this to f' string format
+
         raise FileNotFoundError('File not found. Please verify the file is in: {}'.format(os.path.join(path, filename)))
 
     # Calculate the sum of loads
@@ -80,7 +82,7 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
         return df
 
 def get_peak_day(data, number, freq='MS'):
-    """ Construc a representative day based on a single timestamp
+    """ Construct a representative day based on a single timestamp
 
     Args:
         data (pd.DataFrame): data to filter,
@@ -307,7 +309,7 @@ def create_timeseries(data, number, ext='.tab', **kwargs):
 
     timeseries.to_csv(output_file, index=False, sep=sep)
 
-def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwargs):
+def create_variablecp(gen_project, data, timeseries_dict, path=parent_path, ext='.tab', **kwargs):
     """ Create variable capacity factor  output file
 
     Args:
@@ -334,20 +336,24 @@ def create_variablecp(data, timeseries_dict, path=parent_path, ext='.tab', **kwa
 
     output_file = output_path + 'variable_capacity_factors' + ext
 
-    file_name = 'ren-all4.csv'
+    file_name = 'ren-all5.csv'
     file_path = os.path.join(path, 'data/clean/SWITCH/')
 
     ren_cap_data = pd.read_csv(os.path.join(file_path, file_name), index_col=0,
                                parse_dates=True)
+    ren_cap_data = ren_cap_data.loc[ren_cap_data['project_name'].isin(gen_project['GENERATION_PROJECT'])]
 
-    # Quick fix to names
+    # Quick fix to names. I need to include more code here
     replaces = ['é', 'á', 'í', 'ó', 'ú', 'ñ']
-    #  ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('é', 'e')
-    #  ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('á', 'a')
-    #  ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('í', 'i')
-    #  ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ó', 'o')
-    #  ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ú', 'u')
-    #  ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ñ', 'n')
+    try:
+        ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('é', 'e')
+        ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('á', 'a')
+        ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('í', 'i')
+        ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ó', 'o')
+        ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ú', 'u')
+        ren_cap_data['GENERATION_PROJECT'] = ren_cap_data['GENERATION_PROJECT'].str.replace('ñ', 'n')
+    except KeyError:
+        pass
 
     # Extract datetime without year information
     filter_dates = pd.DatetimeIndex(data['date'].reset_index(drop=True)).strftime('%m-%d %H:%M:%S')
@@ -557,8 +563,9 @@ def main(number, existing, proposed, load, path=script_path, **kwargs):
 
     if existing and proposed:
         click.echo('Creating generation project info')
-        gen_project_legacy = pd.read_csv('src/generation_projects_info.tab',
-                                         sep='\t')
+        gen_project_legacy = pd.read_csv(os.path.join(default_path,
+            'generation_projects_info.tab'), sep='\t')
+
         gen_project_proposed = create_default_scenario()
         gen_project = pd.concat([gen_project_legacy, gen_project_proposed])
         gen_legacy = gen_build_predetermined(existing)
@@ -569,6 +576,11 @@ def main(number, existing, proposed, load, path=script_path, **kwargs):
 
     # FIXME: Temporal fix of name
     gen_project['gen_tech'] = gen_project['gen_tech'].replace('tg', 'turbo_gas')
+
+    # FIXME: Migrate this to a specif function
+    gen_project.to_csv(os.path.join(output_path,
+        'generation_projects_info.tab'),
+        sep='\t', index=False)
 
     click.echo(f'Number of timepoints selected: {number}')
 
@@ -605,7 +617,7 @@ def main(number, existing, proposed, load, path=script_path, **kwargs):
     create_timeseries(timeseries, number, **kwargs)
     create_timepoints(timeseries)
     click.echo(f'Creating variable capacity factor')
-    create_variablecp(timeseries, timeseries_dict)
+    create_variablecp(gen_project, timeseries, timeseries_dict)
     click.echo(f'Creating loads')
     create_loads(load_data, timeseries)
 

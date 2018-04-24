@@ -1,9 +1,12 @@
 # A test file to define periods.
 
 INVESTMENT_PERIOD: 
-        - 2016
+        - 2024
+        - 2030
 period_start:
         - 2016
+        - 2024
 period_end:
-        - 2031
+        - 2024
+        - 2030
 
