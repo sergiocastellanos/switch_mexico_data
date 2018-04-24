@@ -1,6 +1,8 @@
 # A test file to define yaml.
 
 PERIOD: 
-        - 2035
+        - 2024
+        - 2030
 rps_target:
         - 0.35
+        - 0.377
