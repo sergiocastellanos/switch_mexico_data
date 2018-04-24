@@ -54,6 +54,7 @@ def get_load_data(path=data_path, filename='HighLoads.csv',
         df = pd.read_csv(file_path)
     except FileNotFoundError:
         # TODO: Change this to f' string format
+
         raise FileNotFoundError('File not found. Please verify the file is in: {}'.format(os.path.join(path, filename)))
 
     # Calculate the sum of loads
@@ -564,6 +565,7 @@ def main(number, existing, proposed, load, path=script_path, **kwargs):
         click.echo('Creating generation project info')
         gen_project_legacy = pd.read_csv(os.path.join(default_path,
             'generation_projects_info.tab'), sep='\t')
+
         gen_project_proposed = create_default_scenario()
         gen_project = pd.concat([gen_project_legacy, gen_project_proposed])
         gen_legacy = gen_build_predetermined(existing)
